@@ -1,103 +1,297 @@
 <!DOCTYPE html>
-<!--
-    Plain-Academic by Vasilios Mavroudis
-    Released under the  Simplified BSD License/FreeBSD (2-clause) License.
-    https://github.com/mavroudisv/plain-academic
--->
-
 <html lang="en">
 <head>
-  <title>John Doe</title>
+  <title>Nan Zhang - Max Planck Institute</title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+.navbar {
+
+  position:fixed;
+  right: 120px;
+  /* right: 0px;  When we want put the ||| to the right side */
+  background-color: #333;
+  z-index:1;
+  top: 0;
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+
+.dropdown .dropbtn {
+  cursor: pointer;
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn, .dropbtn:focus {
+  background-color: black;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.show {
+  display: block;
+}
+</style>
 </head>
 <body>
 
 
-<!-- Navigation -->
-    <nav class="navbar navbar-inverse">
-      <div class="container">
-		<ul class="nav navbar-nav">
-              <li><a href="/">Home</a></li>
-              <li><a href="#">Projects</a></li>
-              <li><a href="#publications">Publications</a></li> 
-              <li><a href="#">CV</a></li> 
-		</ul>
-	  </div>
-	</nav>
-	
 
+
+
+<!-- Page Content -->
+<div class="container">
+
+<div class="navbar navbar-inverse">
+  <!-- <div class="container"> -->
+
+      <div class="dropdown">
+
+          <button class="dropbtn" onclick="myFunction()">≡
+            <i class="fa fa-caret-down"></i>
+          </button>
+
+          <div class="dropdown-content" id="myDropdown">
+            <a href="#home">Home</a>
+            <a href="#mdw">Making Diversity Work</a>
+            <a href="#research">Research</a>
+            <a href="#publications">Publications</a>
+            <a href="nanzhang_aug_2020.pdf">CV</a>
+          </div>
+      </div> 
+
+  <!-- </div> -->
+</div>
   
-  <!-- Page Content -->
-    <div class="container">
+<div class="row" id="home">
+  
+  
+  <!-- Left Column -->
+    <div class="col-md-3" >
+    
+    <!-- Contact Info on the Sidebar and image -->
+        <div style="font-family: Arial, Helvetica, sans-serif; font-size: 28px; margin-top:70px"><b>Nan Zhang PhD</b>
+    </div>  
+    <br>  
+        <img class="img-responsive" src="nanzhangphd.jpg" height="400" alt="">
+    <br>
+        <div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px;">
+    <p><b>zhang [at] coll.mpg.de</b><br></p>
+        <p> Max-Planck-Institute for <br>
+    Research on Collective Goods <br>
+        Kurt-Schumacher-Str. 10<br>
+    53113 Bonn, Germany<br></p>
+    
+        <dd><a href="https://scholar.google.com/citations?user=xZj-ZpEAAAAJ&hl=en" target="_blank">Google Scholar</a></dd>
+    </div>
+  </div> <!-- /.left column -->
 
-        <div class="row">
 
-            <!-- Entries Column -->
-            <div class="col-md-8" style="height: 100vh;">
-                
-                <!-- Main Image -->
-                <img class="img-responsive" src="photo.gif" alt=""><br>
-                
-                <div style="margin-top:3%; text-align:justify;">                
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing <a href="#">elit</a>, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-					
-					<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-					
-					<p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                </div>
-            </div> 
-
-            <!-- Contact Info on the Sidebar -->
-            <div class="col-md-4">
-                <div style="font-family: 'Oswald', sans-serif; font-size: 32px;"><b>John Doe</b></div><br>
-                <p><b>john at doe.com</b><br>
-                <p>Random Department<br>
-                University of Randomness<br>
-                Street<br>
-                City <br>
-                Country<br>
-                </p>
-            </div>
-            
-            
-            <!-- Links on the Sidebar -->
-            <div class="col-md-4" style="margin-top:2%">
-              <dd><a href="#">Google Scholar</a></dd> 
-              <dd><a href="#">Twitter</a></dd>
-              <dd><a href="#">LinkedIn</a></dd>
-            </div>
-            
-            
-            <!-- Publications -->
-            <div class="col-md-8" style="height: 100vh;">    
-                <h2 id="publications">Publications</h2>
-                
-                <strong>Peer-reviewed</strong><br/>
-                <ul>
-                <li class="paper" words="add, your, keywords, here"><a href="#">Full title</a> Names of the authors</li>
-                </ul>
-            
-                <strong>Technical Reports</strong><br/>
-                <ul>
-                <li class="paper" words="add, your, keywords, here"><a href="#">Full title</a>. Details of the report</li>
-                </ul>
-            </div>
-
-            
+  <!-- right column-->
+    <div class="col-md-8" >
+    
+    <!-- Personal Info -->
+        <div style="margin-top:125px; text-align:justify; font-family: Arial, Helvetica, sans-serif; font-size: 15px;">
+    <p>I am a Senior Research Fellow at the Max Planck Institute for Research on Collective Goods.  Beginning in 2021, I will head the Emmy-Noether research group <u><a href="#mdw"> Making Diversity Work</a></u> at the Mannheim Center for European Social Research (MZES). As a social scientist, I am primarily interested in the study of social norms, language and identity, and civic behavior.  Major applications of my research include immigration, ethnic diversity, and state- and nation-building. </p>
+  
+    <p>My work has been published in the <i>American Journal of Political Science</i>, the <i>Journal of Politics</i>, the <i>Proceedings of the National Academy of Sciences</i>, and the <i>European Sociological Review</i>, amongst other outlets.</p>
+  
+    <p>I hold a Ph.D. in Political Science from Stanford University, a J.D. from Stanford Law School, and a double B.A. in Economics and Political Science from the University of California, Berkeley. Prior to joining the Max Planck Institute, I was a Max Weber Fellow at the European University Institute in Florence, Italy. </p>
         </div>
 
+<hr>
 
+    <!-- publications -->
+    <div style="margin-top:3vh; text-align:left;">
+    <div id="publications", style="font-family: Arial, Helvetica, sans-serif; font-size: 22px;"><b>Publications</b>
     </div>
-    <!-- /.container -->
-    
-    <!-- Other people may like it too! -->
-    <a style="color:#b5bec9;font-size:0.8em; float:right;" href="https://github.com/mavroudisv/plain-academic">Plain Academic</a> 
-    
-</body>
+    <br>
 
+      <p> Nan Zhang and Melissa Lee. 2020. <b>Literacy and State-Society Interactions in 19th Century France</b>. <i> American Journal of Political Science.</i> Forthcoming. 
+    <br>
+    <button class="btn btn-link" onclick="location.href='https://onlinelibrary.wiley.com/doi/abs/10.1111/ajps.12524?af=R';" type="button"><u>[Link]</u></button>
+    <button class="btn btn-link" data-target="#litfrance" data-toggle="collapse" type="button"><u>[Abstract]</u></button>
+    </p>
+    <div class="collapse" id="litfrance">Modern states are distinguished by the breadth and depth of public regulation over private affairs. This aspect of state capacity and state power is predicated on frequent and dense encounters between the state and the population it seeks to control. We argue that literacy in the language of state administration facilitates state–society interaction by lowering the transaction costs of those encounters. We support this claim with evidence drawing upon detailed historical data from nineteenth‐century France during a crucial period of state and nation building. Focusing on the specific domain of French marriage regulations, we find that increasing literacy predicts greater popular involvement with local authorities across French regions over time. These results demonstrate that literacy plays an important role in political development not solely by enhancing loyalty to the state, as the literature has recognized, but also by lowering linguistic and human capital barriers to state–society interaction.<br><hr>
+    </div>
+    
+      
+    <p> Nan Zhang, Amelie Aidenberger, Heiko Rauhut and Fabian Winter. 2019. <b>Prosocial Behavior in Interethnic Encounters: Evidence from a Field Experiment with High- and Low-Status Immigrants</b>. <i> European Sociological Review</i> 35(4): 582–597. 
+    <br>
+    - <i>Winner of the ESR Best Article of the Year Prize 2020 </i>
+    <br>
+    <button class="btn btn-link" onclick="location.href='https://academic.oup.com/esr/article/35/4/582/5512302';" type="button"><u>[Link]</u></button>
+    <button class="btn btn-link" data-target="#esrzurich" data-toggle="collapse" type="button"><u>[Abstract]</u></button>
+    </p>
+    <div class="collapse" id="esrzurich">Recent waves of immigration have changed the demographic face of European societies and fueled considerable debate over the consequences of ethnic diversity for social cohesion. One prominent argument in this debate holds that individuals are less willing to extend trust and solidarity across ethnic lines, leading to lower social capital in multiethnic communities. We present a direct test of this proposition in a field experiment involving native-immigrant interactions in Zurich's Central Train Station. Our intervention consists of approaching commuters with a small request for assistance (borrowing a mobile phone), which we take as a measure of prosociality. We further differentiate between reactions towards natives as well as both high- and low-status immigrant groups. Compared to native-native interactions, we find lower solidarity in native-immigrant encounters, especially in cases involving stereotypically low-status immigrants. In exploratory analyses, we further show that discrimination only obtains in 'low cost' situations where commuters could easily justify not helping (e.g. by claiming not to carry a phone). Overall our results shed light on key theoretical mechanisms underlying patterns of solidarity in contemporary multiethnic societies.<br><hr>
+    </div>
+
+
+    <p> Fabian Winter and Nan Zhang. 2018. <b>Social Norm Enforcement in Ethnically Diverse Communities</b>. <i> Proceedings of the National Academy of Sciences</i> 115(11): 2722-2727.
+    <br>
+    <button class="btn btn-link" onclick="location.href='https://www.pnas.org/content/115/11/2722';" type="button"><u>[Link]</u></button>
+    <button class="btn btn-link" data-target="#pnaslitter" data-toggle="collapse" type="button"><u>[Abstract]</u></button>
+    </p>
+    <div class="collapse" id="pnaslitter">How does ethnic diversity influence the maintenance of social norms in complex, Western societies? We provide evidence from a natural field experiment examining reactions to norm violations in multiethnic German neighborhoods. We uncover asymmetric patterns of norm enforcement in interethnic encounters: “Native” Germans are more active in sanctioning norm violations, while ethnic minorities are more likely to be targeted for sanctions. We link these dynamics to prevailing status inequalities between minorities and natives in German society. We further show that, as a consequence of such asymmetries, social control tends to rise with ethnic diversity.<br><hr>
+    </div>  
+
+
+    <p> Nan Zhang. 2018. <b>Institutions, Norms, and Accountability: A Corruption Experiment with Northern and Southern Italians</b>. <i> Journal of Experimental Political Science</i> 5(1): 11-25. 
+    <br>
+    <button class="btn btn-link" onclick="location.href='https://doi.org/10.1017/XPS.2017.26';" type="button"><u>[Link]</u></button>
+    <button class="btn btn-link" data-target="#puncorrupt" data-toggle="collapse" type="button"><u>[Abstract]</u></button>
+    </p>
+    <div class="collapse" id="puncorrupt">Anti-corruption research has highlighted the potential for grassroots monitoring to improve governance outcomes, but the conditions under which citizens are willing to report bribery remain under-studied. Are individuals from some societies socialized into a “culture of corruption” that makes them more accepting of malfeasance, or is the failure to denounce wrongdoing simply a response to low-quality enforcement institutions? I conduct a laboratory experiment to examine how the propensity to report corruption differs between Northern and Southern Italians, two populations experiencing different levels of corruption in everyday life. For each group, I experimentally manipulate the quality of enforcement institutions. When given high-quality institutions, all participants are more willing to report corruption. Moreover, Southerners and Northerners behave similarly when placed within the same institutional environments. These results suggest that high-corruption societies are not “culturally” predisposed to tolerate malfeasance. Rather, improving the capacity of enforcement institutions may significantly strengthen accountability norms.<br><hr>
+    </div>  
+      
+
+    <p> Melissa Lee and Nan Zhang. 2017. <b>Legibility and the Informational Foundations of State Capacity</b>. <i> Journal of Politics</i> 79(1): 118–132. 
+    <br>
+    <button class="btn btn-link" onclick="location.href='https://www.journals.uchicago.edu/doi/full/10.1086/688053';" type="button"><u>[Link]</u></button>
+    <button class="btn btn-link" data-target="#legibility" data-toggle="collapse" type="button"><u>[Abstract]</u></button>
+    </p>
+    <div class="collapse" id="legibility">Recent research in political science has stressed the importance of the state in curbing violence and promoting social and economic development, resulting in an explosion of scholarly interest in the foundations of state capacity. This article argues that state capacity depends in part on “legibility”—the breadth and depth of the state’s knowledge about its citizens and their activities—and that legibility is crucial to effective, centralized governance. We illustrate the importance of legibility through a novel argument linking legibility to the state’s role in curbing free-riding in collective action dilemmas. We then demonstrate this argument in the context of tax contributions to public goods using an original measure of legibility based on national population censuses. The article concludes by discussing how future research may leverage our indicator’s exceptional temporal and geographic coverage to advance new avenues of inquiry in the study of the state.<br><hr>
+    </div>  
+      
+
+    <p> Nan Zhang, Giulia Andrighetto, Stefania Ottone, Ferruccio Ponzano, and Sven Steinmo. 2016. <b>Willing to Pay? An Experimental Analysis of Tax Compliance in Britain and Italy</b>. <i> PLoS ONE</i> 11(2): e0150277. 
+    <br>
+    <button class="btn btn-link" onclick="location.href='https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0150277';" type="button"><u>[Link]</u></button>
+    <button class="btn btn-link" data-target="#plostax" data-toggle="collapse" type="button"><u>[Abstract]</u></button>
+    </p>
+    <div class="collapse" id="plostax">As shown by the recent crisis, tax evasion poses a significant problem for countries such as Greece, Spain and Italy. While these societies certainly possess weaker fiscal institutions as compared to other EU members, might broader cultural differences between northern and southern Europe also help to explain citizens’ (un)willingness to pay their taxes? To address this question, we conduct laboratory experiments in the UK and Italy, two countries which straddle this North-South divide. Our design allows us to examine citizens’ willingness to contribute to public goods via taxes while holding institutions constant. We report a surprising result: when faced with identical tax institutions, redistribution rules and audit probabilities, Italian participants are significantly more likely to comply than Britons. Overall, our findings cast doubt upon “culturalist” arguments that would attribute cross-country differences in tax compliance to the lack of morality amongst southern European taxpayers.<br><hr>
+    </div>  
+      
+
+    <p> Giulia Andrighetto, Nan Zhang, John D'Attoma, Stefania Ottone, Ferruccio Ponzano, and Sven Steinmo. 2016. <b>Are Some Countries More Honest than Others? Evidence from a Tax Compliance Experiment in Sweden and Italy</b>. <i> Frontiers in Psychology</i> 7: 472. 
+    <br>
+    <button class="btn btn-link" onclick="location.href='https://www.frontiersin.org/articles/10.3389/fpsyg.2016.00472/full';" type="button"><u>[Link]</u></button>
+    <button class="btn btn-link" data-target="#frontierstax" data-toggle="collapse" type="button"><u>[Abstract]</u></button>
+    </p>
+    <div class="collapse" id="frontierstax">This study examines cultural differences in ordinary dishonesty between Italy and Sweden, two countries with different reputations for trustworthiness and probity. Exploiting a set of cross-cultural tax compliance experiments, we find that the average level of tax evasion (as a measure of ordinary dishonesty) does not differ significantly between Swedes and Italians. However, we also uncover differences in national “styles” of dishonesty. Specifically, while Swedes are more likely to be either completely honest or completely dishonest in their fiscal declarations, Italians are more prone to fudging (i.e., cheating by a small amount). We discuss the implications of these findings for the evolution and enforcement of honesty norms.<br><hr>
+    </div>  
+      
+      
+    <p> Nan Zhang. 2015. <b>Changing a ‘Culture’ of Corruption: Evidence from an Economic Experiment in Italy</b>. <i> Rationality & Society</i> 27(4): 387-413. 
+    <br>
+    <button class="btn btn-link" onclick="location.href='https://journals.sagepub.com/doi/abs/10.1177/1043463115605475';" type="button"><u>[Link]</u></button>
+    <button class="btn btn-link" data-target="#ratsoc" data-toggle="collapse" type="button"><u>[Abstract]</u></button>
+    </p>
+    <div class="collapse" id="ratsoc">Empirical evidence demonstrates that bribery, extortion and graft are often the outgrowths of a deeper ‘culture of corruption’ which has proved disconcertingly resilient in the face of public sector reforms. This article investigates whether changing collective beliefs about how ‘most people in society’ will behave can reform prevailing cultural practices. Employing an economic experiment involving northern and southern Italian university students, this study shows that (costly) honest behavior can be sustained by conditional beliefs about the honesty of others. I also hypothesize that, given southern Italians’ reputation for corruption, informing participants that they are interacting with southerners should increase the level of bribery in the experiment. However, surprisingly, I find the opposite effect: when exposed to information about the identity of their fellow participants, southern Italians are not only less corrupt, but they are also more likely to believe that their counterparts are less corrupt. I discuss several explanations which may account for these unexpected findings. Overall, the paper provides theoretical foundations and experimental support for how new cultural practices might emerge.<br><hr>
+    </div>
+
+      
+    <p> David Laitin and Nan Zhang. 2012. <b>Political Culture</b>. in the <i>Oxford Companion to Comparative Politics</i>. Joel Krieger (ed). New York: Oxford University Press.
+    
+    </div>
+
+
+<hr>
+  
+  
+    <!-- making diversity work -->
+    <div  style="margin-top:3vh; text-align:justify;">
+    <div id="mdw", style="font-family: Arial, Helvetica, sans-serif; font-size: 22px;"><b>Making Diversity Work</b>
+    </div>
+    <br>
+  
+    <p> Recent trends in global migration have raised public concerns about the potentially negative consequences of ethnic diversity for social solidarity in Western societies. Few studies to date however have sought to explain how trust and cooperation can conversely be sustained in diverse settings. Against this backdrop, the <b>Making Diversity Work</b> project aims to create novel behavioral indicators of social cohesion across multiethnic German neighborhoods in order to analyze the emergence of positive community relations. In contrast to existing studies which predominately privilege comparisons between ethnically-homogenous and heterogeneous areas, a key contribution of this project is to focus explicitly on important unexamined differences between highly-diverse contexts in order to understand the conditions under which diversity may undermine or, conversely, promote cooperation.</p>
+      
+    <p> Using innovative field experimental methods, this project will develop a sophisticated set of behavioral indicators to map variation in “prosocial” behavior across diverse urban areas. Further, this new data will be used to (i) systematically test novel theories about how different features of diverse neighborhoods contribute to local cooperation, (ii) disentangle the behavioral mechanisms – other-regarding preferences, social norms enforcement, and intergroup contact – underlying social cohesion in multiethnic settings, and (iii) develop a richer understanding of social relations that takes both natives’ and minorities’ experiences into account. Overall, results from this research will open up new scientific perspectives on cooperation in diverse communities and generate critical policy knowledge about how to “make diversity work" in an era of rapid demographic change.</p>
+      
+    <p> This project is funded by the Emmy-Noether program of the German Research Foundation (DFG).</p>  
+      
+    <p><b>We are hiring!</b> If you would like to do your MA or PhD as a part of the <b>Making Diversity Work</b> team, please do not hesitate to <u><a href="mailto:zhang@coll.mpg.de">contact</a></u> me.  Some potential research topics are listed <u><a href="topics.html">here</a></u>, but I also welcome the opportunity to discuss your own ideas and / or potential funding possibilities.</p>
+  
+    </div>
+
+
+<hr>
+  
+    <!-- ongoing work --> 
+    <div  style="margin-top:3vh; text-align:justify;">
+    <div id="research", style="font-family: Arial, Helvetica, sans-serif; font-size: 22px;"><b>Research in Progress</b>
+    </div>
+    <br>
+  
+    <p>Text here.
+    </p>
+    </div>
+
+  </div> <!-- /.right column -->
+
+
+</div> <!-- /.row -->
+  
+  <!-- Other people may like it too! -->
+  <div>
+  <a style="color:#b5bec9;font-size:0.8em; float:right;" href="https://github.com/mavroudisv/plain-academic">Plain Academic</a> 
+  </div>
+
+</div> <!-- /.container -->
+
+<script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(e) {
+  if (!e.target.matches('.dropbtn')) {
+  var myDropdown = document.getElementById("myDropdown");
+    if (myDropdown.classList.contains('show')) {
+      myDropdown.classList.remove('show');
+    }
+  }
+}
+</script>
+</body>
 </html>
