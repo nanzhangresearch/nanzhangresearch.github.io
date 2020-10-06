@@ -16,9 +16,11 @@
 <style>
 
 .navbar {
+
+  /* is the small navbar */
   width: 7%;
   position:fixed;
-  right: 0px;
+  right: 30px;
   /* right: 0px;  When we want put the ||| to the right side */
   background-color: #333;
   z-index:1;
@@ -37,8 +39,7 @@
 }
 
 .navbar2 {
-  right: 0px;
-  /* right: 0px;  When we want put the ||| to the right side */
+  /* is the big navbar */
   background-color: #333;
   z-index:1;
   top: 0;
@@ -53,6 +54,12 @@
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+}
+
+.navbar2 .navbar-brand img {
+  top: 0;
+  position:fixed;
+  height: 60px;
 }
 
 
@@ -114,6 +121,15 @@
 .show {
   display: block;
 }
+
+/*.logo-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 20%;
+    overflow: hidden;
+    margin-top: -6px;
+} */
+
 </style>
 </head>
 <body>
@@ -121,13 +137,14 @@
 
 
 
-
 <!-- Page Content -->
-<div class="container">
 
 <nav class="navbar2">
       <div class="container">
     <ul class="nav navbar-nav">
+            <!--<a class="navbar-brand" href="#">
+              <img src="logo.png">
+            </a> -->
             <a href="#home">Home</a>
             <a href="#publications">Publications</a>
             <a href="#mdw">Making Diversity Work</a>
@@ -136,6 +153,8 @@
     </ul>
     </div>
   </nav>
+
+<div class="container">
 
 <div class="navbar navbar-inverse">
   <!-- <div class="container"> -->
