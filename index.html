@@ -4,10 +4,11 @@
   <title>Nan Zhang - Max Planck Institute</title>
   <meta charset="utf-8">
 
-
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <!-- take away when deploying line 9 -->
+  <link rel="stylesheet" href="nanzhangresearch.github.io/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
 
 
@@ -16,8 +17,10 @@
 
 .navbar {
 
+  /* is the small navbar */
+  width: 7%;
   position:fixed;
-  right: 120px;
+  right: 30px;
   /* right: 0px;  When we want put the ||| to the right side */
   background-color: #333;
   z-index:1;
@@ -35,14 +38,41 @@
   text-decoration: none;
 }
 
+.navbar2 {
+  /* is the big navbar */
+  background-color: #333;
+  z-index:1;
+  top: 0;
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.navbar2 a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* in case we wanna make a logo
+
+.navbar2 .navbar-brand img {
+  top: 0;
+  position:fixed;
+  height: 60px;
+} */
+
 
 .dropdown .dropbtn {
+  text-align: center;
   cursor: pointer;
   font-size: 16px;  
   border: none;
   outline: none;
   color: white;
-  padding: 14px 16px;
+  padding: 13px 0px;
   background-color: inherit;
   font-family: inherit;
   margin: 0;
@@ -53,6 +83,8 @@
 }
 
 .dropdown-content {
+
+  right: 0;
   display: none;
   position: absolute;
   background-color: #f9f9f9;
@@ -62,6 +94,7 @@
 }
 
 .dropdown-content a {
+
   float: none;
   color: black;
   padding: 12px 16px;
@@ -70,13 +103,36 @@
   text-align: left;
 }
 
+.btn-link {
+
+}
+
 .dropdown-content a:hover {
   background-color: #ddd;
+}
+
+.col-md-3 {
+  position:float;
+  /* we can make the position fixed here 
+  right: 120px;
+
+  */
+  font-family: Arial, Helvetica, sans-serif;
+
 }
 
 .show {
   display: block;
 }
+
+/*.logo-image {
+    width: 100%;
+    height: 100%;
+    border-radius: 20%;
+    overflow: hidden;
+    margin-top: -6px;
+} */
+
 </style>
 </head>
 <body>
@@ -84,26 +140,42 @@
 
 
 
-
 <!-- Page Content -->
+
+<nav class="navbar2">
+      <div class="container">
+    <ul class="nav navbar-nav">
+            <!--<a class="navbar-brand" href="#">
+              <img src="logo.png">
+            </a> -->
+            <a href="#home">Home</a>
+            <a href="#publications">Publications</a>
+            <a href="#mdw">Making Diversity Work</a>
+            <a href="#research">Research</a>
+            <a href="2020.09.26 - CV.pdf">CV</a>
+    </ul>
+    </div>
+  </nav>
+
 <div class="container">
 
 <div class="navbar navbar-inverse">
   <!-- <div class="container"> -->
 
-      <div class="dropdown">
+      <div class="dropdown dropdown-left">
 
-          <button class="dropbtn" onclick="myFunction()">≡
+          <div class="dropbtn" onclick="myFunction()">≡
             <i class="fa fa-caret-down"></i>
-          </button>
+          </div>
 
           <div class="dropdown-content" id="myDropdown">
             <a href="#home">Home</a>
+            <a href="#publications">Publications</a>
             <a href="#mdw">Making Diversity Work</a>
             <a href="#research">Research</a>
-            <a href="#publications">Publications</a>
             <a href="2020.09.26 - CV.pdf">CV</a>
           </div>
+
       </div> 
 
   <!-- </div> -->
@@ -113,10 +185,12 @@
   
   
   <!-- Left Column -->
+  <!-- let's make container here -->
+
     <div class="col-md-3" >
     
     <!-- Contact Info on the Sidebar and image -->
-        <div style="font-family: Arial, Helvetica, sans-serif; font-size: 28px; margin-top:70px"><b>Nan Zhang PhD</b>
+        <div style="font-family: Arial, Helvetica, sans-serif; font-size: 28px; margin-top:40px"><b>Nan Zhang PhD</b>
     </div>  
     <br>  
         <img class="img-responsive" src="nanzhangphd.jpg" height="400" alt="">
@@ -137,7 +211,7 @@
     <div class="col-md-8" >
     
     <!-- Personal Info -->
-        <div style="margin-top:125px; text-align:justify; font-family: Arial, Helvetica, sans-serif; font-size: 15px;">
+        <div style="margin-top: 50px; text-align:justify; font-family: Arial, Helvetica, sans-serif; font-size: 15px;">
     <p>I am a Senior Research Fellow at the Max Planck Institute for Research on Collective Goods.  Beginning in 2021, I will head the Emmy-Noether research group <u><a href="#mdw"> Making Diversity Work</a></u> at the Mannheim Center for European Social Research (MZES). As a social scientist, I am primarily interested in the study of social norms, language and identity, and civic behavior.  Major applications of my research include immigration, ethnic diversity, and state- and nation-building. </p>
   
     <p>My work has been published in the <i>American Journal of Political Science</i>, the <i>Journal of Politics</i>, the <i>Proceedings of the National Academy of Sciences</i>, and the <i>European Sociological Review</i>, amongst other outlets.</p>
@@ -153,7 +227,7 @@
     </div>
     <br>
 
-      <p> Nan Zhang and Melissa Lee. 2020. <b>Literacy and State-Society Interactions in 19th Century France</b>. <i> American Journal of Political Science.</i> 64(4): 1001-1016. 
+      <p> Nan Zhang and Melissa Lee. 2020. <b>Literacy and State-Society Interactions in 19th Century France</b>. <i> American Journal of Political Science.</i> Forthcoming. 
     <br>
     <button class="btn btn-link" onclick="location.href='https://onlinelibrary.wiley.com/doi/abs/10.1111/ajps.12524?af=R';" type="button"><u>[Link]</u></button>
     <button class="btn btn-link" data-target="#litfrance" data-toggle="collapse" type="button"><u>[Abstract]</u></button>
@@ -247,19 +321,10 @@
       
     <p> This project is funded by the Emmy-Noether program of the German Research Foundation (DFG).</p>  
       
-    <p><b>We are hiring!</b> If you would like to do your MA or PhD as a part of the <b>Making Diversity Work</b> team, please do not hesitate to <u><a href="mailto:zhang@coll.mpg.de">contact</a></u> me.  Some potential research topics are listed below, but I also welcome the opportunity to discuss your own ideas and / or potential funding possibilities.</p>
-	<button class="btn btn-link" data-target="#topics" data-toggle="collapse" type="button"><u>Potential Research Topics</u></button>
-    </p>
-    <div class="collapse" id="topics">
-	(1) <b>Deprivation and Inequality</b>: previous research provides ample evidence of the negative effects of  neighborhood deprivation on the quality of local civic life.  That said, insufficient attention has been paid to the interaction between the <i>level</i> of deprivation and its <i>distribution</i> across ethnic lines.  How are intergroup interactions affected when ethnic differences also intersect with status inequalities?  Conversely, in comparison to encounters involving unequal status, are we more likely to observe cooperative or conflictual interactions between members of different low-status groups? 
-	<br>
-	<br>
-	(2) <b>Minority Diversity and Group Size</b>: existing studies of diversity effects privilege comparisons of neighborhoods with varying shares of native residents, and thus largely overlook the impact of <i>immigrant diversity</i> on collective outcomes.  Yet intuitively, we might think that social relations would look different in neighborhoods dominated by a single minority vs. neighborhoods with many small groups.  Research along these lines might fruitfully investigate how the number and size of immigrant groups shapes both native-minority and minority-minority interactions in areas that, at least superficially, look similarly diverse with respect to native shares.
-	<br>
-	<br>
-	(3) <b>Getting to Diversity</b>: social behavior in neighborhoods today may reflect different historical trajectories of demographic movement. For instance,  inter-group interactions may differ across (i) areas with longstanding minority and native communities, vs. (ii) those that recently became diverse as a result of minority in-migration and "white flight," vs. (iii) traditional minority enclaves that experience diversification as a result of gentrification.  In studying these differences across contexts, we can begin to illuminate how the process of "getting to diversity" matters for contemporaneous social relations.
-    </div>		  
+    <p><b>We are hiring!</b> If you would like to do your MA or PhD as a part of the <b>Making Diversity Work</b> team, please do not hesitate to <u><a href="mailto:zhang@coll.mpg.de">contact</a></u> me.  Some potential research topics are listed <u><a href="topics.html">here</a></u>, but I also welcome the opportunity to discuss your own ideas and / or potential funding possibilities.</p>
+  
     </div>
+
 
 <hr>
   
@@ -268,55 +333,10 @@
     <div id="research", style="font-family: Arial, Helvetica, sans-serif; font-size: 22px;"><b>Research in Progress</b>
     </div>
     <br>
-	
-	<p> <b>Everyday Discrimination in Public Spaces: A Field Experiment in the Milan Metro</b>.
-	<br>
-	with Johanna Gereke and Delia Baldassarri.
-	<br>
-    <button class="btn btn-link" data-target="#metro" data-toggle="collapse" type="button"><u>[Abstract]</u></button>
-    </p>
-    <div class="collapse" id="metro">A large scholarship documents discrimination against immigrants and ethnic minorities in institutional settings such as labor and housing markets in Europe. We know less, however, about discrimination in informal and unstructured everyday encounters.  To address this gap, we report results from a large-scale field experiment examining the physical avoidance of immigrants as an unobtrusive yet important measure of everyday discrimination in a large European metropolis. In addition to varying confederates’ migration background and race, we also vary signals of SES (business vs. casual attire) in order to shed light on the mechanisms underlying discriminatory patterns. We find that natives are averse to contact with Sub-Saharan African confederates, but do not discriminate against Chinese confederates. Further, manipulating confederates' socioeconomic status has little effect on natives' behavior. Triangulating our field experimental data with survey responses and results from an implicit association test (IAT), we conclude that physical avoidance in public spaces may belong to a class of "automatic associative and affective reactions" that govern inter-ethnic relations at the micro-level.  <br><hr>
-    </div>
-	
-	<p> <b>No Differential Effects of Classroom Ethnic Composition on Native and Immigrant Friendship Segregation: A Comment on Smith et al. 2016</b>.
-	<br>
-	with Johanna Gereke, David Kretschmer and Fabian Winter.
-	<br>
-    <button class="btn btn-link" data-target="#smithcomment" data-toggle="collapse" type="button"><u>[Abstract]</u></button>
-    </p>
-    <div class="collapse" id="smithcomment">What is the relationship between classroom ethnic composition and patterns of ethnic friendship segregation amongst native and immigrant adolescents?  In a 2016 AJS article, Smith et al. analyzed data on adolescents' friendship networks from four European countries and found differential effects of classroom composition on natives' and immigrants' friendship choices. In this comment, we identify estimation problems in a large number of classroom networks included in Smith et al.'s original study. We demonstrate that immigrant homophily cannot be meaningfully estimated in many networks containing insufficient numbers of immigrant students from the same ethnic group. After accounting for these estimation problems at the network level, our re-analyis provides little evidence that classroom composition has differential effects for native and immigrant homophily.<br><hr>
-    </div>
-	
-	<p> <b>The Paradoxical Effects of Combating Corruption on Institutional Trust and Political Engagement: Evidence from Two Natural Experiments</b>.
-	<br>
-	with Mathias Poertner.
-	<br>
-    <button class="btn btn-link" data-target="#corruptionargentina" data-toggle="collapse" type="button"><u>[Abstract]</u></button>
-    </p>
-    <div class="collapse" id="corruptionargentina">While fighting corruption has become a high priority in many countries around the world, the widespread adoption of anti-corruption measures has yielded few tangible results. This paper asks whether, in failing to promote better governance, efforts to combat corruption may in fact generate negative political consequences. To address this question, we examine natural experiments from Argentina and Costa Rica involving the unprecedented sentencing of two former Presidents on corruption charges. Exploiting the coincidence in timing between these cases and fieldwork on nationally-representative surveys, we show that high-profile efforts to punish corrupt actors paradoxically eroded trust in institutions and produced "resigned citizens" who expressed a lower willingness to vote or join in collective demonstrations. Overall, our findings shed light on an important understudied link between anti-corruption policy and political participation in societies with weak systems of accountability.<br><hr>
-    </div>
-	
-	<p> <b>Race, Republican Party Identification and Reactions to Racism in the Age of Trump</b>.
-	<br>
-	with Amalia Alvarez-Benjumea and Fabian Winter.
-	<br>
-	<!--
-    <button class="btn btn-link" data-target="#minorityrepublicans" data-toggle="collapse" type="button"><u>[Abstract]</u></button>
-    </p>
-    <div class="collapse" id="minorityrepublicans">Coming Soon..<br><hr>
-    </div>
-	-->
   
-    <p> <b>From Pluribus to Unum?  Statebuilding in 19th Century America</b>.
-    <br>
-	with Melissa Lee.
-	<br>
-	<!--
-    <button class="btn btn-link" data-target="#isare" data-toggle="collapse" type="button"><u>[Abstract]</u></button>
+    <p>Text here.
     </p>
-    <div class="collapse" id="isare">Coming Soon.<br><hr>
     </div>
-	-->
 
   </div> <!-- /.right column -->
 
