@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>4. Random Assignment Mechanisms</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2023-09-21" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, center, title-slide
+
+.title[
+# 4. Random Assignment Mechanisms
+]
+.date[
+### 21 September 2023
+]
+
+---
+
+
+
+
+
+
+### Warm-Up
+
+.pull-left[
+
+Full schedule of potential outcomes:
+
+Student   |   `\(Y_{i}\)`(.blue[0])   |   `\(Y_{i}\)`(.pink[1])     |   Diff.
+-         | -                     |   -                     |   -
+Alex      | 300                   |   450                   |   150
+Bonnie    | 350                   |   450                   |   100
+Colin     | 500                   |   600                   |   100
+Danielle  | 550                   |   600                   |   50
+Earl      | 700                   |   750                   |   50
+Fiona     | 750                   |   750                   |   0
+
+]
+
+.pull-right[
+
+Experimental data:
+
+Student   |   `\(Y_{i}\)`   |   `\(D_{i}\)`
+-         | -           |   -
+Alex      | 450         |   1
+Bonnie    | 450         |   1
+Colin     | 500         |   0
+Danielle  | 550         |   0
+Earl      | 700         |   0
+Fiona     | 750         |   0
+
+]
+
+&lt;br&gt; 
+
+- What is the "true" ATE?
+
+- What is the estimated treatment effect from our experiment?
+
+- Does our experiment produce a biased estimate of the "true" ATE?
+
+---
+
+### Introduction
+
+Recall from last week that here are the possible ATEs we could have estimated, depending on how we randomly assigned people to treatment and control:
+
+&lt;img src="rd4_files/figure-html/unnamed-chunk-1-1.png" width="100%" /&gt;
+
+---
+
+### Introduction
+
+.pull-left[
+
+However, notice that there are basically 3 types of students:
+
+- .pink[Poor] performers (Alex and Bonnie)
+
+- .blue[Average] performers (Colin and Danielle)
+
+- .blue_violet[Good] performers (Earl and Fiona)
+
+
+Under some randomizations, both good performers (or poor performers) receive the treatment. 
+
+Notice that these cases produce the most extreme ATE estimates.
+
+]
+
+
+.pull-right[
+
+&lt;br&gt;
+
+Student   |   `\(Y_{i}\)`(.blue[0])   |   `\(Y_{i}\)`(.pink[1])
+-         | -                     |   -                
+Alex      | 300                   |   450              
+Bonnie    | 350                   |   450              
+Colin     | 500                   |   600              
+Danielle  | 550                   |   600              
+Earl      | 700                   |   750              
+Fiona     | 750                   |   750              
+
+]
+
+---
+
+### Blocking
+
+.pull-left[
+
+&lt;br&gt;
+
+Blocking groups together individuals with similar potential outcomes, and treatments are randomly assigned within these blocks. 
+
+- Complete randomization where 4 out of 14 subjects are assigned to treatment:  **1001** possible randomizations.
+
+- Blocked assigned where 2 individuals from each block are assigned to treatment: **420** possible randomizations.
+
+- `\(ATE = ATE_A * \frac{N_A}{N} + ATE_B * \frac{N_B}{N}\)`
+
+- **Exercise:** What is the ATE in this example?
+
+]
+
+
+.pull-right[
+
+.small[
+
+subject   |   Block   |   `\(Y_{i}\)`(.blue[0])   |   `\(Y_{i}\)`(.pink[1])
+-         |   -       | -                     |   -                
+1         |   A       | 0                     |   0              
+2         |   A       | 1                     |   0              
+3         |   A       | 2                     |   1              
+4         |   A       | 4                     |   2              
+5         |   A       | 4                     |   0              
+6         |   A       | 6                     |   0        
+7         |   A       | 6                     |   2              
+8         |   A       | 9                     |   3 
+9         |   B       | 14                    |   12              
+10        |   B       | 15                    |   9  
+11        |   B       | 16                    |   8   
+12        |   B       | 16                    |   15   
+13        |   B       | 17                    |   5   
+14        |   B       | 18                    |   17   
+
+]
+]
+
+
+---
+### Advantages of Blocking
+
+.center[
+&lt;img src="ate_distributions.png" width="600px" /&gt;
+]
+
+In general, the more that blocks are predictive of potential outcomes, the higher efficiency gains we obtain from blocking.  
+
+---
+
+### Other Advantages
+
+- By random chance, predictive covariates may differ significantly across treatment and control groups
+
+- Blocking ensures that blocked covariates are **exactly balanced**
+
+&lt;br&gt;
+
+--
+
+- Blocking can be used to **ethically** distribute treatments.  For example:
+
+  - You want to test the effect of school vouchers on students' achievement
+  
+  - You only have a limited number of vouchers
+  
+  - So create blocks of "poor" vs. "rich" schools
+  
+  - Randomly treat a large number of "poor" schools, and a small number of "rich" schools
+
+---
+### The Trains Experiment
+
+**Discuss:**
+
+- What was [Enos](https://www.pnas.org/doi/10.1073/pnas.1317670111)' research question?
+
+- What are the main contributions of this paper to the literature?
+
+- How did Enos randomize his treatments?
+
+- What is the unit of observation?
+
+---
+
+### Example of Clustered Randomization
+
+.pull-left[
+
+School      |   Class |   `\(Y_{i}\)`(0)    |   `\(Y_{i}\)`(1)  |   `\(Y_{s}\)`(0)    |   `\(Y_{s}\)`(1)      
+-                 |   -           |   -             |   -           |   -             |   -     
+.pink[A]          |   A-1         |   0             |   4           |                 |
+.pink[A]          |   A-2         |   1             |   5           |   1             |   5
+.pink[A]          |   A-3         |   2             |   6           |                 |  
+.blue[B]          |   B-1         |   2             |   6           |                 |  
+.blue[B]          |   B-2         |   3             |   7           |   3             |   7
+.blue[B]          |   B-3         |   4             |   8           |                 |  
+.orange[C]        |   C-1         |   3             |   7           |                 |
+.orange[C]        |   C-2         |   4             |   8           |   4             |   8
+.orange[C]        |   C-3         |   5             |   9           |                 |
+.blue_violet[D]   |   D-1         |   7             |   11          |                 |  
+.blue_violet[D]   |   D-2         |   8             |   12          |   8             |   12
+.blue_violet[D]   |   D-3         |   9             |   13          |                 |  
+
+]
+
+
+
+.pull-right[
+
+- We randomly assign 2 out of 4 schools to treatment (= 6 potential randomizations).
+
+- Average `\(\widehat{ATE}\)` across these 6 randomizations = 4, with a s.d. of **2.9**
+
+- Under complete randomization, average `\(\widehat{ATE}\)` = 4, with a s.d. of **1.6**
+
+- This loss in efficiency arises because outcomes are .blue[similar] within schools, but .pink[differ] across schools
+
+]
+
+---
+
+### Example of Clustered Randomization
+
+.pull-left[
+
+School      |   Class |   `\(Y_{i}\)`(0)    |   `\(Y_{i}\)`(1)  |   `\(Y_{s}\)`(0)    |   `\(Y_{s}\)`(1)      
+-                 |   -           |   -             |   -           |   -             |   -     
+.pink[A]          |   A-1         |   0             |   4           |                 |
+.pink[A]          |   A-2         |   3             |   7           |   4             |   8
+.pink[A]          |   A-3         |   9             |   13          |                 |  
+.blue[B]          |   B-1         |   2             |   6           |                 |  
+.blue[B]          |   B-2         |   3             |   7           |   4             |   8
+.blue[B]          |   B-3         |   7             |   11          |                 |  
+.orange[C]        |   C-1         |   1             |   5           |                 |
+.orange[C]        |   C-2         |   4             |   8           |   3.3           |   7.3
+.orange[C]        |   C-3         |   5             |   9           |                 |
+.blue_violet[D]   |   D-1         |   4             |   8           |                 |  
+.blue_violet[D]   |   D-2         |   8             |   12          |   4.7           |   8.7
+.blue_violet[D]   |   D-3         |   2             |   6           |                 |  
+
+]
+
+
+.pull-right[
+
+- Now suppose we reshuffle classrooms to make schools more similar.
+
+- Again, suppose that 2 out of 4 schools are randomly assigned to treatment.
+
+- Average `\(\widehat{ATE}\)` across these 6 randomizations = 4, with a s.d. of **0.57**
+
+- The penalty associated with clustering depends on the variability of the cluster-level means.
+
+- Better to have **more clusters** with **fewer observations per cluster** than vice versa!
+
+]
+
+
+
+
+
+
+---
+
+### Another Complication
+
+The difference-in-means is biased when (i) there are **few clusters**, (ii) the clusters are of **different sizes**, and (iii) cluster size **covaries** with potential outcomes.
+
+.pull-left[
+
+&lt;br&gt;
+
+School    |   Class  |   `\(Y_{i}\)`(0)    |   `\(Y_{i}\)`(1)      
+-         |   -      |   -             |   -       
+A         |   A-1    |   0             |   0        
+B         |   B-1    |   0             |   1        
+B         |   B-2    |   0             |   1        
+C         |   C-1    |   0             |   2        
+C         |   C-2    |   0             |   2        
+C         |   C-3    |   0             |   2
+
+]
+
+.fnsize[
+.pull-left[
+
+- Suppose that only 1 school is randomly assigned to treatment.
+
+- What is the "true" ATE?
+
+- What is the average `\(\widehat{ATE}\)` across these 3 randomizations?
+
+- In this case, you have to apply a (less efficient) formula for calculating the ATE
+
+    - See Green and Gerber 2012, pp.83--85
+    
+- Note: the bias goes away if we treat A+B as a single school.
+
+]
+]
+
+
+---
+
+### Hypothesis Testing under Blocked and Clustered Designs
+
+- Assume the full schedule of potential outcomes under the **sharp null hypothesis.**
+
+- Permute potential randomizations based on the blocking and / or clustering procedure.
+
+- This is handled automatically by statistical software.
+
+
+---
+
+### Next week:
+
+- Discuss examples of core concepts as applied via randomized controlled experiments.
+
+- Highlight the key ways in which lab, survey and field experiments can contribute to a body of scholarship.
+
+- Please read:  
+
+  + [Habyarimana et al. 2007](https://www.cambridge.org/core/journals/american-political-science-review/article/why-does-ethnic-diversity-undermine-public-goods-provision/36C285D07DC0DE604BFC123F53060DF6)
+  
+  + [Hainmueller and Hopkins 2015](https://onlinelibrary.wiley.com/doi/full/10.1111/ajps.12138)
+  
+  + [Pager and Quillian 2005](https://journals.sagepub.com/doi/epdf/10.1177/000312240507000301) 
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "14:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>10. Unexpected Events During Surveys</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2023-11-09" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, center, title-slide
+
+.title[
+# 10. Unexpected Events During Surveys
+]
+.date[
+### 9 November 2023
+]
+
+---
+
+
+
+
+
+
+### Warm-Up
+
+Suppose you want to assess the impact of social insurance (welfare) on employment rates. 
+
+Before 1989, welfare recipients in Quebec under age 30 received lower benefits (~185 per month) than recipients over age 30 (~507 per month). 
+
+1. Please name the different types of variables that you need to conduct a (sharp) RDD analysis and indicate what these variables correspond to in the example.
+
+2. The employment rate people receiving low benefits (~185 per month) is around 0.67, whereas it is around 0.57 for people receiving high benefits (~507 per month). 
+
+  - Why don’t we simply compare employment rates in these two groups to calculate the ATE?
+
+3. A rumor is going around: Some people say that whites more often end up with high benefits, while minorities more often end up with low benefits. 
+
+  - If this rumor was true, would this be problematic, and why (not)? 
+  
+  - How can we test whether there is a problem? 
+
+---
+### Introduction
+
+- Unexpected events (terrorist attacks, political scandals, natural disasters) can take place during survey fieldwork
+
+- Afford opportunities to identify the causal effect of these events on public opinion.
+
+- Compare individuals interviewed before ($t_i &lt; t_e$) and after ($t_i &gt; t_e$) the event.
+
+- Assumes that **interview date** and the **timing of the event** are independent
+
+  - "As-if" random assignment into treatment and control
+
+---
+### Relationship to RDD
+
+- The running variable `\(X_i\)` is captured in fieldwork days when interviews took place
+
+- The cutoff `\(x_0\)` denotes the moment when the event occurred
+
+- But treatment assignment is not linked to the cutoff in any predetermined or known way
+
+- Also not clear that the rating variable (time of interview) should be substantively related to the potential outcomes
+
+  - Less stringent reliance on narrow bandwidths
+  
+---
+### Excludability Assumption
+
+
+The timing of the interview `\(t\)` should affect the outcome `\(Y\)` only through the event `\(T\)` 
+
+--
+
+Potential problems:
+
+- **Collateral events**: `\(T\)` = terrorist attack, but responses are also likely to be affected by media coverage
+  
+  - Could define `\(T\)` as **compound treatment** 
+    
+    - But which parts of the treatment bundle are "doing the work?"
+      
+    - And would we observe the same outcomes had the collateral events not occurred?
+
+--
+
+- **Unrelated Time Trends**: e.g. `\(Y\)` = happiness, which could be correlated with `\(t\)` due to seasonal patterns
+
+--
+
+- **Endogenous Timing of the Event:** e.g. opposition politicians might scandalous information about the government only at the "right moment"
+
+
+---
+
+### Ignorability Assumption
+
+Potential outcomes should be independent of treatment assignment.
+
+--
+
+- **Fieldwork Organization:** 
+
+  - Respondents in area A are interviewed first, then interviewers move to area B, etc.
+  
+      - Areas could be correlated with both `\(t\)` and `\(Y_i\)`
+
+  - Quota sampling: fieldworkers try to achieve demographic "representativeness", and incomplete quotas are filled at the end of the fieldwork phase.
+  
+      - `\(t\)`  may be correlated with respondents' observable characteristics
+    
+--
+
+- **Reachability and Attrition:** 
+
+  - People may choose when (and if) to participate in the survey (especially in online surveys)
+  
+  - The event may make people more or less likely to respond (or say "don't know")
+
+      - `\(t\)` may be correlated with respondents' *unobservable* characteristics
+  
+
+---
+### Bandwidth / Window Selection
+
+- In RDDs, the running variable `\(X_i\)` is almost always correlated with potential outcomes `\(Y_i\)`
+
+- This may or may not be true in UESD
+
+- Narrow bandwidths can reduce the influence of time trends, collateral events or confounders correlated with `\(t\)`
+
+- But when the assumptions hold, a narrow bandwidth has **disadvantages**:
+
+  - Reduced precision, without reducing bias
+  
+  - The effects of certain types of events can take some time to unfold
+  
+      -  Narrow bandwidth can lead to false negatives!
+
+
+---
+### Discuss
+
+How well do these assumptions hold in [Frey 2022?](https://academic.oup.com/sf/article/101/2/943/6460866)?
+
+What does Frey do to check their plausibility?
+
+What else could he have done?
+
+---
+
+### A Checklist for UESD Designs
+
+- Qualitative assessments: 
+
+  - Was the timing of the event **unexpected** and **exogenous (i.e. not manipulated)**? 
+  
+  - What else was going on at the same time?
+  
+  - For how long was the event salient (e.g. in news coverage)?
+  
+  - How was the survey rolled out?  Was multistage sampling and/or quota sampling used?  
+  
+      - In the case of particularly disruptive events: any changes in the fieldwork organization?
+      
+  - What were the procedures for recontacting individuals? 
+  
+  - How much discretion did individuals have about when they would take the survey?
+
+---
+
+### A Checklist for UESD Designs
+
+- Quantitative assessments: 
+
+  - Balance tests on pre-treatment covariates, as well as "structural" survey variables:
+  
+      - e.g. interest during the interview, number of times contacted, region of residence, frequency of "don't knows"
+  
+  - Robustness to estimation techniques (RDD vs. difference in means) and models with and without controls (and entropy balancing)
+  
+  - Robustness to different bandwidths
+  
+  - No significant placebo effects in the control group, and outcome is temporally stable in the control group
+  
+  - No significant placebo effects in same dates in other years
+  
+  - Falsification tests on other outcome variables
+
+---
+
+### Other Issues
+
+- **Non-compliance:** subjects interviewed after the event may not have paid any attention to it
+
+  - See if other other survey items could serve as manipulation checks?
+  
+--
+
+&lt;br&gt;
+
+- **Treatment heterogeneity / subgroup analysis**: make sure that you don't create subgroups based on post-treatment variables. e.g.:
+
+  - Event = political scandal
+  
+  - Y = trust in government
+  
+  - Moderator = party id
+  
+---
+
+### Next Week
+
+- Suppose we want to study the effect of some event or policy that occurs at `\(t=1\)`
+
+- We compare outcomes at `\(t=1\)` vs outcomes at `\(t=0\)`, but we are worried that other things could also have changed at the same time.
+
+- In this case, we find a counterfactual unit which did not experience the event or policy, and look at how its outcomes changed over time.
+
+- We then compare the **difference-in-differences.**
+
+- Please read [Flores 2017](https://www.journals.uchicago.edu/doi/full/10.1086/692983).
+
+- We will also discuss what to do when we cannot find a good counterfactual unit.
+
+
+  
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "14:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

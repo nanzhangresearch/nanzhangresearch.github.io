@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>7. Instrumental Variables</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2023-10-19" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, center, title-slide
+
+.title[
+# 7. Instrumental Variables
+]
+.date[
+### 19 October 2023
+]
+
+---
+
+
+
+
+
+
+### Warm-Up
+
+What are the main differences between a randomized controlled experiment and a natural experiment?
+
+What might researchers be especially worried about in a natural experiment?
+
+
+---
+
+### Introduction: One-Sided Non-Compliance
+
+.center[
+&lt;img src="canvas_design.png" width="600px" /&gt;
+]
+
+
+---
+
+### Introduction: Two-Sided Non-Compliance
+
+.pull-left[
+
+&lt;br&gt;
+
+&lt;img src="vietnam-lottery.jpg" width="400px" /&gt;
+]
+
+.pull-right[
+
+&lt;br&gt; 
+
+- Researchers are interested in the effects of military service on a range of outcomes
+
+- Studies involving military draft lotteries
+
+- But many people who are not drafted volunteer nonetheless...
+
+- ...and many people who are drafted manage to evade
+]
+
+&lt;br&gt;
+
+Which groups should we compare to estimate the causal effect of canvassing / military service?
+
+---
+
+### Some Terminology
+
+.pull-left[
+- .pink[Compliers]: treated if assigned to the treatment group, and untreated if assigned to the control group
+
+- .blue_violet[Never-takers]: always untreated, even if assigned to the treatment group
+
+- .zomp[Always-takers]: always treated, even if assigned to the control group
+
+- .orange[Defiers]: treated if assigned to the control group, and untreated if assigned to the treatment group
+
+- `\(z_i\)` = treatment *assignment*
+
+- `\(d_i\)` = treatment *status*
+]
+
+.pull-right[
+
+
+|Observation | `\(d_i\)`(z=.blue[0]) | `\(d_i\)`(z=.pink[1]) |
+|:-----------|:-----------------:|:-----------------:|
+|1           |         0         |         1         |
+|2           |         0         |         1         |
+|3           |         0         |         1         |
+|4           |         0         |         1         |
+|5           |         1         |         0         |
+|6           |         1         |         0         |
+|7           |         1         |         1         |
+|8           |         0         |         0         |
+|9           |         0         |         0         |
+|10          |         0         |         0         |
+
+]
+
+---
+
+### Potential Outcomes: One-Sided Non-Compliance
+
+&lt;img src="f51.png" width="100%" height="350px" /&gt;
+
+--
+
+- We can estimate both the **intent to treat effect** ($ITT$) and the **complier average treatment effect** ($CATE$)
+
+- `\(CATE = \frac{ITT}{ITT_{D}}\)`, where `\(ITT_{D}\)` is the **compliance rate**, or difference in the proportion *actually treated* between the treatment and control groups 
+
+
+
+---
+
+### Potential Outcomes: One-Sided Non-Compliance
+
+&lt;img src="f51.png" width="100%" height="350px" /&gt;
+
+- The "true" `\(ATE\)` = weighted average of `\(CATE\)` and `\(ATE_{never-takers}\)`, which is never observed
+
+- `\(CATE\)` and the `\(ATE_{never-takers}\)` may differ, so be careful about generalizing!
+
+
+
+---
+
+### Calculating `\(ITT_D\)` under One-Sided Non-Compliance
+
+.center[
+&lt;img src="types1.png" width="1200px" /&gt;
+]
+
+
+---
+
+### Calculating `\(ITT_D\)` under Two-Sided Non-Compliance
+
+.center[
+&lt;img src="types2.png" width="1200px" /&gt;
+]
+
+
+
+---
+
+### Invoking a No-Defiers (Monotonicity) Assumption
+
+&lt;br&gt; 
+
+.center[
+&lt;img src="types3.png" width="1200px" /&gt;
+]
+
+
+
+
+---
+
+### Consequences of Violating the No-Defiers Assumption
+
+&lt;img src="f61.png" width="100%" height="350px" /&gt;
+
+--
+
+- `\(ITT_D = (\pi_C + \pi_{AT}) - (\pi_D + \pi_{AT}) = \pi_C  - \pi_D\)`
+
+- `\(\frac{ITT}{ITT_D} = \frac{(ATE | Compliers)\pi_C - (ATE | Defiers)\pi_D}{\pi_C  - \pi_D}\)`
+
+- Compare this to the case when we simply exclude the Defiers
+
+
+---
+
+### Why We Need a Strong Instrument
+
+- We see from this example that any bias in the estimation of the ITT (e.g. due to violations of monotonicity) becomes **inflated** when we have low compliance (e.g. few compliers)
+
+- Weak instruments also lead to inefficient estimates of the `\(CATE\)`:
+
+  - `\(SE(\widehat{CATE}) \approx \frac{SE(\widehat{ITT})}{ITT_D}\)`
+
+
+
+---
+
+### Angrist and Chen
+
+- What is the research question?
+
+- What are the main contribution(s) of this article?
+
+- How convinced are you that:
+
+  - the instrument is randomly assigned (**independence assumption**)
+
+  - the instrument affects outcomes via the treatment only (**exclusion restriction**)
+  
+  - there are few or no defiers (**monotonicity assumption**)
+  
+  - individuals' potential outcomes are not affected by *other people's* treatment status (**non-interference assumption (SUTVA)**)
+
+---
+
+### In Two Weeks
+
+- Regression Discontinuity Designs (RDD) where assignment to treatment and control groups is determined by a sharp **cutoff** (or threshold):
+
+  - ".pink[almost winners]" vs. ".blue[almost losers]" of elections
+  
+  
+- Logic: people .pink[just below] the threshold are similar in their potential outcomes to people who are .blue[just above] the threshold, so treatment assignment is independent of potential outcomes
+
+- The mapping between treatment assignment and treatment status can be *deterministic* or *probabilistic* (as in the IV case) 
+
+- Please read [Hainmueller et al. 2017](https://www.cambridge.org/core/journals/american-political-science-review/article/abs/catalyst-or-crown-does-naturalization-promote-the-longterm-social-integration-of-immigrants/F46D864B22AD8C71D5ED1B0DE2FFB4CA)
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "14:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

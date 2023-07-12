@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>11. DiD and Synthetic Controls</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2023-11-16" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, center, title-slide
+
+.title[
+# 11. DiD and Synthetic Controls
+]
+.date[
+### 16 November 2023
+]
+
+---
+
+
+
+
+
+
+### Warm-Up
+
+Consider the following scenario: 
+
+Country X is experiencing high inflation and, as a result, the government's popularity rating has been steadily fall. To make matters worse, elections are scheduled to take place in a few months.
+
+Taking advantage of this situation, opposition politicians decide to release "bombshell" evidence that the President has been taking bribes.  Coverage of this scandal dominates the newspapers in the weeks before the election.
+
+Suppose you happen to have some survey data where fieldwork was conducted in the month around the scandal.
+
+You want to analyze the effects of Presidential misconduct on trust in government.
+
+What issues might you be worried about?
+
+---
+### An Motivating Example
+
+- Suppose we are interested in the effects of raising the minimum wage on employment.
+
+- As it turns out, we happen to conduct an employment survey of fast food firms in the New Jersey, right before the state government raised the minimum wage. 
+
+- Several months after the policy change, we conduct a second wave of our survey with the same firms (assume no attrition).
+
+- Does comparing employment changes across the two waves allow us estimate the causal effect of the increase in minimum wage?
+
+---
+
+### Difference-in-Differences Design
+
+
+.pull-left[
+&lt;img src="njdid.png" width="600px" /&gt;
+]
+
+.pull-right[
+- Find another state (here: Pennysylvania) that experienced the same employment trends, but which did not enact the minimum wage
+
+- Changes in employment in Pennysylvania serve as a counterfactual for what would have happened in New Jersey had the minimum wage law not been passed
+
+  - This is called the **parallel trends** assumption
+
+- We then compare the **difference-in-differences** to estimate the causal effect of the law.
+]
+
+
+---
+
+### Results from the Minimum Wage Study
+
+&lt;br&gt;
+
+.center[
+&lt;img src="njtable.png" width="700px" /&gt;
+]
+
+
+---
+
+### Was Pennslyvania a Good Counterfactual?
+
+We can only **assume** parallel trends but looking at trends in the pre-treatment period might help us to gauge its validity:
+
+.center[
+&lt;img src="njlong.png" width="500px" /&gt;
+]
+
+---
+
+### Arizona SB70
+
+- What would the parallel trends assumption mean in this context?
+
+- What evidence does [Flores 2017](https://www.journals.uchicago.edu/doi/full/10.1086/692983) provide that this assumption holds?
+
+- Why might you be worried that the assumption is violated?
+
+--
+
+- Notice: there is no claim that the treatment was "as-if" randomly assigned!
+
+- Same often applies to other "quasi-experimental" methods such as (two-way) fixed effects and (panel) matching
+
+---
+
+### Synthetic Controls
+
+.pull-left[
+- What if no state can serve as a good counterfactual?
+
+- Here, we can create a "synthetic control" as a weighted average of potential control cases to simulate what "would have happened" to the treated case in the absence of treatment.
+
+- Application:  economist cost of German unification in 1990
+
+- "Donor pool" of 16 OECD countries
+
+- Weights chosen so that **synthetic West Germany** mirrors the values of the predictors of per capita GDP in **real West Germany** in the pre-unification period
+]
+
+.pull-right[
+.small[
+
+|Country        | Synthetic Control Weight |
+|:--------------|:------------------------:|
+|Australia      |            0             |
+|Austria        |           0.42           |
+|Belgium        |            0             |
+|Denmark        |            0             |
+|France         |            0             |
+|Greece         |            0             |
+|Italy          |            0             |
+|Japan          |           0.16           |
+|Netherlands    |           0.09           |
+|New Zealand    |            0             |
+|Norway         |            0             |
+|Portugal       |            0             |
+|Spain          |            0             |
+|Switzerland    |           0.11           |
+|United Kingdom |            0             |
+|United States  |           0.22           |
+]
+]
+
+
+---
+
+### Graphical Illustration of the Synthetic Control
+
+.pull-left[
+&lt;img src="abadie1.png" width="350px" /&gt;
+]
+
+.pull-right[
+&lt;img src="abadie2.png" width="350px" /&gt;
+]
+
+
+---
+
+### Estimating the Treatment Effect
+
+.center[
+&lt;img src="abadie3.png" width="450px" /&gt;
+]
+
+---
+
+### Significance Testing
+
+- Repeat the procedure, taking each unit in the donor pool as the treatment
+
+- Calculate the percentage of these alternative treatment assignments that produce a difference as great as what we actually observe for the "real" treated unit.
+
+&lt;img src="synthp1.png" width="500px" /&gt;
+
+---
+
+### Technical Details
+
+.small[
+
+.pull-left[
+**Optimal country weights** `\(W\)` such that characteristics `\(X\)` are as similar as possible:
+`$$\min_W(X^{BDR} - X^{DonorPool}W)^2$$`
+where each variable in `\(X\)` is weighted by `\(V\)` (importance).
+
+&lt;br&gt;
+
+
+|                |  BRD  | Synthetic BDR | OECD Sample |
+|:---------------|:-----:|:-------------:|:-----------:|
+|GDPpc           | 15809 |     15802     |    8021     |
+|Trade openness  | 56.8  |     56.9      |    31.9     |
+|Inflation rate  |  2.6  |      3.5      |     7.4     |
+|Industry share  | 34.5  |     34.4      |    34.2     |
+|Schooling       | 55.5  |     55.2      |    44.1     |
+|Investment rate | 27.0  |     27.0      |    25.9     |
+
+]
+
+.pull-right[
+**Optimal variables weights** `\(V\)` such that outcomes are as similar as possible (in the pre-treatment phase):
+
+
+`$$\min_V(Y^{BDR} - Y^{DonorPool}W^*(V))^2$$`
+
+&lt;br&gt;
+
+1.Divide the timeframe into three periods: 1971-1980 (training), 1981-1990 (validation), 1990-2004 (post-unification)
+ 
+2.Start with some values for `\(V\)`
+
+3.See what optimal values `\(W\)` are generated using `\(X\)` from the **training period**
+
+4.Apply `\(W^*(V)\)` and see what value of `\(Y^{BDR} - Y^{DonorPool}\)` obtains over the **validation period**
+
+5.See if we can do better with different starting values of `\(V\)`.  
+
+6.After `\(V\)` is optimized, see what optimal values `\(W\)` are generated using `\(X\)` from the **validation period**
+
+7.After `\(W\)` is optimized, calculate `\(Y^{DonorPool}\)` in the entire timeframe.
+
+]
+]
+
+---
+
+### Advice on Presentations:
+
+- You will have TIME.  Save about half your time for Q&amp;A.
+
+- Succinctly motivate and state the research question in the first slide.  No long lit reviews!
+
+- Provide enough details on the data (either existing datasets, or data that you plan to collect) so that we can follow along.
+
+- Focus on the research design, the planned analyses, and the assumptions that you will need to identify causal effects.
+
+- Please come see us in office hours if you have questions.
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "14:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
