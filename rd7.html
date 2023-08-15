@@ -36,6 +36,24 @@ What might researchers be especially worried about in a natural experiment?
 
 ### Introduction: One-Sided Non-Compliance
 
+Suppose you are interested in the effects of door-to-door canvassing on election turnout.
+
+You randomly sample a list of street addresses and randomly assign a subset to be visited by trained canvassers (treatment group).
+
+The remaining addresses constitute the control group.
+
+&lt;br&gt;
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/canvassers.jpg" width="600px" /&gt;
+]
+
+
+---
+
+### Introduction: One-Sided Non-Compliance
+
+
 .center[
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/canvas_design.png" width="600px" /&gt;
 ]
@@ -65,9 +83,15 @@ What might researchers be especially worried about in a natural experiment?
 - ...and many people who are drafted manage to evade
 ]
 
-&lt;br&gt;
+---
 
-Which groups should we compare to estimate the causal effect of canvassing / military service?
+### Introduction: Two-Sided Non-Compliance
+
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/draft_design.png" width="900px" /&gt;
+]
+
 
 ---
 
@@ -113,7 +137,7 @@ Which groups should we compare to estimate the causal effect of canvassing / mil
 
 --
 
-- We can estimate both the **intent to treat effect** ($ITT$) and the **complier average treatment effect** ($CATE$)
+- We can estimate both the **intent to treat effect** `\((ITT)\)` and the **complier average treatment effect** `\((CATE)\)`
 
 - `\(CATE = \frac{ITT}{ITT_{D}}\)`, where `\(ITT_{D}\)` is the **compliance rate**, or difference in the proportion *actually treated* between the treatment and control groups 
 
