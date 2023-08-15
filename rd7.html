@@ -154,6 +154,29 @@ The remaining addresses constitute the control group.
 - `\(CATE\)` and the `\(ATE_{never-takers}\)` may differ, so be careful about generalizing!
 
 
+---
+
+### Instrument Strength
+
+- Suppose that the instrument T is only predictive of the treatment D.  Why might this be a problem?
+
+--
+
+- With a weak instrument, any bias in the estimation of the ITT (e.g. due to violations of monotonicity or the exclusion restriction) becomes **inflated** when we have low compliance (e.g. few compliers)
+
+- Weak instruments also lead to inefficient estimates of the `\(CATE\)`:
+
+  - `\(SE(\widehat{CATE}) \approx \frac{SE(\widehat{ITT})}{ITT_D}\)`
+
+---
+
+### Key Assumption: Exclusion Restriction
+
+The **exclusion restriction** states that the instrument (Z) affects outcomes (Y) only through the treatment variable (D), and not through some other channel (W).
+
+Here's an example of a violation (e.g. if someone is not home when canvassers visit, canvassers leave a flyer encouraging people to vote):
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/f52.png" width="100%" height="350px" /&gt;
 
 ---
 
@@ -162,6 +185,30 @@ The remaining addresses constitute the control group.
 .center[
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/types1.png" width="1200px" /&gt;
 ]
+
+
+---
+
+### A problem to work through
+
+Consider a field experiment where canvassers visited homes and encouraged residents to recycle.
+
+1015 of the 1849 homes assigned to the treatment group were successfully canvassed; none of the 1430 homes assigned to the control group were canvassed.
+
+When measuring outcomes, you find that:
+
+* 591 out of 1849 homes in the treatment group recycled
+* 377 out of 1430 homes in the control group recycled
+
+You also observed that:
+
+* 429 out of 1015 homes that were successfully canvassed recycled
+* 539 out of 2264 homes that were not canvassed recycled
+
+**Questions:**
+
+1. What is the ITT?  What is the CACE?
+1. Explain why comparing the recycling rates of the treated and untreated subjects tends to produce misleading estimates.
 
 
 ---
@@ -185,8 +232,6 @@ The remaining addresses constitute the control group.
 ]
 
 
-
-
 ---
 
 ### Consequences of Violating the No-Defiers Assumption
@@ -204,15 +249,32 @@ The remaining addresses constitute the control group.
 
 ---
 
-### Why We Need a Strong Instrument
+### Estimation using 2SLS
 
-- We see from this example that any bias in the estimation of the ITT (e.g. due to violations of monotonicity) becomes **inflated** when we have low compliance (e.g. few compliers)
+**First stage**: regress treatment status (D) on treatment assignment (Z)
 
-- Weak instruments also lead to inefficient estimates of the `\(CATE\)`:
+`$$D = \alpha_1 + Z + \epsilon_1$$`
 
-  - `\(SE(\widehat{CATE}) \approx \frac{SE(\widehat{ITT})}{ITT_D}\)`
+* The strength of this relationship = compliance rate = the strength of your instrument 
+
+--
+
+&lt;br&gt;
+
+**Second stage**: regress outcomes (Y) on ***predicted***  treatment status ($\hat{D}$) from the first stage
+
+`$$Y = \alpha_2 + \hat{D} + \epsilon_2$$`
 
 
+* Notice that this regression invokes the exclusion restriction, since Z is not part of the model
+
+--
+
+&lt;br&gt;
+
+You can do both simultaneously using 2sls (**ivregress** command in STATA).
+
+  * In fact, doing it "by hand" will give you the wrong standard errors!
 
 ---
 
