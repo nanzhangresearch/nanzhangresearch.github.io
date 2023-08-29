@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>2. Potential Outcomes</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2023-09-14" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, center, title-slide
+
+.title[
+# 2. Potential Outcomes
+]
+.date[
+### 14 September 2023
+]
+
+---
+
+
+
+
+
+
+
+### A Motivating Example
+
+- Does ethnic intermingling exacerbate or reduce ethnic tensions?
+
+- **Contact theory**: interethnic exposure promotes understanding, reduces prejudice, and increases interethnic trust. 
+
+- **Conflict theory**: exposure spurs exclusionary attitudes on the part of the ethnic majority toward their ethnic others
+
+---
+
+### A Motivating Example
+
+- Suppose we conduct a survey and obtain the following results:
+
+Respondent    | Interethnic Contact | Positive attitudes
+-             | -                   | -
+Andrew        | 1                   | 0
+Barbara       | 1                   | 1
+Charlotte     | 1                   | 1
+Denis         | 0                   | 0
+Eric          | 0                   | 1
+Fabian        | 0                   | 0
+
+
+&lt;br&gt;
+
+- Can we conclude that contact **causes** more positive attitudes towards outgroups?
+
+---
+
+### Causality and Potential Outcomes
+
+- To measure the causal effect of contact, we need to observe attitudes in two (counterfactual) states of the world:
+
+Respondent    | Interethnic Contact | Attitude if Contact    |  Attitude if No Contact  |   Difference
+-             | -                   | -                       | -                         |   -  
+Andrew        | 1                   | 0                       | 0                         |   0
+Barbara       | 1                   | 1                       | 0                         |   1
+Charlotte     | 1                   | 1                       | 1                         |   0
+Denis         | 0                   | 0                       | 0                         |   0
+Eric          | 0                   | 0                       | 1                         |   -1
+Fabian        | 0                   | 0                       | 0                         |   0     
+
+
+---
+
+### Some (hopefully helpful) notation
+
+- **Treatment variable** `\(D\)`: interethnic contact 
+
+  - `\(D_i\)`: Value of `\(D\)` for individual `\(i\)` (.pink[1] = treatment = contact; .blue[0] = control = no contact) 
+
+&lt;br&gt;    
+--
+
+- **Outcome variable** *Y*: positive attitudes towards minorities
+
+  - `\(Y_i\)`(.pink[1]): Potential outcome for individual `\(i\)` when `\(D\)` = .pink[1]
+  
+  - `\(Y_i\)`(.blue[0]): Potential outcome for individual `\(i\)` when `\(D\)` = .blue[0]
+  
+  - *Translate into words*: `\(Y_{Andrew}\)`(.pink[1])
+
+&lt;br&gt;
+--
+
+- **Individual Treatment Effect (ITE)**:
+
+  - `\(ITE\)` = `\(Y_{i}\)`(.pink[1]) - `\(Y_{i}\)`(.blue[0])
+
+  - `\(ITE_{Andrew}\)` =  `\(Attitude_{Andrew}\)`(.pink[1]) `\(-\)` `\(Attitude_{Andrew}\)`(.blue[0])
+  
+---
+
+### Fundamental Problem of Causal Inference
+
+- Only one potential outcome will ever be realized and observed
+
+- But to estimate the ITE, we need the *unobserved* counterfactual outcome:
+
+&lt;br&gt;
+
+--
+
+Respondent    |   `\(D_i\)` |   `\(Y_{i}\)`(.pink[1])   |   `\(Y_{i}\)`(.blue[0])
+-             |   -     |   -                   |   -
+Andrew        |   1     |   0                   |   .zomp[??]
+
+&lt;br&gt;
+
+
+- Here, `\(Y_{Andrew}\)`(.blue[0]) is missing
+
+- We cannot calculate `\(ITE_{Andrew}\)` =  `\(Y_{Andrew}\)`(.pink[1]) `\(-\)` `\(Y_{Andrew}\)`(.blue[0])
+
+---
+
+### Fundamental Problem of Causal Inference
+
+- More generally, our schedule of potential outcomes is incomplete!
+
+&lt;br&gt;
+
+Respondent    |   `\(D_i\)` |   `\(Y_{i}\)`(.pink[1])   |   `\(Y_{i}\)`(.blue[0])   
+-             |   -     |   -                   |   -
+Andrew        | 1                   | 0                       | .zomp[??]
+Barbara       | 1                   | 1                       | .zomp[??]
+Charlotte     | 1                   | 1                       | .zomp[??]       
+Denis         | 0                   | .zomp[??]               | 0       
+Eric          | 0                   | .zomp[??]               | 1       
+Fabian        | 0                   | .zomp[??]               | 0       
+
+&lt;br&gt;
+
+- So what can we do?
+
+---
+
+### From Individual to Average Treatment Effects (ATE)
+
+- We **cannot** say anything about the effect of treatment for any individual...
+
+- ...but we **can** make causal statements about the **average treatment effect** (ATE) for the population
+
+&lt;br&gt;
+--
+
+- The `\(ATE\)` is the average of individual-level treatment effects `\(Y_{i}\)`(.pink[1]) `\(-\)` `\(Y_{i}\)`(.blue[0])
+
+- Equivalently, the `\(ATE\)` = `\(\mu_{Y(1)} - \mu_{Y(0)}\)` where
+
+  - `\(\mu_{Y(1)}\)` is the average value of `\(Y_{i}\)`(.pink[1]) for all subjects, and
+  
+  - `\(\mu_{Y(0)}\)` is the average value of `\(Y_{i}\)`(.blue[0]) for all subjects
+
+&lt;br&gt;
+--
+
+- How can we estimate `\(\mu_{Y(1)}\)` and `\(\mu_{Y(0)}\)` given that we are missing some data?
+
+---
+
+### Relationship to Sampling
+
+- In sampling, we want to know some population parameters (e.g. average age of Germans), but we do not have data on every single person.
+
+- We draw a random sample, calculate the mean age in this sample, and use this as an estimate of the mean age in the population.
+
+&lt;br&gt;
+--
+
+- Here, we want to know some population parameters `\(\mu_{Y(1)}\)` and `\(\mu_{Y(0)}\)`, but we are missing data on some potential outcomes.
+
+- **Discuss:** (when) can we use the mean **observed** outcomes  to estimate average of all (observed + unobserved) **potential** outcomes?
+
+
+---
+
+### An important implication of random assignment
+
+In experiments with **random assignment**, the credibility of causal claims is not based on whether the model includes the “right” controls (or has the “right” functional form).
+
+Rather, evidence of causality rests on the **procedure** by which individuals / units are sorted into treatment and control groups.
+
+Random assignment allows us to treat `\(E[Y_i\)`(.pink[1]) `\(| D_i = 1]\)` as equivalent to `\(E[Y_i\)`(.pink[1]) `\(]\)`
+
+Random assignment also implies that any (observed and unobserved) factors that affect outcomes are (on average) equally likely to be present in the treatment and control groups. Thus the treatment itself is the only systematic driver of differences in outcomes.
+
+---
+
+class: middle
+
+**Discuss:** A researcher wants to know how winning large sums of money in a national lottery affects peoples views about inheritance taxes. The researcher interviews a random sample of adults and compares the attitudes of those who report winning more than $10,000 in the lottery to those who claim to have won little or nothing. The researcher reasons that the lottery chooses winners at random, and therefore the amount that people report having won is random.
+
+Is this sound reasoning? In other words, are the potential outcomes of those who report winning more than $10,000 identical, in expectation, to those who report winning little or nothing?
+
+---
+
+### Assumptions
+
+1. **Independence:** Potential outcomes respond solely to receipt of the treatment, not to the assignment itself or any indirect by-products of the assignment.
+
+2. **Non-Interference:** Potential outcomes for each individual reflect only the treatment or control status of that individual and not the treatment or control status of other individuals. No matter which subjects the random assignment allocates to treatment or control, a given subject’s potential outcomes remain the same.
+
+  - This idea is commonly termed the stable unit treatment value assumption (SUTVA).
+
+
+---
+
+### Independence Example
+
+
+Suppose you want to test the effectiveness of a new medication. You recruit a sample of people who are interested in the medication, and randomly divide them into treatment and control groups.
+
+The treatment group is asked to take the medication in the form of a pill. The control group is told that their purpose is to serve as comparison group, and thus will not be receiving the medication.  
+
+What's the problem here?
+
+---
+### Non-Interference Example
+
+Recall: Potential outcomes for each individual reflect only the treatment or control status of that individual and not the treatment or control status of other individuals.
+
+
+Respondent    |   `\(Y_i \lvert D_i = 0, D_j = 0\)`  |   `\(Y_i \lvert D_i = 0, D_j = 1\)`      |   `\(Y_i \lvert D_i = 1, D_j = 0\)`  | `\(Y_i \lvert D_i = 1, D_j = 1\)`  
+-             |   -                           |   -                               |   -                           | -
+i             |   650                         |   650                             |   670                         |   670
+j             |   500                         |   520                             |   580                         |   600
+
+
+&lt;br&gt;
+
+**Question:** For whom is the non-interference assumption violated?
+
+
+---
+
+###Next week:
+
+Please read [Elwert et al. 2023](https://www.journals.uchicago.edu/doi/abs/10.1086/724865) "Rearranging the Desk Chairs: A Large Randomized Field Experiment on the Effects of Close Contact on Interethnic Relations." *American Journal of Sociology* 128(6): 1809-1840.
+
+In your reading memo:
+
+- Summarize the (i) research question, (ii) empirical strategy, and (iii) main findings of the article in .pink[one paragraph]
+
+- In a .pink[second paragraph]: please discuss some open questions, especially relating to the empirical strategy (+ underlying assumptions) and evidence.
+
+- Finally, conclude with 1 or 2 questions you would like to discuss in class next time.
+
+Memos should be submitted to me via [email](mailto:n.zhang@uni-mannheim.de) by **8:00 on the Monday** immediately before class. *No late memos will be accepted!*
+
+Please use the subject line: **ci_firstname_lastname_memo#**.
+  
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "14:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

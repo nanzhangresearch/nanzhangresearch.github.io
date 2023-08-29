@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>8. Regression Discontinuity Designs</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2023-10-31" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, center, title-slide
+
+.title[
+# 8. Regression Discontinuity Designs
+]
+.date[
+### 31 October 2023
+]
+
+---
+
+
+
+
+
+
+### Warm-Up
+
+Imagine you are studing the causal effect of exercise (D) on fitness (Y).  You randomly select people to receive an encouragement voucher to visit the gym (Z).  Describe the population of compliers, always-takers, never-takers and defiers in this design.
+
+--
+
+Kern and Hainmueller (2009) study the impact of exposure to West German TV (D) on support for the East German regime (Y).  They use distance from the West Germany as an instrument (Z) for exposure to TV broadcasts.  
+
+Please evaluate this design in terms of how well it meets the following assumptions:
+
+  - the instrument is randomly assigned (**independence assumption**)
+
+  - the instrument affects outcomes via the treatment only (**exclusion restriction**)
+  
+  - there are few or no defiers (**monotonicity assumption**)
+  
+  - individuals' potential outcomes are not affected by *other people's* treatment status (**non-interference assumption (SUTVA)**)
+
+---
+
+### Introduction
+
+The logic of a regression discontinuity design (RDD) consists of several core elements:
+
+- Units of observation are scored on some rating variable
+
+- Treatment is assigned to those units whose value of the score exceeds a known cutoff, and withheld from units whose value of the score is below the cutoff
+
+- The probability of receiving the treatment thus changes abruptly at the known threshold 
+
+
+---
+
+
+### A Motivating Example and Some Notation
+
+Imagine that high school students take a standardized test at age 17.
+
+Students who answer &gt; 90% of the questions on this test receive a public commendation.
+
+We want to know whether public commendations increase the motivation to apply to college in the next year.
+
+
+--
+
+
+- We have `\(n\)` units, indexed by `\(i\)` = 1, 2, ..., `\(n\)`
+
+- Each unit has a score (or "running variable") `\(X_i\)`
+
+- `\(x_0\)` is a known cutoff
+
+- Units with `\(X_i &gt; x_0\)` are assigned to the treatment condition, and units with `\(X_i &lt; x_0\)` are assigned to control.
+
+- Potential outcomes:
+$$
+Y_i =
+`\begin{cases}
+    Y_i(1)  &amp; \text{if} \;  X_i &gt; x_0 \\
+    Y_i(0)  &amp; \text{if} \;  X_i &lt; x_0
+\end{cases}`
+$$
+
+---
+
+### RDD as Extrapolation
+
+.pull-left[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/rddtx.png" width="475px" /&gt;
+]
+
+.pull-right[
+
+&lt;br&gt;
+
+- Assumes that `\(E[Y_1 | X]\)` and `\(E[Y_0 | X]\)` are continuous functions at the cutoff
+
+- If we extrapolate these lines to the cutoff itself, we can estimate both `\(Y_1\)` and `\(Y_0\)`
+
+]
+
+
+---
+### RDD as Extrapolation
+
+.pull-left[
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/rddbw.png" width="400px" /&gt;
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/rdkernels.png" width="370px" /&gt;
+]
+
+.pull-right[
+
+&lt;br&gt;
+
+
+- Choose a bandwidth `\(h\)` around the cutoff point `\(x_0\)`
+
+- Calculate a kernel weight `\(w_i = K(\cdot)\)`
+
+- Fit a local polynomial above and below the `\(x_0\)`
+
+- Calculate  `\(\hat{\tau}^{RD}\)` = `\(\hat{\alpha}_1\)` `\(-\)` `\(\hat{\alpha}_0\)`
+
+- Algorithm chooses ideal bandwidths to minimize RMSE of  `\(\hat{\tau}^{RD}\)`
+
+]
+
+---
+
+### RD as a Local Experiment
+
+.pull-left[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/rddexp.png" width="500px" /&gt;
+]
+
+.pull-right[
+
+- Take a window `\(W_o = [x_0 - w_0, x_0 + w_0]\)`
+
+  - All units within this window whose scores are below the cutoff are comparable to units whose scores are above it.
+
+  - Treatments assigned in `\(W_0\)` are independent of potential outcomes.
+
+- Better approach if:
+
+  - Running variable is discrete
+  
+  - There are relatively few observations near the cutoff (since we do not rely upon extrapolation)
+
+]
+
+---
+
+### Selecting the Window
+
+.pull-left[
+
+- In most RD applications, the window where a local randomization assumption is plausible will be unknown.
+
+- Window selection implies a precision-bias tradeoff
+
+- One idea: choose a window such that covariate balance holds in that window and all windows contained in it.
+
+- You should also test the robustness of the result to alternative `\(W_0\)`s.
+]
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/rddwindow.png" width="500px" /&gt;
+]
+
+
+---
+
+### A quick exercise
+
+Suppose you want to assess the impact of social insurance (welfare) on employment rates. 
+
+Before 1989, welfare recipients in Quebec under age 30 received lower benefits (~185 per month) than recipients over age 30 (~507 per month). 
+
+The employment rate all people (aged 18-29) receiving low benefits (~185 per month) is around 0.67, whereas it is around 0.57 for all people (aged 30-65) receiving high benefits (~507 per month). 
+
+Can we simply compare employment rates in these two groups to calculate the ATE?
+
+
+---
+
+### Plausibility of "As-If" Random Assignment
+
+In some US states, anti-discrimination laws are enforced only for companies with 15 or more employees.
+
+Consider a RDD design that studies the effects of these laws on minority hiring by comparing firms with 13 or 14 employees against firms with 15 or 16 employees.
+
+Do you think that "treatment" (i.e. being subject to the law) is "as-if" randomly assigned within this set of firms?
+
+How would you to check the plausibility of this assumption?
+
+---
+
+### Unexpected Event During Survey Designs (UESD)
+
+- Unexpected events (terrorist attacks, political scandals, natural disasters) can take place during survey fieldwork
+
+- Afford opportunities to identify the causal effect of these events on public opinion.
+
+- Compare individuals interviewed before `\((t_i &lt; t_e)\)` and after `\((t_i &gt; t_e)\)` the event.
+
+- Assumes that **interview date** and the **timing of the event** are independent
+
+  - "As-if" random assignment into treatment and control
+
+---
+
+### Relationship to RDD
+
+- The running variable `\(X_i\)` is captured in fieldwork days when interviews took place
+
+- The cutoff `\(x_0\)` denotes the moment when the event occurred
+
+- But treatment assignment is not linked to the cutoff in any predetermined or known way
+
+- Also not clear that the rating variable (time of interview) should be substantively related to the potential outcomes
+
+  - Less stringent reliance on narrow bandwidths
+  
+---
+
+### Excludability Assumption
+
+
+The timing of the interview `\(t\)` should affect the outcome `\(Y\)` only through the event `\(T\)` 
+
+--
+
+Potential problems:
+
+- **Collateral events**: `\(T\)` = terrorist attack, but responses are also likely to be affected by media coverage
+  
+  - Could define `\(T\)` as **compound treatment** 
+    
+    - But which parts of the treatment bundle are "doing the work?"
+      
+    - And would we observe the same outcomes had the collateral events not occurred?
+
+--
+
+- **Unrelated Time Trends**: e.g. `\(Y\)` = happiness, which could be correlated with `\(t\)` due to seasonal patterns
+
+--
+
+- **Endogenous Timing of the Event:** e.g. opposition politicians might scandalous information about the government only at the "right moment"
+
+
+---
+
+### Ignorability Assumption
+
+Potential outcomes should be independent of treatment assignment.
+
+--
+
+- **Fieldwork Organization:** 
+
+  - Respondents in area A are interviewed first, then interviewers move to area B, etc.
+  
+      - Areas could be correlated with both `\(t\)` and `\(Y_i\)`
+
+  - Quota sampling: fieldworkers try to achieve demographic "representativeness", and incomplete quotas are filled at the end of the fieldwork phase.
+  
+      - `\(t\)`  may be correlated with respondents' observable characteristics
+    
+--
+
+- **Reachability and Attrition:** 
+
+  - People may choose when (and if) to participate in the survey (especially in online surveys)
+  
+  - The event may make people more or less likely to respond (or say "don't know")
+
+      - `\(t\)` may be correlated with respondents' *unobservable* characteristics
+  
+
+---
+
+
+### Sharp vs Fuzzy RDs
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/sharpfuzzy.png" width="1000px" /&gt;
+]
+
+--
+
+- **Discuss:** how would you estimate the `\(ITT\)`, the `\(ITT_D\)` and the (local) `\(CATE\)`?  
+
+---
+
+### Next Week
+
+Please read [Hainmueller et al. 2017](https://www.cambridge.org/core/journals/american-political-science-review/article/abs/catalyst-or-crown-does-naturalization-promote-the-longterm-social-integration-of-immigrants/F46D864B22AD8C71D5ED1B0DE2FFB4CA) "Catalyst or Crown: Does Naturalization Promote the Long-Term Social Integration of Immigrants?" *American Political Science Review* 111(2):256-76
+
+In your reading memo:
+
+- Summarize the (i) research question, (ii) scholarly contributions, and (iii) main findings of the article in .pink[one paragraph]
+
+- In a .pink[second paragraph]: please discuss some open questions, especially relating to the empirical strategy (+ underlying assumptions) and evidence.
+
+- Finally, conclude with 1 or 2 questions you would like to discuss in class next time.
+
+Memos should be submitted to me via [email](mailto:n.zhang@uni-mannheim.de) by **8:00 on the Monday** immediately before class. *No late memos will be accepted!*
+
+Please use the subject line: **ci_firstname_lastname_memo#**.
+
+--
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "14:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
