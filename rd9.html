@@ -27,26 +27,21 @@ class: middle, center, title-slide
 
 ### Warm-Up
 
-.fnsize[
-You conduct a field experiment where canvassers visited homes and encouraged residents to recycle.
+Imagine you are studing the causal effect of exercise (D) on fitness (Y).  You randomly select people to receive an encouragement voucher to visit the gym (Z).  Describe the population of compliers, always-takers, never-takers and defiers in this design.
 
-You encountered one-sided noncompliance: 1015 of the 1849 homes assigned to the treatment group were successfully canvassed; by design, none of the 1430 homes assigned to the control group were canvassed.
+--
 
-When measuring outcomes, you find that:
+Kern and Hainmueller (2009) study the impact of exposure to West German TV (D) on support for the East German regime (Y).  They use distance from the West Germany as an instrument (Z) for exposure to TV broadcasts.  
 
-* 591 out of 1849 homes in the treatment group recycled
-* 377 out of 1430 homes in the control group recycled
+Please evaluate this design in terms of how well it meets the following assumptions:
 
-You also observed that:
+  - the instrument is randomly assigned (**independence assumption**)
 
-* 429 out of 1015 homes that were successfully canvassed recycled
-* 539 out of 2264 homes that were not canvassed recycled
-
-**Questions:**
-- What is the `\(ITT\)`, `\(ITT_D\)`, and `\(CATE\)` ?
-- Explain why comparing the recycling rates of the treated and untreated subjects tends to produce misleading estimates.
-
-]
+  - the instrument affects outcomes via the treatment only (**exclusion restriction**)
+  
+  - there are few or no defiers (**monotonicity assumption**)
+  
+  - individuals' potential outcomes are not affected by *other people's* treatment status (**non-interference assumption (SUTVA)**)
 
 ---
 
