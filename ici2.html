@@ -26,21 +26,15 @@ class: middle, center, title-slide
 
 
 
-### A Motivating Example
 
-- Does ethnic intermingling exacerbate or reduce ethnic tensions?
-
-- **Contact theory**: interethnic exposure promotes understanding, reduces prejudice, and increases interethnic trust. 
-
-- **Conflict theory**: exposure spurs exclusionary attitudes on the part of the ethnic majority toward their ethnic others
-
----
 
 ### A Motivating Example
+
+- Does eating ice cream make people happier?
 
 - Suppose we conduct a survey and obtain the following results:
 
-Respondent    | Interethnic Contact | Positive attitudes
+Respondent    | Eats Ice Cream?     | Happy?
 -             | -                   | -
 Andrew        | 1                   | 0
 Barbara       | 1                   | 1
@@ -52,15 +46,17 @@ Fabian        | 0                   | 0
 
 &lt;br&gt;
 
-- Can we conclude that contact **causes** more positive attitudes towards outgroups?
+- What do we mean when we say that eating ice cream **causes** happiness?
 
 ---
 
 ### Causality and Potential Outcomes
 
-- To measure the causal effect of contact, we need to observe attitudes in two (counterfactual) states of the world:
+- To measure the **causal effect** of ice cream, we need to observe happiness in two (counterfactual) states of the world:
 
-Respondent    | Interethnic Contact | Attitude if Contact    |  Attitude if No Contact  |   Difference
+&lt;br&gt;
+
+Respondent    | Eats Ice Cream?     | Happiness if YES        |  Happiness if NO          |   Difference
 -             | -                   | -                       | -                         |   -  
 Andrew        | 1                   | 0                       | 0                         |   0
 Barbara       | 1                   | 1                       | 0                         |   1
@@ -69,19 +65,23 @@ Denis         | 0                   | 0                       | 0               
 Eric          | 0                   | 0                       | 1                         |   -1
 Fabian        | 0                   | 0                       | 0                         |   0     
 
+&lt;br&gt;
+
+- The **difference** column displays the **causal effect** of ice cream consumption.
+
 
 ---
 
 ### Some (hopefully helpful) notation
 
-- **Treatment variable** `\(D\)`: interethnic contact 
+- **Treatment variable** `\(D\)`: ice cream consumption 
 
-  - `\(D_i\)`: Value of `\(D\)` for individual `\(i\)` (.pink[1] = treatment = contact; .blue[0] = control = no contact) 
+  - `\(D_i\)`: Value of `\(D\)` for individual `\(i\)` (.pink[1] = treatment = ice cream; .blue[0] = control = no ice cream) 
 
 &lt;br&gt;    
 --
 
-- **Outcome variable** *Y*: positive attitudes towards minorities
+- **Outcome variable** *Y*: happiness
 
   - `\(Y_i\)`(.pink[1]): Potential outcome for individual `\(i\)` when `\(D\)` = .pink[1]
   
@@ -96,7 +96,7 @@ Fabian        | 0                   | 0                       | 0               
 
   - `\(ITE\)` = `\(Y_{i}\)`(.pink[1]) - `\(Y_{i}\)`(.blue[0])
 
-  - `\(ITE_{Andrew}\)` =  `\(Attitude_{Andrew}\)`(.pink[1]) `\(-\)` `\(Attitude_{Andrew}\)`(.blue[0])
+  - `\(ITE_{Andrew}\)` =  `\(Happiness_{Andrew}\)`(.pink[1]) `\(-\)` `\(Happiness_{Andrew}\)`(.blue[0])
   
 ---
 
@@ -168,31 +168,89 @@ Fabian        | 0                   | .zomp[??]               | 0
 
 ---
 
-### Relationship to Sampling
+class: middle
 
-- In sampling, we want to know some population parameters (e.g. average age of Germans), but we do not have data on every single person.
+- Suppose you wanted to find out the average height of students in Mannheim.
 
-- We draw a random sample, calculate the mean age in this sample, and use this as an estimate of the mean age in the population.
+- Unfortunately, you don't have the time to track down every single student and measure how tall they are.
+
+- What would you do?
+
+---
+
+### Relationship to Random Sampling
+
+- In sampling, we want to know some population parameters (e.g. average height of MA students), but we do not have data on every single person.
+
+- We draw a **random sample**, calculate the mean height in this sample, and use this as an estimate of the mean height in the student population.
+
+---
+
+### Relationship to Random Sampling
+
+- Here, we want to know the .pink[average happiness level if everyone were to eat ice cream] ( `\(\mu_{Y(1)}\)` ) and the .blue[average happiness level if no one were to eat ice cream] ( `\(\mu_{Y(0)}\)` ).
+
+- However, we are missing data on some potential outcomes.
+
+Respondent    |   `\(D_i\)` |   `\(Y_{i}\)`(.pink[1])   |   `\(Y_{i}\)`(.blue[0])   
+-             |   -     |   -                   |   -
+Andrew        | 1                   | 0                       | .zomp[??]
+Barbara       | 1                   | 1                       | .zomp[??]
+Charlotte     | 1                   | 1                       | .zomp[??]       
+Denis         | 0                   | .zomp[??]               | 0       
+Eric          | 0                   | .zomp[??]               | 1       
+Fabian        | 0                   | .zomp[??]               | 0       
+
+- So ...
+
+
+---
+
+### Experiments vs. Observational Studies
+
+- In an experiment, the researcher **randomly assigns** people to either treatment or control
+
+  - e.g. You toss a coin, and this decides whether or not Andrew gets to eat ice cream
 
 &lt;br&gt;
---
 
-- Here, we want to know some population parameters `\(\mu_{Y(1)}\)` and `\(\mu_{Y(0)}\)`, but we are missing data on some potential outcomes.
+- In an observational study, people can decide for themselves whether they want to eat ice cream
 
-- **Discuss:** (when) can we use the mean **observed** outcomes  to estimate average of all (observed + unobserved) **potential** outcomes?
+  - Individuals "self-select" into treatment or control
+  
+  - What's the problem here?
+  
+  
 
+
+
+---
+
+### Key Take-Away
+
+&lt;!-- In experiments with **random assignment**, the credibility of causal claims is not based on whether the model includes the “right” controls (or has the “right” functional form). --&gt;
+
+&lt;!-- Rather, evidence of causality rests on the **procedure** by which individuals / units are sorted into treatment and control groups. --&gt;
+
+Under random assignment, we can take the average treatment outcomes *in our observed sample* as an **unbiased estimate** of the average of **all potential treatment outcomes.**
+
+&lt;!-- Equivalently: `\(E[Y_i\)`(.blue[0]) `\(| D_i = 0]\)` as equivalent to `\(E[Y_i\)`(.blue[0]) `\(]\)` --&gt;
+
+The same goes for the control outcomes.
+
+The difference between **all potential treatment outcomes** and **all potential control outcomes** is the ATE.
+
+In other words, we estimate the ATE, we only need to compare average outcomes in the treatment and control groups.  
 
 ---
 
 ### An important implication of random assignment
 
-In experiments with **random assignment**, the credibility of causal claims is not based on whether the model includes the “right” controls (or has the “right” functional form).
+Random assignment also implies that any (observed and unobserved) **omitted variables** that affect outcomes are (on average) equally likely to be present in the treatment and control groups. 
 
-Rather, evidence of causality rests on the **procedure** by which individuals / units are sorted into treatment and control groups.
+Thus the treatment itself is the only systematic driver of differences in outcomes.
 
-Random assignment allows us to treat `\(E[Y_i\)`(.pink[1]) `\(| D_i = 1]\)` as equivalent to `\(E[Y_i\)`(.pink[1]) `\(]\)`
-
-Random assignment also implies that any (observed and unobserved) factors that affect outcomes are (on average) equally likely to be present in the treatment and control groups. Thus the treatment itself is the only systematic driver of differences in outcomes.
+**We do not need statistical controls**!
 
 ---
 
