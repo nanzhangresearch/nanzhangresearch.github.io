@@ -49,6 +49,13 @@ Denis         | 0                   | 0
 Eric          | 0                   | 1
 Fabian        | 0                   | 0
 
+
+&lt;br&gt;
+
+- Is contact **correlated** with more positive attitudes towards outgroups?
+
+--
+
 - Can we conclude that contact **causes** more positive attitudes towards outgroups?
 
 ---
@@ -57,14 +64,14 @@ Fabian        | 0                   | 0
 
 - To measure the causal effect of contact, we need to observe attitudes in two (counterfactual) states of the world:
 
-Respondent    | Interethnic Contact | Attitude if Contact    |  Attitude if No Contact  |   Difference
--             | -                   | -                       | -                         |   -  
-Andrew        | 1                   | 0                       | 0                         |   0
-Barbara       | 1                   | 1                       | 0                         |   1
-Charlotte     | 1                   | 1                       | 1                         |   0
-Denis         | 0                   | 0                       | 0                         |   0
-Eric          | 0                   | 0                       | 1                         |   -1
-Fabian        | 0                   | 0                       | 0                         |   0     
+Respondent    | Attitude if Contact    |  Attitude if No Contact  |   Difference
+-             | -                       | -                         |   -  
+Andrew        | 0                       | 0                         |   0
+Barbara       | 1                       | 0                         |   1
+Charlotte     | 1                       | 1                         |   0
+Denis         | 0                       | 0                         |   0
+Eric          | 0                       | 1                         |   -1
+Fabian        | 0                       | 0                         |   0     
 
 
 ---
@@ -101,11 +108,11 @@ Fabian        | 0                   | 0                       | 0               
 
 - Only one potential outcome will ever be realized and observed
 
+--
+
 - But to estimate the ITE, we need the *unobserved* counterfactual outcome:
 
 &lt;br&gt;
-
---
 
 Respondent    |   `\(D_i\)` |   `\(Y_{i}\)`(.pink[1])   |   `\(Y_{i}\)`(.blue[0])
 -             |   -     |   -                   |   -
@@ -165,20 +172,68 @@ Fabian        | 0                   | .zomp[??]               | 0
 
 ---
 
+class: middle
+
+- Suppose you wanted to find out the average age of people in Germany.
+
+- Unfortunately, you don't have the time to track down every single person and ask them how old they are.
+
+- What would you do?
+
+---
+
 ### Relationship to Sampling
 
 - In sampling, we want to know some population parameters (e.g. average age of Germans), but we do not have data on every single person.
 
 - We draw a random sample, calculate the mean age in this sample, and use this as an estimate of the mean age in the population.
 
-&lt;br&gt;
 --
 
-- Here, we want to know some population parameters `\(\mu_{Y(1)}\)` and `\(\mu_{Y(0)}\)`, but we are missing data on some potential outcomes.
+&lt;br&gt;
 
-- **Discuss:** (when) can we use the mean **observed** outcomes  to estimate average of all (observed + unobserved) **potential** outcomes?
+- Here, we want to know some population parameters `\(\mu_{Y(1)}\)` and `\(\mu_{Y(0)}\)`
+
+- How do we draw a random sample of potential outcomes?
 
 
+
+---
+
+### Experiments vs. Observational Studies
+
+- In an experiment, the researcher **randomly assigns** people to either treatment or control
+
+  - e.g. You toss a coin, and this decides whether or not Andrew has contact with outgroups
+
+&lt;br&gt;
+
+- In an observational study, people can decide for themselves whether they want to have contact with outgroups
+
+  - Individuals "self-select" into treatment or control
+  
+  - What's the problem here?
+
+
+---
+
+### Key Take-Away
+
+&lt;!-- In experiments with **random assignment**, the credibility of causal claims is not based on whether the model includes the “right” controls (or has the “right” functional form). --&gt;
+
+&lt;!-- Rather, evidence of causality rests on the **procedure** by which individuals / units are sorted into treatment and control groups. --&gt;
+
+Under random assignment, we can take the average treatment outcomes *in our observed sample* as an **unbiased estimate** of the average of **all potential treatment outcomes.**
+
+&lt;!-- Equivalently: `\(E[Y_i\)`(.blue[0]) `\(| D_i = 0]\)` as equivalent to `\(E[Y_i\)`(.blue[0]) `\(]\)` --&gt;
+
+The same goes for the control outcomes.
+
+The difference between these two averages is the ATE.
+
+In other words, we estimate the ATE, we only need to compare average outcomes in the treatment and control groups.  
+
+  
 ---
 
 ### An important implication of random assignment
@@ -187,9 +242,35 @@ In experiments with **random assignment**, the credibility of causal claims is n
 
 Rather, evidence of causality rests on the **procedure** by which individuals / units are sorted into treatment and control groups.
 
-Random assignment allows us to treat `\(E[Y_i\)`(.pink[1]) `\(| D_i = 1]\)` as equivalent to `\(E[Y_i\)`(.pink[1]) `\(]\)`
+Random assignment also implies that any (observed and unobserved) **omitted variables** that affect outcomes are (on average) equally likely to be present in the treatment and control groups. 
 
-Random assignment also implies that any (observed and unobserved) factors that affect outcomes are (on average) equally likely to be present in the treatment and control groups. Thus the treatment itself is the only systematic driver of differences in outcomes.
+Thus the treatment itself is the only systematic driver of differences in outcomes.
+
+**We do not need statistical controls**!
+
+
+---
+
+### A Concrete Example
+
+- Suppose we are interested in the effect of **rainfall on election day** on **voter turnout**.  We have the following data:
+
+City    |   Rain?   |   Turnout
+-       |   -       |   -      
+A       | 1         | 60%
+B       | 1         | 55%
+C       | 0         | 70%      
+D       | 0         | 75%
+E       | 1         | 65%
+F       | 0         | 80%
+
+--
+
+&lt;br&gt;
+
+- Is rainfall "randomly" assigned to cities?
+
+- What is the ATE?
 
 ---
 
@@ -208,7 +289,7 @@ Contact theory is supported by hundreds of observational, and mostly cross-secti
 
 Yet [Elwert et al.](https://www.journals.uchicago.edu/doi/abs/10.1086/724865) find no effect.
 
-And even field experimental studies "supporting" contact show inconsistent effects across outcomes.
+&lt;!-- And even field experimental studies "supporting" contact show inconsistent effects across outcomes. --&gt;
 
 **How can we explain these inconsistent findings?**
 
@@ -225,7 +306,6 @@ And even field experimental studies "supporting" contact show inconsistent effec
   - This idea is commonly termed the stable unit treatment value assumption (SUTVA).
 
 
-
 ---
 
 ### Independence Example
@@ -240,19 +320,15 @@ What's the problem here?
 ---
 ### Non-Interference Example
 
-Recall: Potential outcomes for each individual reflect only the treatment or control status of that individual and not the treatment or control status of other individuals.
+Suppose you are interested in the effectiveness of a new COVID vaccine.  You conduct your study in a retirement home (Seniorenresidenz).
 
+90\% of residents are randomly selected to receive the vaccine, while the remaining 10% of residents receive a placebo.
 
-Respondent    |   `\(Y_i \lvert D_i = 0, D_j = 0\)`  |   `\(Y_i \lvert D_i = 0, D_j = 1\)`      |   `\(Y_i \lvert D_i = 1, D_j = 0\)`  | `\(Y_i \lvert D_i = 1, D_j = 1\)`  
--             |   -                           |   -                               |   -                           | -
-i             |   650                         |   650                             |   670                         |   670
-j             |   500                         |   520                             |   580                         |   600
+To measure vaccine effectiveness, you compare infection rates between the two groups.
 
+What's the problem here?
 
-&lt;br&gt;
-
-**Question:** For whom is the non-interference assumption violated?
-
+(Hint: what if only 10% of residents received the vaccine and 90% the placebo?)
 
 ---
 
