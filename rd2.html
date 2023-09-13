@@ -157,13 +157,13 @@ Fabian        | 0                   | .zomp[??]               | 0
 &lt;br&gt;
 --
 
-- The `\(ATE\)` is the average of individual-level treatment effects `\(Y_{i}\)`(.pink[1]) `\(-\)` `\(Y_{i}\)`(.blue[0])
+- The `\(ATE\)` is the average of all individual-level treatment effects `\(Y_{i}\)`(.pink[1]) `\(-\)` `\(Y_{i}\)`(.blue[0])
 
 - Equivalently, the `\(ATE\)` = `\(\mu_{Y(1)} - \mu_{Y(0)}\)` where
 
-  - `\(\mu_{Y(1)}\)` is the average value of `\(Y_{i}\)`(.pink[1]) for all subjects, and
+  - `\(\mu_{Y(1)}\)` is the average of all *potential* treatment outcomes `\(Y_{i}\)`(.pink[1])
   
-  - `\(\mu_{Y(0)}\)` is the average value of `\(Y_{i}\)`(.blue[0]) for all subjects
+  - `\(\mu_{Y(0)}\)` is the average of all *potential* control outcomes `\(Y_{i}\)`(.blue[0])
 
 &lt;br&gt;
 --
@@ -186,13 +186,13 @@ class: middle
 
 - In sampling, we want to know some population parameters (e.g. average age of Germans), but we do not have data on every single person.
 
-- We draw a random sample, calculate the mean age in this sample, and use this as an estimate of the mean age in the population.
+- We draw a **random sample**, calculate the mean age in this sample, and use this as an estimate of the mean age in the population.
 
 --
 
 &lt;br&gt;
 
-- Here, we want to know some population parameters `\(\mu_{Y(1)}\)` and `\(\mu_{Y(0)}\)`
+- Here, we want to know the .pink[average of all (potential) attitudes if everyone were to have contact with outgroups] ( `\(\mu_{Y(1)}\)` ), and the .blue[average of all (potential) attitude if no one were to have contact with outgroups] ( `\(\mu_{Y(0)}\)` )
 
 - How do we draw a random sample of potential outcomes?
 
@@ -204,7 +204,9 @@ class: middle
 
 - In an experiment, the researcher **randomly assigns** people to either treatment or control
 
-  - e.g. You toss a coin, and this decides whether or not Andrew has contact with outgroups
+  - Since subjects are randomly assigned, the set of **observed** T outcomes constitutes a random sample of **all potential (observed and unobserved)** T outcomes.  
+  
+  - The same goes for the C outcomes.
 
 &lt;br&gt;
 
@@ -238,16 +240,21 @@ In other words, we estimate the ATE, we only need to compare average outcomes in
 
 ### An important implication of random assignment
 
-In experiments with **random assignment**, the credibility of causal claims is not based on whether the model includes the “right” controls (or has the “right” functional form).
-
-Rather, evidence of causality rests on the **procedure** by which individuals / units are sorted into treatment and control groups.
-
 Random assignment also implies that any (observed and unobserved) **omitted variables** that affect outcomes are (on average) equally likely to be present in the treatment and control groups. 
 
-Thus the treatment itself is the only systematic driver of differences in outcomes.
+Thus the treatment itself is the only systematic driver of differences in outcomes.  
+
+In other words, randomization achieves **balance** between the treatment and control groups.
 
 **We do not need statistical controls**!
 
+--
+
+&lt;br&gt;
+
+In experiments with **random assignment**, the credibility of causal claims is not based on whether the model includes the “right” controls (or has the “right” functional form).
+
+Rather, evidence of causality rests on the **procedure** by which individuals / units are sorted into treatment and control groups.
 
 ---
 
@@ -276,9 +283,28 @@ F       | 0         | 80%
 
 class: middle
 
-**Discuss:** A researcher wants to know how winning large sums of money in a national lottery affects peoples views about inheritance taxes. The researcher interviews a random sample of adults and compares the attitudes of those who report winning more than $10,000 in the lottery to those who claim to have won little or nothing. The researcher reasons that the lottery chooses winners at random, and therefore the amount that people report having won is random.
+**Discuss:** Suppose researchers develop a new "miracle drug" against heart disease.  You want to test the effectiveness of this drug compared to a placebo.
 
-Is this sound reasoning? In other words, are the potential outcomes of those who report winning more than $10,000 identical, in expectation, to those who report winning little or nothing?
+However, the drug is very expensive to manufacture, and you only have 10 doses available.
+
+You nonetheless recruit 1000 people to your study, and randomly assign 10 of them to receive the real drug.  The other 990 receive the placebo.
+
+Is this a problem?
+
+
+---
+
+class: middle
+
+**Discuss:** A researcher wants to know how winning large sums of money in a national lottery affects peoples views about inheritance taxes. 
+
+The researcher interviews a random sample of adults and compares the attitudes of those who report winning more than $10,000 in the lottery to those who claim to have won little or nothing. 
+
+The researcher reasons that the lottery chooses winners at random, and therefore the amount that people report having won is random.
+
+Is this sound reasoning? Why or why not?
+
+What comparisons might you make instead?
 
 ---
 
@@ -291,9 +317,9 @@ Yet [Elwert et al.](https://www.journals.uchicago.edu/doi/abs/10.1086/724865) fi
 
 &lt;!-- And even field experimental studies "supporting" contact show inconsistent effects across outcomes. --&gt;
 
-**How can we explain these inconsistent findings?**
+How can we explain these inconsistent findings?
 
-**What kinds of contributions can (field) experimental studies make to a (mostly) observational body of evidence?**
+What kinds of contributions can (field) experimental studies make to a (mostly) observational body of evidence?
 
 ---
 
@@ -322,7 +348,7 @@ What's the problem here?
 
 Suppose you are interested in the effectiveness of a new COVID vaccine.  You conduct your study in a retirement home (Seniorenresidenz).
 
-90\% of residents are randomly selected to receive the vaccine, while the remaining 10% of residents receive a placebo.
+90% of residents are randomly selected to receive the vaccine, while the remaining 10% of residents receive a placebo.
 
 To measure vaccine effectiveness, you compare infection rates between the two groups.
 
