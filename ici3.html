@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>3. Elwert Discussion</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2023-09-19" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, center, title-slide
+
+.title[
+# 3. Elwert Discussion
+]
+.date[
+### 19 September 2023
+]
+
+---
+
+
+
+
+
+
+
+
+
+###Brief quiz about last week
+
+Imagine that you are interested in studying the causal effect of taking this class on life satisfaction at the age of 50. How would you describe the relevant potential outcomes?
+
+--
+
+What is the fundamental problem of causal inference, and how does random assignment help us to deal with it?
+
+---
+
+###Elwert review: background
+
+- **Research question:** Does ethnic intermingling improve inter-ethnic relations, or make them worse?
+
+--
+
+- Different theoretical perspectives:
+
+  - What does **contact theory** predict (and why)?
+  
+--
+
+  - What about **conflict theory**?  
+  
+--
+
+  - And **constrict** theory?
+
+--
+
+- "These constrasting theoretical predictions beg the question of scope conditions" (p.1810).  What's a **scope condition**?
+
+--
+
+  - What are the scope conditions for contact theory?
+  
+  - For conflict theory?
+
+---
+
+### Pettigrew's meta-analysis
+
+The present article presents a meta-analytic test of intergroup contact theory. With 713 independent samples from 515 studies, the meta-analysis finds that intergroup contact typically reduces intergroup prejudice...
+
+Similar patterns also emerge for samples with racial or ethnic targets and samples with other targets....
+
+A global indicator of Allport's optimal contact conditions demonstrates that contact under these conditions typically leads to even greater reduction in prejudice...but these conditions are not essential for prejudice reduction.
+
+---
+
+### What is a meta-analysis?
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/paluckfunnel.png" width="700px" /&gt;
+]
+
+---
+
+### Three reasons for caution
+
+- Selection bias
+
+  - How do (field) experiments solve this problem?
+  
+--
+
+- Publication bias ("impact")
+
+  - What is it, and how / why does it occur?
+
+
+---
+
+### P-Hacking
+
+&lt;br&gt;
+.center[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/phack.png" width="900px" /&gt;
+]
+
+--
+
+- **Pre-registration** helps by "tying our own hands" **before** we see the data
+
+
+
+---
+
+### The "File-Drawer" Problem
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/smallfunnel.png" width="800px" /&gt;
+]
+
+
+---
+
+### The "File-Drawer" Problem
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/smallfunnel_bias.png" width="800px" /&gt;
+]
+
+---
+
+### The "File-Drawer" Problem
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/file_drawer.png" width="700px" /&gt;
+]
+
+
+---
+
+### Some Data from Paluck
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/paluckreg.png" width="825px" /&gt;
+]
+
+
+---
+### Three reasons for caution
+
+- Selection bias
+
+  - How do (field) experiments solve this problem?
+
+- Publication bias ("impact")
+
+  - What is it, and how / why does it occur?
+
+--
+
+- Limited generalizability of prior field experiments
+
+--
+
+&lt;br&gt;
+
+**Elwert's study:** 
+
+1. test contact theory under more "scalable" conditions
+
+2. Build out the evidence base for the scope conditions under contact may (not) work
+
+
+---
+
+### Study details
+
+- What is the study setting?
+
+--
+
+- What are the "treatments"?
+
+--
+
+- What are the outcomes?
+
+---
+
+### The Vignette - Deskmate Design
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/elwertdesign.png" width="600px" /&gt;
+]
+
+--
+
+- What about question 9a ("Would you lend money to your deskmate)?
+
+---
+
+### Study details
+
+- What is the study setting?
+
+- What are the "treatments"?
+
+- What are the outcomes?
+
+- What does "compliance" mean?
+
+--
+
+- What about missing data?
+
+--
+
+- What covariates do they collect?
+
+--
+
+- What role do covariates play in the analysis?
+
+
+---
+
+### Results 1: Deskmate Treatment + Vignette
+
+$$
+LendToClassmate = \beta RomaDeskmate + \gamma RomaVignette + 
+$$
+
+.center[ 
+`\(\delta RomaDeskmate \times RomaVignette + \xi\)`
+]
+
+&lt;br&gt;
+
+- `\(LendToClassmate\)` = 0 / 1
+
+- `\(RomaDeskmate\)` = 0 / 1
+
+- `\(RomaVignette\)` = 0 / 1
+
+- `\(RomaDeskmate \times RomaVignette\)` = 0 / 1
+
+- `\(\xi\)` = classroom fixed effects
+
+--
+
+&lt;br&gt;
+
+- How do you read the results in column 1 of Table 3 (p.1181)?
+
+---
+
+### Results 2: Deskmate Treatment and Roma Friends
+
+$$
+RomaFriend = \beta RomaDeskmate + \xi
+$$
+&lt;br&gt;
+
+- `\(RomaFriend\)` = 0 / 1
+
+&lt;br&gt;
+
+- How do you read the results in column 3 of Table 3 (p.1181)? 
+
+
+---
+
+### Results: Classroom Share of Roma Students
+
+$$
+LendToClassmate = \beta RomaShare + \gamma RomaVignette + 
+$$
+
+.center[ 
+`\(\delta RomaShare \times RomaVignette + \zeta\)`
+]
+
+&lt;br&gt;
+
+- `\(RomaShare\)` = continuous variable, centered at 0 (?)
+
+- `\(RomaVignette\)` = 0 / 1
+
+- `\(RomaDeskmate \times RomaVignette\)` = .pink[...]
+
+- `\(\zeta\)` = school fixed effects
+
+--
+
+&lt;br&gt;
+
+- How would you read model (1) of Table 4 (p.1833)?
+
+- Why don't they interpret model (3) of Table 4 (p.1833) as evidence in favor of contact theory?
+
+---
+
+### Your Discussion Questions
+
+1. Here: contact is "forced" / involuntary.  
+
+2. Would grown-ups respond differently to treatment?
+
+3. Social desirability bias?
+
+4. Unique history of prejudice towards Roma in Hungary?
+
+
+---
+
+### Assumptions
+
+1. **Independence:** Potential outcomes respond solely to receipt of the treatment, not to the assignment itself or any indirect by-products of the assignment.
+
+2. **Non-Interference:** Potential outcomes for each individual reflect only the treatment or control status of that individual and not the treatment or control status of other individuals. No matter which subjects the random assignment allocates to treatment or control, a given subject’s potential outcomes remain the same.
+
+&lt;br&gt;
+
+- Can you think of ways in which these assumptions might be violated?
+
+
+
+---
+
+###Next week:
+
+Please read [Davenport.](https://www.jstor.org/stable/24363606) "Policy-Induced Risk and Responsive Participation: The Effect of a Son's Conscription Risk on the Voting Behavior of His Parents." *AJPS* 2015.
+
+In your reading memo:
+
+- Summarize the (i) research question, (ii) empirical strategy, and (iii) main findings of the article in .pink[one paragraph]
+
+- In a .pink[second paragraph]: please discuss some open questions, especially relating to the empirical strategy (+ underlying assumptions) and evidence.
+
+- Finally, conclude with 1 or 2 questions you would like to discuss in class next time.
+
+Memos should be submitted to me via [email](mailto:n.zhang@uni-mannheim.de) by **8:00 on the Monday** immediately before class. *No late memos will be accepted!*
+
+Please use the subject line: **ci_firstname_lastname_memo#**.
+  
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "14:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
