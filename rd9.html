@@ -130,9 +130,76 @@ $$
 
 - Calculate  `\(\hat{\tau}^{RD}\)` = `\(\hat{\alpha}_1\)` `\(-\)` `\(\hat{\alpha}_0\)`
 
-- Algorithm chooses ideal bandwidths to minimize RMSE of  `\(\hat{\tau}^{RD}\)`
+&lt;!-- - Algorithm chooses ideal bandwidths to minimize RMSE of  `\(\hat{\tau}^{RD}\)` --&gt;
 
 ]
+
+---
+
+### Graphical Inspection
+
+We should observe similar density on either side of the cutoff.
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/reardon_histograms.png" width="900px" /&gt;
+]
+
+---
+
+### Graphical Inspection
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/reardon_outcomescatter1.png" width="600px" /&gt;
+]
+
+---
+
+### Graphical Inspection
+
+In case the outcome data are noisy (or dichotomous), you can use bins:
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/reardon_outcomescatter2.png" width="900px" /&gt;
+]
+
+--
+
+You should also inspect your covariates to make sure that they are **not** discontinous at the threshold.
+
+---
+
+### Choices and more choices
+
+- Choose a bandwith, a kernal weight, and a functional form
+
+- The slope and curvature may differ on either side of the threshold.
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/reardon_curves.png" width="900px" /&gt;
+]
+
+---
+
+### Optimal Bandwidths
+
+- Pick a proportion `\(p\)` of data on either side of the cutoff to use for **validation**.
+
+- Start with the first observation to the left of the cutoff. We can observe the **outcome** for this observation.  
+
+- Using a given functional form, kernal weight and bandwidth, see how well we can predict this outcome (using a regression model).
+
+- Calculate the prediction error.
+
+- Repeat for all observations in the validation dataset (on both sides of the continuity).
+
+- Compute the mean squared error (MSE).
+
+- Repeat for other bandwidths.
+
+- Choose the bandwidth which minimizes the MSE (assuming a given kernal weight and functional form), and use this to estimate `\(\hat{\tau}^{RD}\)`.
+
+- Ideally, you will obtain the roughly the same estimate of `\(\hat{\tau}^{RD}\)` across all of your analytical choices.
+
 
 ---
 
