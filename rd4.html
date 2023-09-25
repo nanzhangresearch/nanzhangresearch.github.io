@@ -67,15 +67,16 @@ Fiona     | 750         |   0
 
 ---
 
-### Introduction
 
-Recall from last week that here are the possible ATEs we could have estimated, depending on how we randomly assigned people to treatment and control:
+### Motivation
+
+From our SAT example last week, here are the 15 possible ATEs we could have estimated, depending on how we randomly assigned people to treatment and control:
 
 &lt;img src="rd4_files/figure-html/unnamed-chunk-1-1.png" width="100%" /&gt;
 
 ---
 
-### Introduction
+### Motivation
 
 .pull-left[
 
@@ -112,11 +113,124 @@ Fiona     | 750                   |   750
 
 ---
 
+### Introduction
+
+- So far, we have developed the intuition for why randomization allows us to draw causal inferences about the effect of treatment
+
+- However, there are many different ways to randomize, with implications for the **precision** of our estimates 
+
+--
+
+&lt;br&gt;
+
+- Describe the design of Sands' study:
+
+  - What are the **units of observation**, and how are treatments assigned?
+  
+--
+
+&lt;br&gt;
+
+- Why doesn't Sands just randomly assign 1 of the 8 treatments to each 30-minute block?
+
+
+---
+
+### Simple vs. Complete Random Assignment
+
+- Suppose we have 4 people in our experiment who could be assigned to either T or C
+
+- If we toss a coin for each person, how many different ways could treatment assignment occur?
+
+--
+
+&lt;br&gt;
+
+ID      | D1    | D2    | D3    | D4    | D5    |   D6  |   D7  |   D8  |   D9  |   D10 |   D11 |   D12 |   D13 |   D14 |   D15 |   D16
+-       | 
+Simon   |   .blue[0]   |   .pink[1]   |   .blue[0]   |   .pink[1]   |   .blue[0]   |   .pink[1]   |   .blue[0]   |   .pink[1]   |   .blue[0]   |   .pink[1]   |   .blue[0]   |   .pink[1]   |   .blue[0]   |   .pink[1]   |   .blue[0]   |   .pink[1] 
+Julia   |   .blue[0]   |   .blue[0]   |   .pink[1]   |   .pink[1]   |   .blue[0]   |   .blue[0]   |   .pink[1]   |   .pink[1]   |   .blue[0]   |   .blue[0]   |   .pink[1]   |   .pink[1]   |   .blue[0]   |   .blue[0]   |   .pink[1]   |   .pink[1] 
+Claudia |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .pink[1]   |   .pink[1]   |   .pink[1]   |   .pink[1]   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .pink[1]   |   .pink[1]   |   .pink[1]   |   .pink[1] 
+Diego   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .pink[1]   |   .pink[1]   |   .pink[1]   |   .pink[1]   |   .pink[1]   |   .pink[1]   |   .pink[1]   |   .pink[1] 
+
+
+
+---
+
+### Simple vs Complete Random Assignment
+
+- What if we instead imposed the restriction that 2 out of 4 people needed to be assigned to treatment.   Now how many possible **assignment vectors** are there?
+
+--
+
+&lt;br&gt;
+
+ID      | D1    | D2    | D3    | D4    | D5    |   D6
+-       | 
+Simon   |   .pink[1]   |   .pink[1]   |   .blue[0]   |   .pink[1]   |   .blue[0]   |   .blue[0] 
+Julia   |   .pink[1]   |   .blue[0]   |   .pink[1]   |   .blue[0]   |   .pink[1]   |   .blue[0] 
+Claudia |   .blue[0]   |   .pink[1]   |   .pink[1]   |   .blue[0]   |   .blue[0]   |   .pink[1] 
+Diego   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .pink[1]   |   .pink[1]   |   .pink[1] 
+
+
+---
+
+### Multiple Treatments
+
+- Of course, Sands has more than 1 treatment.  She randomly picks one to start the day, and then rotates through the remainder in a fixed order.
+
+- Does it matter what that fixed order is?
+
+--
+
+&lt;br&gt;
+
+- Suppose we have treaments A, B and C:
+
+
+.pull-left[
+ID      | D1    | D2    | D3
+-       | 
+Slot1   | **C**     |   **A**  | **B**
+Slot2   | A    |   B  | C
+Slot3   | B    |   C   | A
+]
+
+.pull-left[
+ID      | D1    | D2    | D3
+-       | 
+Slot1   | **C**     |   **A**  | **B**
+Slot2   | B    |   C  |  A
+Slot3   | A    |   B   | C
+]
+
+
+
+
+---
+
+### Blocking
+
+- Notice though that even with complete randomization, treatment and gender are perfectly correlated in D3 and D4.
+
+ID      | D1    | D2    | D3    | D4    | D5    |   D6
+-       | 
+Simon   |   .pink[1]   |   .pink[1]   |   .blue[0]   |   .pink[1]   |   .blue[0]   |   .blue[0] 
+Julia   |   .pink[1]   |   .blue[0]   |   .pink[1]   |   .blue[0]   |   .pink[1]   |   .blue[0] 
+Claudia |   .blue[0]   |   .pink[1]   |   .pink[1]   |   .blue[0]   |   .blue[0]   |   .pink[1] 
+Diego   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .pink[1]   |   .pink[1]   |   .pink[1] 
+
+&lt;br&gt;
+
+- We could also impose the restriction that exactly 1 of the 2 women, and exactly 1 of the two men, are assigned to treatment.
+
+- This is the idea behind blocking.
+
+---
+
 ### Blocking
 
 .pull-left[
-
-&lt;br&gt;
 
 Blocking groups together individuals with similar potential outcomes, and treatments are randomly assigned within these blocks. 
 
@@ -126,7 +240,9 @@ Blocking groups together individuals with similar potential outcomes, and treatm
 
 - `\(ATE = ATE_A * \frac{N_A}{N} + ATE_B * \frac{N_B}{N}\)`
 
-- **Exercise:** What is the ATE in this example?
+&lt;!-- - **Exercise:** What is the ATE in this example? --&gt;
+
+- We calculate the ATE in each block, and then weight by the size of the blocks
 
 ]
 
@@ -160,52 +276,128 @@ subject   |   Block   |   `\(Y_{i}\)`(.blue[0])   |   `\(Y_{i}\)`(.pink[1])
 ### Advantages of Blocking
 
 .center[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/ate_distributions.png" width="600px" /&gt;
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/ate_distributions.png" width="500px" /&gt;
 ]
 
-In general, the more that blocks are predictive of potential outcomes, the higher efficiency gains we obtain from blocking.  
+Here: "shrinkage" occurs because potential outcomes tend to be higher in B than in A
+
+The more that blocks are predictive of potential outcomes, the higher efficiency gains from blocking.  
 
 ---
 
-### Other Advantages
+### Analogies to Fixed Effects Regression
 
-- By random chance, predictive covariates may differ significantly across treatment and control groups
+- Imagine a continuous treatment `\(x\)`, and two groups `\(c\)` which we capture with a fixed effect
 
-- Blocking ensures that blocked covariates are **exactly balanced**
+.pull-left[
+&lt;img src="rd4_files/figure-html/unnamed-chunk-3-1.png" width="100%" /&gt;
+]
+
+.pull-right[
+&lt;img src="rd4_files/figure-html/unnamed-chunk-4-1.png" width="100%" /&gt;
+]
+
+- Note: the slope of the regression line is the same in both graphs -- **why?**
+
+- But our estimates are much more precise after taking `\(c\)` into account
+
+- BTW - do you see why the fixed effects model is sometimes called a "within regression"?
+
+---
+
+### More on Covariates
+
+- Just as in blocking, the more that `\(c\)` predicts `\(y\)`, the greater the efficiency gains from controlling
+
+- This is also the reason to opt for pre-post designs:
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/ici_prepost.png" width="700px" /&gt;
+]
+
+
+---
+
+### More on Covariates
+
+- You can also use covariates to check your assertion that treatments are really independent of other factors that can affect treatment:
+
+  - regress **treatment** on all covariates and look at the F-statistic
+  
+  - t-test whether covariate means differ between T and C
+  
+--
 
 &lt;br&gt;
+  
+- These **balance tests** can help determine if: 
+
+  - randomization was successful (in field expeirment)
+  
+  - the treatment really is "as if" randomly assigned (in natural experiments)
+  
+  - not necessary (in my opinion) in survey or lab experiments
+
+
+---
+
+### Advantages of Blocking over Controls
+
+- By random chance, covariates may differ significantly across treatment and control groups:
+
+  - Suppose that you have a sample of 10 men and 10 women, and by chance, all 10 men were randomly assigned to the treatment group
 
 --
 
-- Blocking can be used to **ethically** distribute treatments.  For example:
+- Blocking ensures that blocked covariates are **exactly balanced**
 
-  - You want to test the effect of school vouchers on students' achievement
-  
-  - You only have a limited number of vouchers
-  
-  - So create blocks of "poor" vs. "rich" schools
-  
-  - Randomly treat a large number of "poor" schools, and a small number of "rich" schools
+  - Avoids perverse situations, and also helps with subgroup anaylses
+
+
 
 ---
-### The Trains Experiment
+### Blocking and "Ethnical" Treatments
 
-**Discuss:**
+Imagine that we enroll 100 students in our SAT study, and we have the budget to pay for 50 students to attend prep classes.
 
-- What was [Enos](https://www.pnas.org/doi/10.1073/pnas.1317670111)' research question?
+For ethical reasons, we may also want ensure that 60% of pre class spots go to “poor performers”.
 
-- What are the main contributions of this paper to the literature?
+Finally, suppose that 40 out of the 100 students are poor performers.
 
-- How did Enos randomize his treatments?
+&lt;!-- In this case, we could use the following design: --&gt;
 
-- What is the unit of observation?
+&lt;!-- - 30 out of 40 poor performers are randomly selected to attend prep class --&gt;
+
+&lt;!-- - 20 out of 60 remaining students are randomly selected to attend prep class --&gt;
+
+How would you distribute treatments to ensure that the majority of prep class spots go to poor performing students?
+
+---
+
+### Be Careful!
+
+- When treatment probabilities are the same in every block, you can just compare average treatment vs average control outcomes (ignoring the blocking structure) to obtain an unbiased estimate of the ATE
+
+- But when treatment probabilities vary across blocks, this simple comparison will be biased!
+
+  - Block ID is correlated with Tx, and also possibly with Y
+
+- You always get the right answer with: `\(ATE = ATE_A * \frac{N_A}{N} + ATE_B * \frac{N_B}{N}\)`
+
+---
+
+### Back to Sands
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/sands_fig3.jpg" width="850px" /&gt;
+]
+
 
 ---
 
 ### Example of Clustered Randomization
 
 .pull-left[
-.small[
 
 School      |   Class |   `\(Y_{i}\)`(0)    |   `\(Y_{i}\)`(1)  |   `\(Y_{s}\)`(0)    |   `\(Y_{s}\)`(1)      
 -                 |   -           |   -             |   -           |   -             |   -     
@@ -222,7 +414,6 @@ School      |   Class |   `\(Y_{i}\)`(0)    |   `\(Y_{i}\)`(1)  |   `\(Y_{s}\)`(
 .blue_violet[D]   |   D-2         |   8             |   12          |   8             |   12
 .blue_violet[D]   |   D-3         |   9             |   13          |                 |  
 
-]
 ]
 
 
@@ -278,59 +469,38 @@ School      |   Class |   `\(Y_{i}\)`(0)    |   `\(Y_{i}\)`(1)  |   `\(Y_{s}\)`(
 ]
 
 
-
-
-
-
 ---
 
-### Another Complication
-
-The difference-in-means is biased when (i) there are **few clusters**, (ii) the clusters are of **different sizes**, and (iii) cluster size **covaries** with potential outcomes.
+### Randomization Inference under Blocked and Clustered Designs
 
 .pull-left[
-
-&lt;br&gt;
-
-School    |   Class  |   `\(Y_{i}\)`(0)    |   `\(Y_{i}\)`(1)      
--         |   -      |   -             |   -       
-A         |   A-1    |   0             |   0        
-B         |   B-1    |   0             |   1        
-B         |   B-2    |   0             |   1        
-C         |   C-1    |   0             |   2        
-C         |   C-2    |   0             |   2        
-C         |   C-3    |   0             |   2
-
-]
-
-.fnsize[
-.pull-left[
-
-- Suppose that only 1 school is randomly assigned to treatment.
-
-- What is the "true" ATE?
-
-- What is the average `\(\widehat{ATE}\)` across these 3 randomizations?
-
-- In this case, you have to apply a (less efficient) formula for calculating the ATE
-
-    - See Green and Gerber 2012, pp.83--85
-    
-- Note: the bias goes away if we treat A+B as a single school.
-
-]
-]
-
-
----
-
-### Hypothesis Testing under Blocked and Clustered Designs
 
 - Assume the full schedule of potential outcomes under the **sharp null hypothesis.**
 
 - Permute potential randomizations based on the blocking and / or clustering procedure.
 
-- This is handled automatically by statistical software.
+- How many ways could the following experiment have been conducted in a fully randomized design where 3 out of 6 students are assigned to T?
+
+- And under a block randomized design, where only 1 student in each block is assigned to T?
+
+]
+
+
+.pull-right[
+
+&lt;br&gt;
+
+Student   |   `\(Y_{i}\)`(.blue[0])   |   `\(Y_{i}\)`(.pink[1]) | Block
+-         | -                     |   -                 | -
+Alex      | 300                   |   450               | A
+Bonnie    | 350                   |   450               | A  
+Colin     | 500                   |   600               | B
+Danielle  | 550                   |   600               | B
+Earl      | 700                   |   750               | C
+Fiona     | 750                   |   750               | C
+
+]
+
 
 
 ---
