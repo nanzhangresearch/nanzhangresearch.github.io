@@ -301,11 +301,15 @@ The more that blocks are predictive of potential outcomes, the higher efficiency
 
 - But our estimates are much more precise after taking `\(c\)` into account
 
-- BTW - do you see why the fixed effects model is sometimes called a "within regression"?
+--
+
+- Do you see why the fixed effects model is sometimes called a "within regression"?
+
+- NOTE: this is **not** a subgroup analysis.
 
 ---
 
-### More on Covariates
+### What do controls do in an experiment?
 
 - Just as in blocking, the more that `\(c\)` predicts `\(y\)`, the greater the efficiency gains from controlling
 
@@ -315,6 +319,26 @@ The more that blocks are predictive of potential outcomes, the higher efficiency
 &lt;img src="https://nanzhangresearch.github.io/icigraphics/ici_prepost.png" width="700px" /&gt;
 ]
 
+
+---
+
+### What about when X and C are correlated?
+
+- Notice how this correlation introduces bias in our regression of `\(y\)` on `\(x\)`
+
+.pull-left[
+&lt;img src="rd4_files/figure-html/unnamed-chunk-6-1.png" width="100%" /&gt;
+]
+
+--
+
+.pull-right[
+&lt;img src="rd4_files/figure-html/unnamed-chunk-7-1.png" width="100%" /&gt;
+]
+
+- Note that here the slope changes as well... in other words, we have removed the bias by "controlling"
+
+- But in experiments, randomization ensures that such situations do not occur **by design**
 
 ---
 
@@ -346,12 +370,16 @@ The more that blocks are predictive of potential outcomes, the higher efficiency
 - By random chance, covariates may differ significantly across treatment and control groups:
 
   - Suppose that you have a sample of 10 men and 10 women, and by chance, all 10 men were randomly assigned to the treatment group
+  
+  - Even if "only" 9 men were assigned to the treatment group, this is still not ideal...
 
 --
 
+&lt;br&gt;
+
 - Blocking ensures that blocked covariates are **exactly balanced**
 
-  - Avoids perverse situations, and also helps with subgroup anaylses
+  - Avoids perverse situations, and also helps with subgroup analyses
 
 
 
@@ -388,7 +416,11 @@ How would you distribute treatments to ensure that the majority of prep class sp
 
 ### Back to Sands
 
-.center[
+.pull-left[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/sands_tab2.png" width="550px" /&gt;
+]
+
+.pull-right[
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/sands_fig3.jpg" width="550px" /&gt;
 ]
 
