@@ -74,6 +74,10 @@ From our SAT example last week, here are the 15 possible ATEs we could have esti
 
 &lt;img src="rd4_files/figure-html/unnamed-chunk-1-1.png" width="100%" /&gt;
 
+--
+
+We want to reduce the variance of the ATE estimates, so that we get "close" to the "true" ATE, no matter how our randomization turns out.
+
 ---
 
 ### Motivation
@@ -153,6 +157,9 @@ Julia   |   .blue[0]   |   .blue[0]   |   .pink[1]   |   .pink[1]   |   .blue[0]
 Claudia |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .pink[1]   |   .pink[1]   |   .pink[1]   |   .pink[1]   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .pink[1]   |   .pink[1]   |   .pink[1]   |   .pink[1] 
 Diego   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .pink[1]   |   .pink[1]   |   .pink[1]   |   .pink[1]   |   .pink[1]   |   .pink[1]   |   .pink[1]   |   .pink[1] 
 
+&lt;br&gt;
+
+- Which ones do you (not) prefer?
 
 
 ---
@@ -165,6 +172,8 @@ Diego   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .blue[0]
 
 &lt;br&gt;
 
+.pull-left[
+
 ID      | D1    | D2    | D3    | D4    | D5    |   D6
 -       | 
 Simon   |   .pink[1]   |   .pink[1]   |   .blue[0]   |   .pink[1]   |   .blue[0]   |   .blue[0] 
@@ -172,38 +181,28 @@ Julia   |   .pink[1]   |   .blue[0]   |   .pink[1]   |   .blue[0]   |   .pink[1]
 Claudia |   .blue[0]   |   .pink[1]   |   .pink[1]   |   .blue[0]   |   .blue[0]   |   .pink[1] 
 Diego   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .pink[1]   |   .pink[1]   |   .pink[1] 
 
+]
 
----
+--
 
-### Multiple Treatments
+.pull-right[
 
-- Of course, Sands has more than 1 treatment.  She randomly picks one to start the day, and then rotates through the remainder in a fixed order.
+How many combinations of k subjects can be chosen from population N:
 
-- Does it matter what that fixed order is?
+$$
+{N \choose k} = \frac{N!}{k!(N-k)!}
+$$
+]
 
 --
 
 &lt;br&gt;
 
-- Suppose we have treaments A, B and C:
+- Rather than simply tossing a coin for each person, with you **complete random assignment:** 
 
-
-.pull-left[
-ID      | D1    | D2    | D3
--       | 
-Slot1   | **C**     |   **A**  | **B**
-Slot2   | A    |   B  | C
-Slot3   | B    |   C   | A
-]
-
-.pull-left[
-ID      | D1    | D2    | D3
--       | 
-Slot1   | **C**     |   **A**  | **B**
-Slot2   | B    |   C  |  A
-Slot3   | A    |   B   | C
-]
-
+  - randomly shuffle the order of the list
+  
+  - randomly select an assignment vector
 
 
 
@@ -213,12 +212,33 @@ Slot3   | A    |   B   | C
 
 - Notice though that even with complete randomization, treatment and gender are perfectly correlated in D3 and D4.
 
+
+.pull-left[
+
 ID      | D1    | D2    | D3    | D4    | D5    |   D6
 -       | 
 Simon   |   .pink[1]   |   .pink[1]   |   .blue[0]   |   .pink[1]   |   .blue[0]   |   .blue[0] 
 Julia   |   .pink[1]   |   .blue[0]   |   .pink[1]   |   .blue[0]   |   .pink[1]   |   .blue[0] 
 Claudia |   .blue[0]   |   .pink[1]   |   .pink[1]   |   .blue[0]   |   .blue[0]   |   .pink[1] 
 Diego   |   .blue[0]   |   .blue[0]   |   .blue[0]   |   .pink[1]   |   .pink[1]   |   .pink[1] 
+
+]
+
+--
+
+.pull-right[
+
+ID      | D1    | D2      | D5    |   D6
+-       | 
+Simon   |   .pink[1]   |   .pink[1]   |    .blue[0]   |   .blue[0] 
+Julia   |   .pink[1]   |   .blue[0]   |    .pink[1]   |   .blue[0] 
+Claudia |   .blue[0]   |   .pink[1]   |    .blue[0]   |   .pink[1] 
+Diego   |   .blue[0]   |   .blue[0]   |    .pink[1]   |   .pink[1] 
+
+
+]
+
+
 
 &lt;br&gt;
 
@@ -388,7 +408,7 @@ The more that blocks are predictive of potential outcomes, the higher efficiency
 
 Imagine that we enroll 100 students in our SAT study, and we have the budget to pay for 50 students to attend prep classes.
 
-For ethical reasons, we may also want ensure that 60% of pre class spots go to “poor performers”.
+For ethical reasons, we may also want ensure that 60% of prep class spots go to “poor performers”.
 
 Finally, suppose that 40 out of the 100 students are poor performers.
 
