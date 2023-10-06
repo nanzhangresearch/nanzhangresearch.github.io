@@ -27,9 +27,13 @@ class: middle, center, title-slide
 
 ### Warm-Up
 
-What are the main differences between a randomized controlled experiment and a natural experiment?
+.pull-left[
+How / why does randomization provide the basis for drawing causal inferences?
+]
 
-What might researchers be especially worried about in a natural experiment?
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/cointoss.jpg" width="600px" /&gt;
+]
 
 
 ---
@@ -129,15 +133,50 @@ The remaining addresses constitute the control group.
 
 ]
 
+
+---
+
+### Which Groups Are Present Given One-Sided Noncompliance?
+
+.pull-left[
+
+&lt;br&gt;
+
+Can you identify:
+
+- **Compliers**
+
+- **Never-takers**
+
+&lt;br&gt;
+
+Note: **Always-takers** and **Defiers** cannot exist under one-sided non-compliance
+
+]
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/canvas_design.png" width="600px" /&gt;
+]
+
+---
+
+### Which Groups Are Present Given One-Sided Noncompliance?
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/types1.png" width="1200px" /&gt;
+]
+
+
 ---
 
 ### Potential Outcomes: One-Sided Non-Compliance
 
 &lt;img src="https://nanzhangresearch.github.io/icigraphics/f51.png" width="100%" height="350px" /&gt;
 
---
 
 - We can estimate both the **intent to treat effect** `\((ITT)\)` and the **complier average treatment effect** `\((CATE)\)`
+
+--
 
 - `\(CATE = \frac{ITT}{ITT_{D}}\)`, where `\(ITT_{D}\)` is the **compliance rate**, or difference in the proportion *actually treated* between the treatment and control groups 
 
@@ -158,7 +197,7 @@ The remaining addresses constitute the control group.
 
 ### Instrument Strength
 
-- Suppose that the instrument T is only predictive of the treatment D.  
+- Suppose that the instrument T is only **weakly** predictive of the treatment D.  
 
 - Why might this be a problem?
 
@@ -166,7 +205,7 @@ The remaining addresses constitute the control group.
 
 &lt;br&gt;
 
-- With a weak instrument, any bias in the estimation of the ITT (e.g. due to violations of monotonicity or the exclusion restriction) becomes **inflated** when we have low compliance (e.g. few compliers)
+- With a weak instrument, any bias in the estimation of the ITT (e.g. due to violations of assumptions) becomes **inflated** when we have low compliance (e.g. few compliers)
 
 - Weak instruments also lead to inefficient estimates of the `\(CATE\)`:
 
@@ -181,15 +220,6 @@ The **exclusion restriction** states that the instrument (Z) affects outcomes (Y
 Here's an example of a violation (e.g. if someone is not home when canvassers visit, canvassers leave a flyer encouraging people to vote):
 
 &lt;img src="https://nanzhangresearch.github.io/icigraphics/f52.png" width="100%" height="350px" /&gt;
-
----
-
-### Calculating `\(ITT_D\)` under One-Sided Non-Compliance
-
-.center[
-&lt;img src="https://nanzhangresearch.github.io/icigraphics/types1.png" width="1200px" /&gt;
-]
-
 
 ---
 
@@ -227,11 +257,17 @@ You also observed that:
 
 ### Invoking a No-Defiers (Monotonicity) Assumption
 
-&lt;br&gt; 
 
 .center[
-&lt;img src="https://nanzhangresearch.github.io/icigraphics/types3.png" width="1200px" /&gt;
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/types3.png" width="1100px" /&gt;
 ]
+
+--
+
+- The "no-defiers" assumption is just that -- it's an assumption.
+
+- It's plausibility must be assessed based on substantive knowledge.
+
 
 ---
 ### Implementation via 2SLS
