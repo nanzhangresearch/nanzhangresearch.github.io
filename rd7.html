@@ -58,31 +58,6 @@ The remaining addresses constitute the control group.
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/canvas_design.png" width="600px" /&gt;
 ]
 
-
----
-
-### Introduction: Two-Sided Non-Compliance
-
-.pull-left[
-
-&lt;br&gt;
-
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/vietnam-lottery.jpg" width="400px" /&gt;
-]
-
-.pull-right[
-
-&lt;br&gt; 
-
-- Researchers are interested in the effects of military service on a range of outcomes
-
-- Studies involving military draft lotteries
-
-- But many people who are not drafted volunteer nonetheless...
-
-- ...and many people who are drafted manage to evade
-]
-
 ---
 
 ### Introduction: Two-Sided Non-Compliance
@@ -92,6 +67,14 @@ The remaining addresses constitute the control group.
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/draft_design.png" width="900px" /&gt;
 ]
 
+
+---
+
+### Which Groups Should We Compare?
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/canvas_design.png" width="600px" /&gt;
+]
 
 ---
 
@@ -131,60 +114,66 @@ The remaining addresses constitute the control group.
 
 ---
 
-### Potential Outcomes: One-Sided Non-Compliance
+### Apply the Terminology
 
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/f51.png" width="100%" height="350px" /&gt;
-
---
-
-- We can estimate both the **intent to treat effect** `\((ITT)\)` and the **complier average treatment effect** `\((CATE)\)`
-
-- `\(CATE = \frac{ITT}{ITT_{D}}\)`, where `\(ITT_{D}\)` is the **compliance rate**, or difference in the proportion *actually treated* between the treatment and control groups 
-
-
-
----
-
-### Potential Outcomes: One-Sided Non-Compliance
-
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/f51.png" width="100%" height="350px" /&gt;
-
-- The "true" `\(ATE\)` = weighted average of `\(CATE\)` and `\(ATE_{never-takers}\)`, which is never observed
-
-- `\(CATE\)` and the `\(ATE_{never-takers}\)` may differ, so be careful about generalizing!
-
-
----
-
-### Instrument Strength
-
-- Suppose that the instrument T is only predictive of the treatment D.  
-
-- Why might this be a problem?
-
---
+.pull-left[
 
 &lt;br&gt;
 
-- With a weak instrument, any bias in the estimation of the ITT (e.g. due to violations of monotonicity or the exclusion restriction) becomes **inflated** when we have low compliance (e.g. few compliers)
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/vietnam-lottery.jpg" width="400px" /&gt;
+]
 
-- Weak instruments also lead to inefficient estimates of the `\(CATE\)`:
+.pull-right[
 
-  - `\(SE(\widehat{CATE}) \approx \frac{SE(\widehat{ITT})}{ITT_D}\)`
+&lt;br&gt; 
+
+Can you describe:
+
+- Compliers
+
+- Never-takers
+
+- Always-takers
+
+- Defiers
+
+]
+
 
 ---
 
-### Key Assumption: Exclusion Restriction
+### The "Intent-to-treat" (ITT) Effect
 
-The **exclusion restriction** states that the instrument (Z) affects outcomes (Y) only through the treatment variable (D), and not through some other channel (W).
 
-Here's an example of a violation (e.g. if someone is not home when canvassers visit, canvassers leave a flyer encouraging people to vote):
+.pull-left[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/boxes1.png" width="100%" height="350px" /&gt;
+]
 
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/f52.png" width="100%" height="350px" /&gt;
+.pull-right[
+
+&lt;br&gt;
+
+**A:** Outcomes for **compliers** *if assigned to the control condition.*
+
+**B:** Outcomes for **never takers** regardless of assignment
+
+**A + C:** Outcomes for **compliers** *if assigned to the treatment condition.*
+
+]
+
+--
+&lt;br&gt;
+
+ITT is the effect of being **assigned**, regardless of whether a unit is actually treated.
+
+`\(ITT = (A + B + C) - (A + B)\)`
+
+
+
 
 ---
 
-### Calculating `\(ITT_D\)` under One-Sided Non-Compliance
+### The Compliance Rate
 
 .center[
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/types1.png" width="1200px" /&gt;
@@ -193,38 +182,110 @@ Here's an example of a violation (e.g. if someone is not home when canvassers vi
 
 ---
 
-### A problem to work through
+### The Complier Average Treatment Effect (CATE)
 
-.fnsize[
-You conduct a field experiment where canvassers visited homes and encouraged residents to recycle.
+.pull-left[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/boxes1.png" width="100%" height="350px" /&gt;
+]
 
-You encountered one-sided noncompliance: 1015 of the 1849 homes assigned to the treatment group were successfully canvassed; by design, none of the 1430 homes assigned to the control group were canvassed.
+.pull-right[
 
-When measuring outcomes, you find that:
+&lt;br&gt;
 
-* 591 out of 1849 homes in the treatment group recycled
-* 377 out of 1430 homes in the control group recycled
+ITT = `\(\%\_compliers \times ITT_c\)`
 
-You also observed that:
 
-* 429 out of 1015 homes that were successfully canvassed recycled
-* 539 out of 2264 homes that were not canvassed recycled
+`\(\qquad + \%\_nevertakers \times ITT_n\)`
 
-**Questions:**
-- What is the `\(ITT\)`, `\(ITT_D\)`, and `\(CATE\)` ?
-- Explain why comparing the recycling rates of the treated and untreated subjects tends to produce misleading estimates.
+
+&lt;br&gt;
+
+Since `\(ITT_n = 0\)`, we can solve for `\(ITT_c\)`!
 
 ]
+
+
+--
+
+- The ITT effect for compliers `\(\equiv\)` effect of **being treated** for compliers ( `\(CATE\)` )
+
+--
+
+- `\(CATE = \frac{ITT}{compliance \; rate}\)`
+
+---
+
+### The CATE is NOT the ATE!
+
+.pull-left[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/boxes2.png" width="100%" height="350px" /&gt;
+]
+
+.pull-right[
+
+&lt;br&gt;
+
+**A:** Outcomes for **compliers** *if assigned to the control condition.*
+
+**B:** Outcomes for **never takers** regardless of assignment
+
+**A+C:** Outcomes for **compliers** *if assigned to the treatment condition.*
+
+**B+D:** Potential outcome for **never takers** *if we could somehow force them to comply when to assigned to treatment*
+
+]
+
+--
+
+&lt;br&gt;
+
+"True" ATE = C + D (which we cannot ever observe), and we cannot assume that never-takers would respond to being treated in the same way as compliers.
+
+---
+### A problem to work through
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/iv_recycle.png" width="600px" /&gt;
+]
+
+--
+
+- What is the `\(ITT\)`, compliance rate, and `\(CATE\)` ?
+
+-  Why does comparing the treated and untreated subjects produce misleading estimates?
+
+---
+
+### Key Assumption: Exclusion Restriction
+
+The instrument (Z) affects outcomes (Y) only through the treatment variable (D), and not through some other channel (W).
+
+Suppose if no one is home, canvassers leave a leaflet encouraging people to vote:
+
+.pull-left[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/boxes3.png" width="100%" height="350px" /&gt;
+]
+
+.pull-right[
+
+**A:** Outcomes for **compliers** if assigned to control (= not canvassed)
+
+**B:** Outcomes for **never takers** if assigned to control (= not visited)
+
+**A+C:** Outcomes for **compliers** if assigned to treatment (= canvassed)
+
+**B+D:** Outcomes for **never takers** if assigned to treatment (= leaflet)
+]
+
 
 ---
 
 
-### Calculating `\(ITT_D\)` under Two-Sided Non-Compliance
+### Calculating the compliance rate under Two-Sided Non-Compliance
 
 .center[
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/types2.png" width="1200px" /&gt;
 ]
-
 
 
 ---
@@ -237,21 +298,56 @@ You also observed that:
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/types3.png" width="1200px" /&gt;
 ]
 
-
 ---
 
 ### Consequences of Violating the No-Defiers Assumption
 
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/f61.png" width="100%" height="350px" /&gt;
+.pull-left[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/boxes4.png" width="100%" height="350px" /&gt;
+]
+
+.pull-right[
+.fnsize[
+**A:** Outcomes for **compliers** if assigned to control (= not treated)
+
+**A + E:** Outcomes for **compliers** if assigned to treatment (= treated)
+
+**B + F:** Outcomes for **defiers** if assigned to control (= treated)
+
+**B:** Outcomes for **defiers** if assigned to treatment (= not treated)
+
+**C:** Outcomes for **never takers** regardless of assignment
+
+**D:** Outcomes for **always takers** regardless of assignment
+]
+]
 
 --
 
-- `\(ITT_D = (\pi_C + \pi_{AT}) - (\pi_D + \pi_{AT}) = \pi_C  - \pi_D\)`
+- What is the "true" CACE?
 
-- `\(\frac{ITT}{ITT_D} = \frac{(ATE | Compliers)\pi_C - (ATE | Defiers)\pi_D}{\pi_C  - \pi_D}\)`
+--
 
-- Compare this to the case when we simply exclude the Defiers
+- Suppose we mistakenly lump together compliers with defiers.  What would we calculate for the ITT, compliance rate, and CATE? 
 
+
+---
+
+### Instrument Strength
+
+- Suppose that the instrument T is only **weakly predictive** of the treatment D.  
+
+- Why might this be a problem?
+
+--
+
+&lt;br&gt;
+
+- With a weak instrument, any bias in the estimation of the ITT (e.g. due to violations of assumptions) becomes **inflated** when we have low compliance (e.g. few compliers)
+
+- Weak instruments also lead to inefficient estimates of the `\(CATE\)`:
+
+  - `\(SE(\widehat{CATE}) \approx \frac{SE(\widehat{ITT})}{Compliance \, Rate}\)`
 
 ---
 
@@ -285,10 +381,6 @@ You can do both simultaneously using 2sls (**ivregress** command in STATA).
 ---
 
 ### Angrist and Chen
-
-- What is the research question?
-
-- What are the main contribution(s) of this article?
 
 - How convinced are you that:
 
