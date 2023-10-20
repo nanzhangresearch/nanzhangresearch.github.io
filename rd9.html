@@ -27,21 +27,15 @@ class: middle, center, title-slide
 
 ### Warm-Up
 
-Imagine you are studing the causal effect of exercise (D) on fitness (Y).  You randomly select people to receive an encouragement voucher to visit the gym (Z).  Describe the population of compliers, always-takers, never-takers and defiers in this design.
 
---
+Suppose you want to assess the impact of social insurance (welfare) on employment rates. 
 
-Kern and Hainmueller (2009) study the impact of exposure to West German TV (D) on support for the East German regime (Y).  They use distance from the West German border as an instrument (Z) for exposure to TV broadcasts.  
+Before 1989, welfare recipients in Quebec under age 30 received lower benefits (~185 per month) than recipients over age 30 (~507 per month). 
 
-Please evaluate this design in terms of how well it meets the following assumptions:
+The employment rate all people (aged 18-29) receiving low benefits is around 0.67, whereas it is around 0.57 for all people (aged 30-65) receiving high benefits. 
 
-  - the instrument is randomly assigned (**independence assumption**)
+Can we simply compare employment rates in these two groups to calculate the ATE?
 
-  - the instrument affects outcomes via the treatment only (**exclusion restriction**)
-  
-  - there are few or no defiers (**monotonicity assumption**)
-  
-  - individuals' potential outcomes are not affected by *other people's* treatment status (**non-interference assumption (SUTVA)**)
 
 ---
 
@@ -109,6 +103,18 @@ In case the outcome data are noisy (or dichotomous), you can use bins:
 --
 
 You should also inspect your **pre-treatment covariates** to make sure that they are **not** discontinous at the threshold.
+
+---
+
+### A quick exercise
+
+In some US states, anti-discrimination laws are enforced only for companies with 15 or more employees.
+
+Consider a RDD design that studies the effects of these laws on minority hiring by comparing firms with 13 or 14 employees against firms with 15 or 16 employees.
+
+Do you think that "treatment" (i.e. being subject to the law) is "as-if" randomly assigned within this set of firms?
+
+How would you to check the plausibility of this assumption?
 
 ---
 
@@ -389,20 +395,6 @@ But also lots of robustness checks to show roughly similar results across all an
 .pull-right[
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/rddwindow.png" width="500px" /&gt;
 ]
-
-
----
-
-### Plausibility of "As-If" Random Assignment
-
-In some US states, anti-discrimination laws are enforced only for companies with 15 or more employees.
-
-Consider a RDD design that studies the effects of these laws on minority hiring by comparing firms with 13 or 14 employees against firms with 15 or 16 employees.
-
-Do you think that "treatment" (i.e. being subject to the law) is "as-if" randomly assigned within this set of firms?
-
-How would you to check the plausibility of this assumption?
-
 
 ---
 

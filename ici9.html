@@ -27,21 +27,14 @@ class: middle, center, title-slide
 
 ### Warm-Up
 
-Imagine you are studing the causal effect of exercise (D) on fitness (Y).  You randomly select people to receive an encouragement voucher to visit the gym (Z).  Describe the population of compliers, always-takers, never-takers and defiers in this design.
+Suppose you want to assess the impact of social insurance (welfare) on employment rates. 
 
---
+Before 1989, welfare recipients in Quebec under age 30 received lower benefits (~185 per month) than recipients over age 30 (~507 per month). 
 
-Kern and Hainmueller (2009) study the impact of exposure to West German TV (D) on support for the East German regime (Y).  They use distance from the West Germany as an instrument (Z) for exposure to TV broadcasts.  
+The employment rate all people (aged 18-29) receiving low benefits is around 0.67, whereas it is around 0.57 for all people (aged 30-65) receiving high benefits. 
 
-Please evaluate this design in terms of how well it meets the following assumptions:
+Can we simply compare employment rates in these two groups to calculate the ATE?
 
-  - the instrument is randomly assigned (**independence assumption**)
-
-  - the instrument affects outcomes via the treatment only (**exclusion restriction**)
-  
-  - there are few or no defiers (**monotonicity assumption**)
-  
-  - individuals' potential outcomes are not affected by *other people's* treatment status (**non-interference assumption (SUTVA)**)
 
 ---
 
@@ -63,7 +56,7 @@ The logic of a regression discontinuity design (RDD) consists of several core el
 
 Imagine that high school students take a standardized test at age 17.
 
-Students who answer &gt; 90% of the questions on this test receive a public commendation.
+Students who answer &gt; 50% of the questions on this test receive a public commendation.
 
 We want to know whether public commendations increase the motivation to apply to college in the next year.
 
@@ -90,6 +83,127 @@ $$
 
 ---
 
+### Graphical Inspection
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/reardon_outcomescatter1.png" width="600px" /&gt;
+]
+
+---
+
+### Graphical Inspection
+
+In case the outcome data are noisy (or dichotomous), you can use bins:
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/reardon_outcomescatter2.png" width="900px" /&gt;
+]
+
+--
+
+You should also inspect your **pre-treatment covariates** to make sure that they are **not** discontinous at the threshold.
+
+---
+
+### A quick exercise
+
+In some US states, anti-discrimination laws are enforced only for companies with 15 or more employees.
+
+Consider a RDD design that studies the effects of these laws on minority hiring by comparing firms with 13 or 14 employees against firms with 15 or 16 employees.
+
+Do you think that "treatment" (i.e. being subject to the law) is "as-if" randomly assigned within this set of firms?
+
+How would you to check the plausibility of this assumption?
+
+---
+
+### Check for (self-)sorting around the cutoff
+
+We should observe similar density on either side of the cutoff.
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/reardon_histograms.png" width="900px" /&gt;
+]
+
+---
+
+### RD in 2 Dimensions
+
+.pull-left[
+
+- Rather than a single test:
+  
+  - math test, and
+  
+  - language test
+  
+  
+- You need to score above a 50 on both tests to receive the commendation
+
+]
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/rd2d.png" width="900px" /&gt;
+]
+
+---
+
+### Geographic RD
+
+.pull-left[
+
+- Policies and laws (and mass media) often change at geographic boundaries
+
+- Example: Children Health Insurance Program (CHIP)
+
+- Wisconsin introduced co-payments, while Illinois did not
+
+- What's the effect on doctor visits?
+
+- Use lat-long coordinates to define the cutoff
+]
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/keele1.png" width="900px" /&gt;
+]
+
+
+---
+
+### Geographic RD
+
+.pull-left[
+
+- Policies and laws (and mass media) often change at geographic boundaries
+
+- Example: Children Health Insurance Program (CHIP)
+
+- Wisconsin introduced co-payments, while Illinois did not
+
+- What's the effect on doctor visits?
+
+- Use lat-long coordinates to define the cutoff
+]
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/keele2.png" width="900px" /&gt;
+]
+
+---
+
+### Two Estimation Approaches
+
+&lt;br&gt;
+
+1. RD as extrapolation
+
+2. RD as a local experiment
+
+
+
+
+---
+
 ### RDD as Extrapolation
 
 .pull-left[
@@ -102,37 +216,143 @@ $$
 
 - Assumes that `\(E[Y_1 | X]\)` and `\(E[Y_0 | X]\)` are continuous functions at the cutoff
 
-- If we extrapolate these lines to the cutoff itself, we can estimate both `\(Y_1\)` and `\(Y_0\)`
+- If we extrapolate these lines to the cutoff itself, we can estimate both `\(\alpha_1\)` and `\(\alpha_0\)`
+
+- Note that the effect is extremely local!
 
 ]
 
 
 ---
-### RDD as Extrapolation
+
+### Simple Estimation 
 
 .pull-left[
-
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/rddbw.png" width="400px" /&gt;
-
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/rdkernels.png" width="370px" /&gt;
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/elsner1.png" width="475px" /&gt;
 ]
 
 .pull-right[
 
-&lt;br&gt;
+Linear model:
+$$
+y = \alpha + \beta_1 X + \beta_2 D + \beta_3 X \times D + \epsilon
+$$
+where: 
 
+- `\(X\)` is rating variable, centered at cutoff `\(x_0\)`
 
-- Choose a bandwidth `\(h\)` around the cutoff point `\(x_0\)`
+- `\(D\)` is a dummy for `\(X &gt; x_0\)`
 
-- Calculate a kernel weight `\(w_i = K(\cdot)\)`
+The interaction allows different slopes on different sides of the cutoff.
 
-- Fit a local polynomial above and below the `\(x_0\)`
-
-- Calculate  `\(\hat{\tau}^{RD}\)` = `\(\hat{\alpha}_1\)` `\(-\)` `\(\hat{\alpha}_0\)`
-
-- Algorithm chooses ideal bandwidths to minimize RMSE of  `\(\hat{\tau}^{RD}\)`
+We can also estimate quadratic (and higher order) polynomials.
 
 ]
+
+---
+
+### The Importance of Functional Form
+
+.pull-left[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/elsner2.png" width="475px" /&gt;
+
+The "true" effect is 0, but RD gives the wrong answer!
+
+]
+
+--
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/elsner3.png" width="475px" /&gt;
+
+Linear vs. quadratic fits provide different answers!
+
+]
+
+--
+
+
+We don't know the "true" functional form
+
+Global polynomial fits are influenced by data far away from the cutoff
+
+
+
+---
+### Local Regression
+
+.pull-left[
+
+&lt;br&gt;
+
+- Selecting smaller bandwidths closer to the cutoff provides better (linear) fits of the underlying data
+
+- BUT: bias-efficiency tradeoff!
+
+- Statistical software ( rdrobust ) will select a bandwidth to optimize this tradeoff.
+
+]
+
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/rddbw.png" width="500px" /&gt;
+]
+
+---
+
+### Kernal Weights
+
+You can also weight observations within the bandwidth.
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/rdkernels.png" width="600px" /&gt;
+]
+
+
+
+---
+
+### Cross-Validation Approaches
+
+.fnsize[
+- Pick a proportion `\(p\)` of data on either side of the cutoff to use for **validation**.
+
+- Start with the first observation to the left of the cutoff. We can observe the **outcome** for this observation.  
+
+- Using a given functional form, kernal weight and bandwidth, see how well we can predict this outcome (using a regression model).
+
+- Calculate the prediction error.
+
+- Repeat for all observations in the validation dataset (on both sides of the continuity).
+
+- Compute the mean squared error (MSE).
+
+- Repeat for other bandwidths.
+
+- Choose the bandwidth which minimizes the MSE (assuming a given kernal weight and functional form), and use this to estimate `\(\hat{\tau}^{RD}\)`.
+
+- Ideally, you will obtain the roughly the same estimate of `\(\hat{\tau}^{RD}\)` across all of your analytical choices.
+]
+
+---
+
+### Summary
+
+RD estimation requires a lot of choices:
+
+- functional form
+
+- kernal weight
+
+- bandwidth
+
+&lt;br&gt;
+
+You should plot your data to illustrate the appropriateness of your choices.
+
+But also lots of robustness checks to show roughly similar results across all analytical choices.
+
+
 
 ---
 
@@ -168,7 +388,26 @@ $$
 
 - Window selection implies a precision-bias tradeoff
 
-- One idea: choose a window such that covariate balance holds in that window and all windows contained in it.
+- One idea: choose a window such that covariate balance (and the score) holds in that window and all windows contained in it.
+
+- You should also test the robustness of the result to alternative `\(W_0\)`s.
+]
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/rdwindow2.png" width="500px" /&gt;
+]
+
+---
+
+### Selecting the Window
+
+.pull-left[
+
+- In most RD applications, the window where a local randomization assumption is plausible will be unknown.
+
+- Window selection implies a precision-bias tradeoff
+
+- One idea: choose a window such that covariate balance (and the score) holds in that window and all windows contained in it.
 
 - You should also test the robustness of the result to alternative `\(W_0\)`s.
 ]
@@ -176,130 +415,6 @@ $$
 .pull-right[
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/rddwindow.png" width="500px" /&gt;
 ]
-
-
----
-
-### A quick exercise
-
-Suppose you want to assess the impact of social insurance (welfare) on employment rates. 
-
-Before 1989, welfare recipients in Quebec under age 30 received lower benefits (~185 per month) than recipients over age 30 (~507 per month). 
-
-The employment rate all people (aged 18-29) receiving low benefits (~185 per month) is around 0.67, whereas it is around 0.57 for all people (aged 30-65) receiving high benefits (~507 per month). 
-
-Can we simply compare employment rates in these two groups to calculate the ATE?
-
-
----
-
-### Plausibility of "As-If" Random Assignment
-
-In some US states, anti-discrimination laws are enforced only for companies with 15 or more employees.
-
-Consider a RDD design that studies the effects of these laws on minority hiring by comparing firms with 13 or 14 employees against firms with 15 or 16 employees.
-
-Do you think that "treatment" (i.e. being subject to the law) is "as-if" randomly assigned within this set of firms?
-
-How would you to check the plausibility of this assumption?
-
----
-
-### Unexpected Event During Survey Designs (UESD)
-
-- Unexpected events (terrorist attacks, political scandals, natural disasters) can take place during survey fieldwork
-
-- Afford opportunities to identify the causal effect of these events on public opinion.
-
-- Compare individuals interviewed before `\((t_i &lt; t_e)\)` and after `\((t_i &gt; t_e)\)` the event.
-
-- Assumes that **interview date** and the **timing of the event** are independent
-
-  - "As-if" random assignment into treatment and control
-
----
-
-### Relationship to RDD
-
-- The running variable `\(X_i\)` is captured in fieldwork days when interviews took place
-
-- The cutoff `\(x_0\)` denotes the moment when the event occurred
-
-- But treatment assignment is not linked to the cutoff in any predetermined or known way
-
-- Also not clear that the rating variable (time of interview) should be substantively related to the potential outcomes
-
-  - Less stringent reliance on narrow bandwidths
-  
----
-
-### Excludability Assumption
-
-
-The timing of the interview `\(t\)` should affect the outcome `\(Y\)` only through the event `\(T\)` 
-
---
-
-Potential problems:
-
-- **Collateral events**: `\(T\)` = terrorist attack, but responses are also likely to be affected by media coverage
-  
-  - Could define `\(T\)` as **compound treatment** 
-    
-    - But which parts of the treatment bundle are "doing the work?"
-      
-    - And would we observe the same outcomes had the collateral events not occurred?
-
---
-
-- **Unrelated Time Trends**: e.g. `\(Y\)` = happiness, which could be correlated with `\(t\)` due to seasonal patterns
-
---
-
-- **Endogenous Timing of the Event:** e.g. opposition politicians might scandalous information about the government only at the "right moment"
-
-
----
-
-### Ignorability Assumption
-
-Potential outcomes should be independent of treatment assignment.
-
---
-
-- **Fieldwork Organization:** 
-
-  - Respondents in area A are interviewed first, then interviewers move to area B, etc.
-  
-      - Areas could be correlated with both `\(t\)` and `\(Y_i\)`
-
-  - Quota sampling: fieldworkers try to achieve demographic "representativeness", and incomplete quotas are filled at the end of the fieldwork phase.
-  
-      - `\(t\)`  may be correlated with respondents' observable characteristics
-    
---
-
-- **Reachability and Attrition:** 
-
-  - People may choose when (and if) to participate in the survey (especially in online surveys)
-  
-  - The event may make people more or less likely to respond (or say "don't know")
-
-      - `\(t\)` may be correlated with respondents' *unobservable* characteristics
-  
-
----
-
-
-### Sharp vs Fuzzy RDs
-
-.center[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/sharpfuzzy.png" width="1000px" /&gt;
-]
-
---
-
-- **Discuss:** how would you estimate the `\(ITT\)`, the `\(ITT_D\)` and the (local) `\(CATE\)`?  
 
 ---
 
