@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>8. Kern and Hainmueller Discussion</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2023-10-24" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, center, title-slide
+
+.title[
+# 8. Kern and Hainmueller Discussion
+]
+.date[
+### 24 October 2023
+]
+
+---
+
+
+
+
+
+
+### Introduction
+
+.pull-left[
+Two applications of IV:
+
+- "Encouragement designs" in randomized controlled experiments
+
+- Bypass problems of endogeneity (or measurement bias) in natural experiments
+
+]
+
+--
+
+.pull-right[
+
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/ajr.png" width="400px" /&gt;
+
+]
+
+---
+
+### Introduction
+
+.pull-left[
+Two applications of IV:
+
+- "Encouragement designs" in randomized controlled experiments
+
+- Bypass problems of endogeneity (or measurement bias) in natural experiments
+
+]
+
+.pull-right[
+
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/miguel_civilwar.jpg" width="500px" /&gt;
+
+]
+
+
+---
+
+### Motivating K+H
+
+&lt;br&gt;
+
+- What is the research question?
+
+--
+
+- What do most people think the answer is?
+
+--
+
+- What alternative perspectives do K+H mention?
+
+---
+
+### K+H's study
+
+
+.pull-left[
+
+- What is the selection problem that K+H try to solve?
+
+&lt;br&gt;
+
+- Describe the study design:
+
+  - What is the instrument?
+
+  - What is the treatment?
+
+  - What are the data + outcomes?
+
+]
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/kern_map1.png" width="500px" /&gt;
+]
+
+---
+
+### K+H's study
+
+.pull-left[
+
+- What is the selection problem that K+H try to solve?
+
+&lt;br&gt;
+
+- Describe the study design:
+
+  - What is the instrument?
+
+  - What is the treatment?
+
+  - What are the data + outcomes?
+
+]
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/kern_map2.png" width="500px" /&gt;
+]
+
+---
+
+### Defining types
+
+In your own words, who are:
+
+- compliers
+
+- always-takers
+
+- never-takers
+
+- defiers
+
+--
+
+&lt;br&gt;
+
+How strong is the instrument?
+
+---
+
+### Main Survey Results
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/kern_results1.png" width="700px" /&gt;
+]
+
+---
+
+### Robustness: 1984 Survey
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/Kern_robust1.png" width="500px" /&gt;
+]
+
+---
+
+### Robustness: 1984 Survey + Greifswald Control
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/Kern_robust2.png" width="500px" /&gt;
+]
+
+
+---
+
+### Exit Visa Results
+
+.pull-left[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/kern_map2.png" width="500px" /&gt;
+]
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/kern_results3.png" width="700px" /&gt;
+]
+
+---
+
+### Distinguishing Mechanisms
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/kern_results2.png" width="800px" /&gt;
+]
+
+
+---
+
+
+### Assumptions
+
+
+- **"Ignorability"**: is the treatment assigned "as-if" random? 
+  
+  - i.e. before TV towers, were residents nearer the border, on average, the same as residents in Dresden?
+
+&lt;br&gt;
+
+--
+   
+- **Exclusion restriction**: does Z affect Y only through T?
+  
+  - i.e. could living near the border affect attitudes in some other way besides watching TV?
+
+---
+
+### C vs T Balance?
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/icigraphics/kern_balance.png" width="800px" /&gt;
+]
+
+---
+
+### Assumptions
+
+
+- **"Ignorability"**: is the treatment assigned "as-if" random? 
+  
+  - i.e. before TV towers, were residents nearer the border, on average, the same as residents in Dresden?
+
+&lt;br&gt;
+   
+- **Exclusion restriction**: does Z affect Y only through T?
+  
+  - i.e. could living near the border affect attitudes in some other way besides watching TV?
+
+&lt;br&gt;  
+
+
+- **No-defiers**:  describe a defier in this context.  Does this person seem plausible to you? 
+
+--
+
+&lt;br&gt;
+
+- **SUTVA**?
+
+
+---
+
+### Next Week: RDD
+
+- Regression Discontinuity Designs (RDD) where assignment to treatment and control groups is determined by a sharp **cutoff** (or threshold):
+
+  - ".pink[almost winners]" vs. ".blue[almost losers]" of elections
+  
+  
+- Logic: people .pink[just below] the threshold are similar in their potential outcomes to people who are .blue[just above] the threshold, so treatment assignment is independent of potential outcomes
+
+- The mapping between treatment assignment and treatment status can be *deterministic* or *probabilistic* (as in the IV case) 
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "14:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
