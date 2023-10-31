@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>8. Regression Discontinuity Designs</title>
+    <title>9. Regression Discontinuity Designs</title>
     <meta charset="utf-8" />
     <meta name="date" content="2023-10-31" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -12,7 +12,7 @@
 class: middle, center, title-slide
 
 .title[
-# 8. Regression Discontinuity Designs
+# 9. Regression Discontinuity Designs
 ]
 .date[
 ### 31 October 2023
@@ -225,7 +225,7 @@ We should observe similar density on either side of the cutoff.
 
 ---
 
-### Simple Estimation 
+### Parametric Estimation 
 
 .pull-left[
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/elsner1.png" width="475px" /&gt;
@@ -279,13 +279,51 @@ Global polynomial fits are influenced by data far away from the cutoff
 
 
 ---
-### Local Regression
+### Nonparametric Estimation
 
 .pull-left[
 
 &lt;br&gt;
 
 - Selecting smaller bandwidths closer to the cutoff provides better (linear) fits of the underlying data
+
+
+]
+
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/rddbw.png" width="500px" /&gt;
+]
+
+---
+### Nonparametric Estimation
+
+.pull-left[
+
+&lt;br&gt;
+
+- Selecting smaller bandwidths closer to the cutoff provides better (linear) fits of the underlying data
+
+- You can also weight observations within the bandwidth.
+
+]
+
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/rdkernels.png" width="600px" /&gt;
+]
+
+
+---
+### Nonparametric Estimation
+
+.pull-left[
+
+&lt;br&gt;
+
+- Selecting smaller bandwidths closer to the cutoff provides better (linear) fits of the underlying data
+
+- You can also weight observations within the bandwidth.
 
 - BUT: bias-efficiency tradeoff!
 
@@ -298,15 +336,8 @@ Global polynomial fits are influenced by data far away from the cutoff
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/rddbw.png" width="500px" /&gt;
 ]
 
----
 
-### Kernal Weights
 
-You can also weight observations within the bandwidth.
-
-.center[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/rdkernels.png" width="600px" /&gt;
-]
 
 
 
