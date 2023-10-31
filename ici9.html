@@ -37,34 +37,9 @@ Before 1989, welfare recipients in Quebec under age 30 received lower benefits (
 
 Can we simply compare employment rates in these two age groups to calculate the ATE?
 
-
 ---
 
-### Introduction
-
-The logic of a regression discontinuity design (RDD) consists of several core elements:
-
-- Units of observation are scored on some rating variable
-
-- Treatment is assigned to those units whose value of the score exceeds a known cutoff, and withheld from units whose value of the score is below the cutoff
-
-- The probability of receiving the treatment thus changes abruptly at the known threshold 
-
-
----
-
-
-### A Motivating Example and Some Notation
-
-Imagine that high school students take a standardized test at age 17.
-
-Students who answer &gt; 50% of the questions on this test receive a public commendation.
-
-We want to know whether public commendations increase the motivation to apply to college in the next year.
-
-
---
-
+### Some notation
 
 - We have `\(n\)` units, indexed by `\(i\)` = 1, 2, ..., `\(n\)`
 
@@ -74,6 +49,17 @@ We want to know whether public commendations increase the motivation to apply to
 
 - Units with `\(X_i &gt; x_0\)` are assigned to the treatment condition, and units with `\(X_i &lt; x_0\)` are assigned to control.
 
+- The probability of receiving the treatment thus changes abruptly at the known threshold 
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/sharpfuzzy.png" width="550px" /&gt;
+]
+
+---
+
+### Potential Outcomes
+
+.pull-left[
 - Potential outcomes:
 $$
 Y_i =
@@ -82,49 +68,13 @@ Y_i =
     Y_i(0)  &amp; \text{if} \;  X_i &lt; x_0
 \end{cases}`
 $$
+- Note: common support exists only at the threshold itself! 
 
----
-
-### Graphical Inspection
-
-.center[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/reardon_outcomescatter1.png" width="600px" /&gt;
+- You are estimating a Local Average Treatment Effect (LATE)
 ]
 
----
-
-### Graphical Inspection
-
-In case the outcome data are noisy (or dichotomous), you can use bins:
-
-.center[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/reardon_outcomescatter2.png" width="900px" /&gt;
-]
-
---
-
-You should also inspect your **pre-treatment covariates** to make sure that they are **not** discontinous at the threshold.
-
----
-
-### A quick exercise
-
-In some US states, anti-discrimination laws are enforced only for companies with 15 or more employees.
-
-Consider a RDD design that studies the effects of these laws on minority hiring by comparing firms with 13 or 14 employees against firms with 15 or 16 employees.
-
-Do you think that "treatment" (i.e. being subject to the law) is "as-if" randomly assigned within this set of firms?
-
-How would you to check the plausibility of this assumption?
-
----
-
-### Check for (self-)sorting around the cutoff
-
-We should observe similar density on either side of the cutoff.
-
-.center[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/reardon_histograms.png" width="900px" /&gt;
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/rddtx.png" width="475px" /&gt;
 ]
 
 ---
@@ -133,14 +83,13 @@ We should observe similar density on either side of the cutoff.
 
 .pull-left[
 
-- Rather than a single test:
+- Suppose students take two a math test and a language test in highschool
   
-  - math test, and
-  
-  - language test
-  
-  
-- You need to score above a 50 on both tests to receive the commendation
+- You need to score above a 50 on both tests to receive "treatment" (e.g. a scholarship to university)
+
+- Here, the rating variable X is the distance to the boundary
+
+- We compare people just inside vs. just outside the boundary
 
 ]
 
@@ -190,6 +139,52 @@ We should observe similar density on either side of the cutoff.
 .pull-right[
 &lt;img src="https://nanzhangresearch.github.io/icigraphics/keele2.png" width="900px" /&gt;
 ]
+
+---
+### Graphical Inspection of Real Data
+
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/reardon_outcomescatter1.png" width="600px" /&gt;
+]
+
+---
+
+### Graphical Inspection of Binned Data
+
+In case the outcome data are noisy (or dichotomous), you can use bins:
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/reardon_outcomescatter2.png" width="900px" /&gt;
+]
+
+--
+
+How should a **pre-treatment covariates** behave at the threshold?
+
+---
+
+### A quick exercise
+
+In some US states, anti-discrimination laws are enforced only for companies with 15 or more employees.
+
+Consider a RDD design that studies the effects of these laws on minority hiring by comparing firms with 13 or 14 employees against firms with 15 or 16 employees.
+
+Do you think that "treatment" (i.e. being subject to the law) is "as-if" randomly assigned within this set of firms?
+
+How would you to check the plausibility of this assumption?
+
+---
+
+### Check for (self-)sorting around the cutoff
+
+We should observe similar density on either side of the cutoff.
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/reardon_histograms.png" width="900px" /&gt;
+]
+
+
 
 ---
 
@@ -341,32 +336,6 @@ Global polynomial fits are influenced by data far away from the cutoff
 
 
 
-
-
----
-
-### Cross-Validation Approaches
-
-.fnsize[
-- Pick a proportion `\(p\)` of data on either side of the cutoff to use for **validation**.
-
-- Start with the first observation to the left of the cutoff. We can observe the **outcome** for this observation.  
-
-- Using a given functional form, kernal weight and bandwidth, see how well we can predict this outcome (using a regression model).
-
-- Calculate the prediction error.
-
-- Repeat for all observations in the validation dataset (on both sides of the continuity).
-
-- Compute the mean squared error (MSE).
-
-- Repeat for other bandwidths.
-
-- Choose the bandwidth which minimizes the MSE (assuming a given kernal weight and functional form), and use this to estimate `\(\hat{\tau}^{RD}\)`.
-
-- Ideally, you will obtain the roughly the same estimate of `\(\hat{\tau}^{RD}\)` across all of your analytical choices.
-]
-
 ---
 
 ### Summary
@@ -381,10 +350,9 @@ RD estimation requires a lot of choices:
 
 &lt;br&gt;
 
-You should plot your data to illustrate the appropriateness of your choices.
+Researchers should plot the data to illustrate the appropriateness of these choices.
 
-But also lots of robustness checks to show roughly similar results across all analytical choices.
-
+But also include lots of robustness checks to show roughly similar results across all analytical choices.
 
 
 ---
