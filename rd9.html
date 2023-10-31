@@ -30,11 +30,13 @@ class: middle, center, title-slide
 
 Suppose you want to assess the impact of social insurance (welfare) on employment rates. 
 
+The theory is that welfare reduces the incentive to look for work.
+
 Before 1989, welfare recipients in Quebec under age 30 received lower benefits (~185 per month) than recipients over age 30 (~507 per month). 
 
-The employment rate all people (aged 18-29) receiving low benefits is around 0.67, whereas it is around 0.57 for all people (aged 30-65) receiving high benefits. 
+&lt;!-- The employment rate all people (aged 18-29) receiving low benefits is around 0.67, whereas it is around 0.57 for all people (aged 30-65) receiving high benefits.  --&gt;
 
-Can we simply compare employment rates in these two groups to calculate the ATE?
+Can we simply compare employment rates in these two age groups to calculate the ATE?
 
 
 ---
@@ -126,48 +128,6 @@ We should observe similar density on either side of the cutoff.
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/reardon_histograms.png" width="900px" /&gt;
 ]
 
----
-
-### Hainmueller et al.
-
-.pull-left[
-
-- What is the research question?
-
-  - Threats to inference in observational data?
-  
-&lt;br&gt;  
-  
-- Describe the RD design:
-
-  - What is the sample?
-  
-  - What is rating variable?
-  
-  - What is the treatment?
-
-]
-
-.pull-right[
-
-Double-selection bias:
-
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hainmueller_selection.png" width="700px" /&gt;
-
-]
-
----
-
-### A Fuzzy RD
-
-.center[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hainmueller_fig3.png" width="700px" /&gt;
-]
-
---
-
-- **Discuss:** how would you estimate the `\(ITT\)`, the compliance rate, and the (local) `\(CATE\)`?  
-
 
 ---
 
@@ -205,7 +165,7 @@ Double-selection bias:
 
 ---
 
-### Simple Estimation 
+### Parametric Estimation 
 
 .pull-left[
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/elsner1.png" width="475px" /&gt;
@@ -259,13 +219,51 @@ Global polynomial fits are influenced by data far away from the cutoff
 
 
 ---
-### Local Regression
+### Nonparametric Estimation
 
 .pull-left[
 
 &lt;br&gt;
 
 - Selecting smaller bandwidths closer to the cutoff provides better (linear) fits of the underlying data
+
+
+]
+
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/rddbw.png" width="500px" /&gt;
+]
+
+---
+### Nonparametric Estimation
+
+.pull-left[
+
+&lt;br&gt;
+
+- Selecting smaller bandwidths closer to the cutoff provides better (linear) fits of the underlying data
+
+- You can also weight observations within the bandwidth.
+
+]
+
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/rdkernels.png" width="600px" /&gt;
+]
+
+
+---
+### Nonparametric Estimation
+
+.pull-left[
+
+&lt;br&gt;
+
+- Selecting smaller bandwidths closer to the cutoff provides better (linear) fits of the underlying data
+
+- You can also weight observations within the bandwidth.
 
 - BUT: bias-efficiency tradeoff!
 
@@ -277,17 +275,6 @@ Global polynomial fits are influenced by data far away from the cutoff
 .pull-right[
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/rddbw.png" width="500px" /&gt;
 ]
-
----
-
-### Kernal Weights
-
-You can also weight observations within the bandwidth.
-
-.center[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/rdkernels.png" width="600px" /&gt;
-]
-
 
 
 ---
@@ -332,6 +319,99 @@ You should plot your data to illustrate the appropriateness of your choices.
 
 But also lots of robustness checks to show roughly similar results across all analytical choices.
 
+
+---
+
+### Hainmueller et al.
+
+.pull-left[
+
+- What is the research question?
+
+  - Threats to inference in observational data?
+  
+&lt;br&gt;  
+  
+- Describe the RD design:
+
+  - What is the sample?
+  
+  - What is rating variable?
+  
+  - What is the treatment?
+
+]
+
+.pull-right[
+
+Double-selection bias:
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hainmueller_selection.png" width="700px" /&gt;
+
+]
+
+---
+
+### Covariate Balance
+
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hainmueller_fig31.png" width="700px" /&gt;
+]
+
+---
+
+### Covariate Balance
+
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hainmueller_balances.png" width="400px" /&gt;
+]
+
+
+---
+
+### Density Tests
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hainmueller_fig32.png" width="700px" /&gt;
+]
+
+
+---
+
+### A Fuzzy RD
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hainmueller_fig33.png" width="700px" /&gt;
+]
+
+--
+
+&lt;br&gt;
+
+Estimate using 2sls:
+
+.center[
+
+`\(\widehat{Naturalized} = \gamma_0 + \gamma_1 (Vote \, Margin - 50) + \gamma_2 Won \, Vote + \gamma_3 Interact  + \omega\)`
+
+`\(Integration = \beta_0 + \beta_1 (Vote \, Margin - 50) + \beta_2 \widehat{Naturalized} + beta_3 Interact +  \epsilon\)`
+]
+
+---
+
+### Robustness to Different Bandwidths
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hainmueller_bandwidths.png" width="600px" /&gt;
+]
+
+--
+
+- Could also show robustness to different functional forms and kernal weights
+
+- Also, could re-estimate using non-parametrically using rdrobust()
 
 
 ---
@@ -395,6 +475,7 @@ But also lots of robustness checks to show roughly similar results across all an
 .pull-right[
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/rddwindow.png" width="500px" /&gt;
 ]
+
 
 ---
 
