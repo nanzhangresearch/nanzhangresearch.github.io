@@ -36,36 +36,12 @@ Before 1989, welfare recipients in Quebec under age 30 received lower benefits (
 
 &lt;!-- The employment rate all people (aged 18-29) receiving low benefits is around 0.67, whereas it is around 0.57 for all people (aged 30-65) receiving high benefits.  --&gt;
 
-Can we simply compare employment rates in these two age groups to calculate the ATE?
+Can we simply compare employment rates of older vs. younger people to estimate the causal effects of welfare generosity on employment?
 
 
 ---
 
-### Introduction
-
-The logic of a regression discontinuity design (RDD) consists of several core elements:
-
-- Units of observation are scored on some rating variable
-
-- Treatment is assigned to those units whose value of the score exceeds a known cutoff, and withheld from units whose value of the score is below the cutoff
-
-- The probability of receiving the treatment thus changes abruptly at the known threshold 
-
-
----
-
-
-### A Motivating Example and Some Notation
-
-Imagine that high school students take a standardized test at age 17.
-
-Students who answer &gt; 50% of the questions on this test receive a public commendation.
-
-We want to know whether public commendations increase the motivation to apply to college in the next year.
-
-
---
-
+### Some notation
 
 - We have `\(n\)` units, indexed by `\(i\)` = 1, 2, ..., `\(n\)`
 
@@ -75,6 +51,26 @@ We want to know whether public commendations increase the motivation to apply to
 
 - Units with `\(X_i &gt; x_0\)` are assigned to the treatment condition, and units with `\(X_i &lt; x_0\)` are assigned to control.
 
+- The probability of receiving the treatment thus changes abruptly at the known threshold 
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/sharpfuzzy.png" width="550px" /&gt;
+]
+
+---
+
+### RDD's Appeal
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/rdd_popularity.png" width="550px" /&gt;
+]
+
+---
+
+
+### Potential Outcomes
+
+.pull-left[
 - Potential outcomes:
 $$
 Y_i =
@@ -83,10 +79,23 @@ Y_i =
     Y_i(0)  &amp; \text{if} \;  X_i &lt; x_0
 \end{cases}`
 $$
+- Potential outcomes are (often) substantively correlated with the rating variable `\(X\)`
+
+- **Common support** exists only at the threshold itself! 
+
+- You are estimating a Local Average Treatment Effect (LATE)
+]
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/rddtx.png" width="475px" /&gt;
+]
+
+
 
 ---
 
-### Graphical Inspection
+### Graphical Inspection of Real Data
+
 
 .center[
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/reardon_outcomescatter1.png" width="600px" /&gt;
@@ -94,7 +103,7 @@ $$
 
 ---
 
-### Graphical Inspection
+### Graphical Inspection of Binned Data
 
 In case the outcome data are noisy (or dichotomous), you can use bins:
 
@@ -104,7 +113,7 @@ In case the outcome data are noisy (or dichotomous), you can use bins:
 
 --
 
-You should also inspect your **pre-treatment covariates** to make sure that they are **not** discontinous at the threshold.
+How should **pre-treatment covariates** behave at the threshold?
 
 ---
 
@@ -126,6 +135,18 @@ We should observe similar density on either side of the cutoff.
 
 .center[
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/reardon_histograms.png" width="900px" /&gt;
+]
+
+---
+
+### Check for (self-)sorting around the cutoff
+
+- McCrary Test: estimate the "counts" and test if they are discontinuous at the cutoff
+
+- Implement using rddensity()
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/mccrary.png" width="900px" /&gt;
 ]
 
 
@@ -158,7 +179,9 @@ We should observe similar density on either side of the cutoff.
 
 - If we extrapolate these lines to the cutoff itself, we can estimate both `\(\alpha_1\)` and `\(\alpha_0\)`
 
-- Note that the effect is extremely local!
+- **In the voting example, what does this mean in substantive terms?**
+
+- Remember: the effect is extremely local!
 
 ]
 
@@ -216,7 +239,21 @@ We don't know the "true" functional form
 
 Global polynomial fits are influenced by data far away from the cutoff
 
+---
 
+### Beware Overfitting!
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/huai1.jpg" width="900px" /&gt;
+]
+
+---
+
+### Beware Overfitting!
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/huai2.jpg" width="900px" /&gt;
+]
 
 ---
 ### Nonparametric Estimation
