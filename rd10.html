@@ -25,115 +25,193 @@ class: middle, center, title-slide
 
 
 
-### Warm-Up
-
-Suppose you want to assess the impact of social insurance (welfare) on employment rates. 
-
-Before 1989, welfare recipients in Quebec under age 30 received lower benefits (~185 per month) than recipients over age 30 (~507 per month). 
-
-1. Please name the different types of variables that you need to conduct a (sharp) RDD analysis and indicate what these variables correspond to in the example.
-
-2. The employment rate people receiving low benefits (~185 per month) is around 0.67, whereas it is around 0.57 for people receiving high benefits (~507 per month). 
-
-  - Why don’t we simply compare employment rates in these two groups to calculate the ATE?
-
-3. A rumor is going around: Some people say that whites more often end up with high benefits, while minorities more often end up with low benefits. 
-
-  - If this rumor was true, would this be problematic, and why (not)? 
-  
-  - How can we test whether there is a problem? 
-
----
 
 ### Introduction
 
 - Unexpected events (terrorist attacks, political scandals, natural disasters) can take place during survey fieldwork
 
-- Afford opportunities to identify the causal effect of these events on public opinion.
+- Large-scale representative surveys often provide dates of interview
 
-- Compare individuals interviewed before `\((t_i &lt; t_e)\)` and after `\((t_i &gt; t_e)\)` the event.
+  - ESS, "-barometers", SOEP, Allbus
 
-- Assumes that **interview date** and the **timing of the event** are independent
+- Compare individuals interviewed before `\((t_i &lt; t_e)\)` and after `\((t_i &gt; t_e)\)` the event to identify **causal effect** on public opinion
 
-  - "As-if" random assignment into treatment and control
+--
+
+&lt;br&gt;
+
+- Extensions to "always on" data sources such as Twitter or Youtube comments
 
 ---
-### Relationship to RDD
 
-- The running variable `\(X_i\)` is captured in fieldwork days when interviews took place
+### Legewie
 
-- The cutoff `\(x_0\)` denotes the moment when the event occurred
-
-- But treatment assignment is not linked to the cutoff in any predetermined or known way
-
-- Also not clear that the rating variable (time of interview) should be substantively related to the potential outcomes
-
-  - Less stringent reliance on narrow bandwidths
-  
----
-### Excludability Assumption
-
-
-The timing of the interview `\(t\)` should affect the outcome `\(Y\)` only through the event `\(T\)` 
-
---
-
-Potential problems:
-
-- **Collateral events**: `\(T\)` = terrorist attack, but responses are also likely to be affected by media coverage
-  
-  - Could define `\(T\)` as **compound treatment** 
-    
-    - But which parts of the treatment bundle are "doing the work?"
-      
-    - And would we observe the same outcomes had the collateral events not occurred?
-
---
-
-- **Unrelated Time Trends**: e.g. `\(Y\)` = happiness, which could be correlated with `\(t\)` due to seasonal patterns
-
---
-
-- **Endogenous Timing of the Event:** e.g. opposition politicians might scandalous information about the government only at the "right moment"
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/legewie_f1.png" width="900px" /&gt;
+]
 
 
 ---
 
-### Ignorability Assumption
+### Discuss with your neighbor:
 
-Potential outcomes should be independent of treatment assignment.
+- To what extend does UESD resemble an RDD?  And how is it different?
+
+- Consider:
+
+  - Is the rating variable (time) substantively related to potential outcomes?
+  
+  - Does the RD-as-extrapolation approach make sense?
+  
+  - What approach does Legewie use?
+  
+  
+---
+
+### Legewie Country-Level Results
+
+.pull-left[
+
+- Model:
+
+$$
+y_i = \alpha + \beta \, T_i + \theta X_i + \epsilon
+$$
+- `\(T\)` = 1 if interviewed 1 week after the Bali attack
+
+- `\(T\)` = 0 if interviewed 1 month before the attack
+
+- Model is estimated separately for each country
+
+]
 
 --
 
-- **Fieldwork Organization:** 
-
-  - Respondents in area A are interviewed first, then interviewers move to area B, etc.
-  
-      - Areas could be correlated with both `\(t\)` and `\(Y_i\)`
-
-  - Quota sampling: fieldworkers try to achieve demographic "representativeness", and incomplete quotas are filled at the end of the fieldwork phase.
-  
-      - `\(t\)`  may be correlated with respondents' observable characteristics
-    
---
-
-- **Reachability and Attrition:** 
-
-  - People may choose when (and if) to participate in the survey (especially in online surveys)
-  
-  - The event may make people more or less likely to respond (or say "don't know")
-
-      - `\(t\)` may be correlated with respondents' *unobservable* characteristics
-  
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/legewie_f3a.png" width="600px" /&gt;
+]
 
 ---
-### Bandwidth / Window Selection
+### Longer-Term Results
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/legewie_f4.png" width="800px" /&gt;
+]
+
+---
+
+### Why T and Y might be correlated
+
+- Is there a strong underlying time trend (or seasonality)?
+
+  - Bias is worse with larger time windows, or as windows are "shifted out"
+  
+--
+
+&lt;br&gt;
+
+- Solutions:
+  
+  - Check for trends in the control group
+  
+  - Falsfication checks in other survey years
+
+---
+
+### Fictitious Event Simulation
+
+
+.pull-left[
+
+- If potential outcomes are correlated with time, we should see significant effects at "fictitious" cutoff points
+
+- Test randomly selects cutoff days from the ESS fieldwork period and estimates the same model
+
+- Requires at least 20 respondents in both treatment and control groups in the country
+
+- Restricted to cutoffs where at least 3 countries can be included
+
+
+]
+
+--
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/legewie_f3b.png" width="350px" /&gt;
+
+]
+
+
+
+
+---
+
+### Why T and Y might be correlated
+
+- Quota sampling: certain types of people are easier to contact
+
+--
+
+- Solutions:
+
+  - Check for covariate balance, and number of attempted contacts
+  
+  - Good to know what the quotas are
+  
+--
+
+&lt;br&gt;
+
+- "Reachability": people can choose when they want to answer the survey 
+
+- Selective attrition / participation on certain questions
+
+--
+
+- Solutions:
+
+  - Check pattern of "Don't Knows"
+
+
+
+---
+
+### Why T and Y might be correlated
+
+- Stratified survey administration
+
+--
+
+- Solutions:
+
+  - Check for balance on urban / rural
+  
+  - Just control for strata fixed effects (if you know how the survey was administered)
+
+
+--
+
+&lt;br&gt;
+
+- The event is not truly random
+
+  - e.g. timing of corruption scandals is probably endogenous
+  
+--
+
+- Solutions:
+
+  - Qualitative knowledge
+
+---
+
+### Consequences for Bandwidth / Window Selection
 
 - In RDDs, the running variable `\(X_i\)` is almost always correlated with potential outcomes `\(Y_i\)`
 
 - This may or may not be true in UESD
 
-- Narrow bandwidths can reduce the influence of time trends, collateral events or confounders correlated with `\(t\)`
+- Narrow bandwidths can reduce the influence of time trends, **collateral events** or confounders correlated with `\(t\)`
 
 - But when the assumptions hold, a narrow bandwidth has **disadvantages**:
 
@@ -145,13 +223,57 @@ Potential outcomes should be independent of treatment assignment.
 
 
 ---
-### Discuss
 
-How well do these assumptions hold in [Frey 2022?](https://academic.oup.com/sf/article/101/2/943/6460866)?
+### Additional Complications
+  
+- Effect of the event is almost certainly shaped by the quantity **and tone** of media coverage
 
-What does Frey do to check their plausibility?
+  - You will likely need media content analysis to "describe the treatment" in full
+  
+  - Can also help to rule out collateral events
 
-What else could he have done?
+  - But complicated when people can "choose their own news"
+
+--
+
+&lt;br&gt;
+
+- **Treatment heterogeneity / subgroup analysis**: make sure that you don't create subgroups based on post-treatment variables. e.g.:
+
+  - Event = political scandal
+  
+  - Y = trust in government
+  
+  - Moderator = party id
+  
+---
+
+### Legewie Contact Results
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/legewie_f6.png" width="900px" /&gt;
+]
+
+---
+
+### Legewie Regional Results
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/legewie_f5.png" width="800px" /&gt;
+]
+
+--
+
+- BTW, what's the theoretical innovation here?
+
+---
+
+### Legewie Spain Results
+
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/legewie_fa1.png" width="900px" /&gt;
+]
 
 ---
 
@@ -183,7 +305,7 @@ What else could he have done?
   
       - e.g. interest during the interview, number of times contacted, region of residence, frequency of "don't knows"
   
-  - Robustness to estimation techniques (RDD vs. difference in means) and models with and without controls (and entropy balancing)
+  - Robustness to estimation techniques (RDD vs. difference in means) and models with and without controls
   
   - Robustness to different bandwidths
   
@@ -191,44 +313,19 @@ What else could he have done?
   
   - No significant placebo effects in same dates in other years
   
-  - Falsification tests on other outcome variables
+  - Falsification tests on other outcome variables (to help nail down mechanisms)
 
----
-
-### Other Issues
-
-- **Non-compliance:** subjects interviewed after the event may not have paid any attention to it
-
-  - See if other other survey items could serve as manipulation checks?
-  
---
-
-&lt;br&gt;
-
-- **Treatment heterogeneity / subgroup analysis**: make sure that you don't create subgroups based on post-treatment variables. e.g.:
-
-  - Event = political scandal
-  
-  - Y = trust in government
-  
-  - Moderator = party id
-  
 ---
 
 ### Next Week
 
-- Suppose we want to study the effect of some event or policy that occurs at `\(t=1\)`
+- Matching and Panel Matching
 
-- We compare outcomes at `\(t=1\)` vs outcomes at `\(t=0\)`, but we are worried that other things could also have changed at the same time.
+- As with RDD, there are lots of analytical choices to make
 
-- In this case, we find a counterfactual unit which did not experience the event or policy, and look at how its outcomes changed over time.
+- Unlike everything else so far, matching does not invoke randomization
 
-- We then compare the **difference-in-differences.**
-
-- Please read [Flores 2017](https://www.journals.uchicago.edu/doi/full/10.1086/692983).
-
-- We will also discuss what to do when we cannot find a good counterfactual unit.
-
+- Please read [Finkel et al.](https://doi.org/10.1017/S0022381611001162) "Civic Education and Democratic Backsliding in the Wake of Kenya’s Post-2007 Election Violence." *JOP* 2012.
 
   
     </textarea>
