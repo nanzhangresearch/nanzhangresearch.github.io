@@ -42,6 +42,10 @@ class: middle, center, title-slide
 
 - Extensions to "always on" data sources such as Twitter or Youtube comments
 
+  - Importantly: people self-select into T vs. C
+  
+  - Still, some interesting applications (e.g. [Flores](https://www.journals.uchicago.edu/doi/full/10.1086/692983) )
+
 ---
 
 ### Legewie
@@ -125,12 +129,15 @@ $$
 
 - If potential outcomes are correlated with time, we should see significant effects at "fictitious" cutoff points
 
-- Test randomly selects cutoff days from the ESS fieldwork period and estimates the same model
+- Choose random cutoff days from the ESS fieldwork period and estimate the same model
 
-- Requires at least 20 respondents in both treatment and control groups in the country
+- Restrictions:
 
-- Restricted to cutoffs where at least 3 countries can be included
+  - `\(\geq 20\)` respondents in both treatment and control groups in the country
 
+  - `\(\geq 3\)` countries
+
+- Graph the **proportion of countries** with significant results (or effects as large as Finland) 
 
 ]
 
@@ -245,35 +252,6 @@ $$
   - Y = trust in government
   
   - Moderator = party id
-  
----
-
-### Legewie Contact Results
-
-.center[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/legewie_f6.png" width="900px" /&gt;
-]
-
----
-
-### Legewie Regional Results
-
-.center[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/legewie_f5.png" width="800px" /&gt;
-]
-
---
-
-- BTW, what's the theoretical innovation here?
-
----
-
-### Legewie Spain Results
-
-
-.center[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/legewie_fa1.png" width="900px" /&gt;
-]
 
 ---
 
@@ -317,15 +295,95 @@ $$
 
 ---
 
-### Next Week
+### Legewie Regional Results /  How to publish in AJS
 
-- Matching and Panel Matching
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/legewie_f5.png" width="800px" /&gt;
+]
 
-- As with RDD, there are lots of analytical choices to make
 
-- Unlike everything else so far, matching does not invoke randomization
+---
 
-- Please read [Finkel et al.](https://doi.org/10.1017/S0022381611001162) "Civic Education and Democratic Backsliding in the Wake of Kenya’s Post-2007 Election Violence." *JOP* 2012.
+### Legewie Spain Results
+
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/legewie_fa1.png" width="900px" /&gt;
+]
+
+---
+
+### Preview: DiD
+
+**Idea:** deal with potential time trends by comparing **changes** in outcomes for T vs. C units
+
+--
+
+.pull-left[
+
+Suppose we are interested in the employment effects of raising the minimum wage in NJ:
+
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/njdid.png" width="600px" /&gt;
+]
+
+.pull-right[
+- Find another state (here: Pennysylvania) that experienced the same employment trends, but which did not enact the minimum wage
+
+- Changes in employment in Penn serve as a counterfactual for what would have happened in NJ had the minimum wage law not been passed
+
+  - **parallel trends** assumption
+
+- Compare the **difference-in-differences** to estimate the causal effect of the law.
+]
+
+---
+
+### Results from the Minimum Wage Study
+
+&lt;br&gt;
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/njtable.png" width="700px" /&gt;
+]
+
+
+---
+
+### Was Pennslyvania a Good Counterfactual?
+
+We can only **assume** parallel trends but looking at trends in the pre-treatment period might help us to gauge its validity:
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/njlong.png" width="500px" /&gt;
+]
+
+---
+
+### Preview: Matching
+
+- So far, we have invoked randomization to try to estimate unobserved counterfactuals
+
+- Matching (and DiD) instead tries to approximate the counterfactual:
+
+  - Find C units that are similar to T units on observed characteristics X
+  
+- **Idea**: for units with similar values of X, treatment status is "as if" random
+
+  - But sometimes it's unclear why this assumption is warranted.
+
+
+---
+
+### Putting it together: Panel Matching
+
+- I will talk about matching in much more detail.
+
+  - As with RDD, there are lots of analytical choices to make
+
+- New applied design: matching combined with DiD in panel data
+
+- Please read [Ben-Menachem and Morris.](https://doi.org/10.1017/S0003055422001265) "Ticketing and Turnout: The Participatory Consequences of Low-Level Police Contact." *APSR* 2023.
 
   
     </textarea>
