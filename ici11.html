@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>10+11. RDD and UESD</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2023-11-14" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: middle, center, title-slide
+
+.title[
+# 10+11. RDD and UESD
+]
+.date[
+### 14 November 2023
+]
+
+---
+
+
+
+
+
+
+### Hainmueller et al.
+
+.pull-left[
+
+Threats to inference in observational data?
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hainmueller_selection.png" width="700px" /&gt;
+  
+]
+
+--
+
+.pull-right[
+
+Ignoring IV for the moment (i.e. assume full compliance): 
+
+- What is the logic of the "selection-on-observables" design?
+
+- What is the logic of the RD design?
+
+- How do the assumptions of the two approaches differ?
+
+- How do the populations of inference differ?
+
+]
+
+--
+
+Of course, we can only make inferences with regards to (resonably well-integrated) immigrants in CH.
+
+---
+### Voter Leaflets
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/pedgraphics/hh_booklet.png" width="750px" /&gt;
+]
+
+---
+
+### Who Gets a Swiss Passport?
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/pedgraphics/hh_fig2.png" width="550px" /&gt;
+]
+
+---
+
+### Covariate Balance
+
+
+.pull-left[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hainmueller_fig31.png" width="700px" /&gt;
+]
+
+--
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hainmueller_balances.png" width="400px" /&gt;
+]
+
+
+---
+
+### Density Tests
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hainmueller_fig32.png" width="700px" /&gt;
+]
+
+
+---
+
+### A Fuzzy RD
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hainmueller_fig33.png" width="700px" /&gt;
+]
+
+--
+
+&lt;br&gt;
+
+Estimate using 2sls:
+
+.center[
+
+`\(\widehat{Naturalized} = \gamma_0 + \gamma_1 (Vote \, Margin - 50) + \gamma_2 Won \, Vote + \gamma_3 Interact  + \omega\)`
+
+`\(Integration = \beta_0 + \beta_1 (Vote \, Margin - 50) + \beta_2 \widehat{Naturalized} + beta_3 Interact +  \epsilon\)`
+]
+
+---
+
+### Robustness to Different Bandwidths
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hainmueller_bandwidths.png" width="600px" /&gt;
+]
+
+--
+
+- Could also show robustness to different functional forms and kernal weights
+
+- Also, could re-estimate using non-parametrically using rdrobust()
+
+---
+
+### Introduction to UESD
+
+- Unexpected events (terrorist attacks, political scandals, natural disasters) can take place during survey fieldwork
+
+- Large-scale representative surveys often provide dates of interview
+
+  - ESS, "-barometers", SOEP, Allbus
+
+- Compare individuals interviewed before `\((t_i &lt; t_e)\)` and after `\((t_i &gt; t_e)\)` the event to identify **causal effect** on public opinion
+
+--
+
+&lt;br&gt;
+
+- Extensions to "always on" data sources such as Twitter or Youtube comments
+
+  - Importantly: people self-select into T vs. C
+  
+  - Still, some interesting applications (e.g. [Flores](https://www.journals.uchicago.edu/doi/full/10.1086/692983) )
+
+---
+
+### Legewie
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/legewie_f1.png" width="900px" /&gt;
+]
+
+--
+
+- To what extend does UESD resemble an RDD?  And how is it different?
+
+---
+
+### Legewie Country-Level Results
+
+.pull-left[
+
+- Model:
+
+$$
+y_i = \alpha + \beta \, T_i + \theta X_i + \epsilon
+$$
+- `\(T\)` = 1 if interviewed 1 week after the Bali attack
+
+- `\(T\)` = 0 if interviewed 1 month before the attack
+
+- Model is estimated separately for each country
+
+]
+
+--
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/legewie_f3a.png" width="600px" /&gt;
+]
+
+---
+### Longer-Term Results
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/legewie_f4.png" width="800px" /&gt;
+]
+
+---
+
+### Potential Confounding
+
+Why might the timing of the interview be correlated with potential outcomes?
+
+- Reachability bias
+
+- Regional sampling bias
+
+- Temporal stability bias
+
+&lt;br&gt;
+
+What evidence does Legewie present that these biases are not very serious?
+
+
+
+
+---
+
+### Fictitious Event Simulation
+
+
+.pull-left[
+
+- If potential outcomes are correlated with time, we should see significant effects at "fictitious" cutoff points
+
+- Choose random cutoff days from the ESS fieldwork period and estimate the same model
+
+- Restrictions:
+
+  - `\(\geq 20\)` respondents in both treatment and control groups in the country
+
+  - `\(\geq 3\)` countries
+
+- Graph the **proportion of countries** with significant results (or effects as large as Finland) 
+
+]
+
+--
+
+.pull-right[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/legewie_f3b.png" width="350px" /&gt;
+
+]
+
+---
+
+### Legewie Regional Results /  How to publish in AJS
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/legewie_f5.png" width="800px" /&gt;
+]
+
+
+---
+
+### Legewie Spain Results
+
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/legewie_fa1.png" width="900px" /&gt;
+]
+
+---
+
+### Coming Up
+
+No class next week.
+
+Student presentations the week afterwards (28 November).
+
+You will have about 20 minutes in total for your presentation.  
+
+Please budget about half the time for a few slides, and half for Q&amp;A.
+
+If you have questions or are unsure about how to structure your presentation, please come talk to me beforehand.
+
+Please let me know what paper you plan to present by **21 November.**
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "14:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
