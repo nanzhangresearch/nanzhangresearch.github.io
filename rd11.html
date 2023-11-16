@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>11. Matching, DiD, etc.</title>
+    <title>11. (Panel) Matching</title>
     <meta charset="utf-8" />
     <meta name="date" content="2023-11-16" />
     <script src="libs/header-attrs/header-attrs.js"></script>
@@ -12,7 +12,7 @@
 class: middle, center, title-slide
 
 .title[
-# 11. Matching, DiD, etc.
+# 11. (Panel) Matching
 ]
 .date[
 ### 16 November 2023
@@ -25,309 +25,673 @@ class: middle, center, title-slide
 
 
 
-### Warm-Up
 
-Consider the following scenario: 
 
-Country X is experiencing high inflation and, as a result, the government's popularity rating has been steadily falling. To make matters worse, elections are scheduled to take place in a few months.
 
-Taking advantage of this situation, opposition politicians decide to release "bombshell" evidence that the President has been taking bribes.  Coverage of this scandal dominates the newspapers in the weeks before the election.
+### Matching Basics
 
-Suppose you happen to have some survey data where fieldwork was conducted in the month around the scandal.
+- Individual treatment effect for **treated** observation *i* = `\(Y_i(1) - Y_i(0)\)`
 
-You want to analyze the effects of Presidential misconduct on trust in government.
+- `\(Y_i(1)\)` is observed, but `\(Y_i(0)\)` is not 
 
-What issues might you be worried about?
+- Estimate `\(Y_i(0)\)` with a **matched control** `\(Y_j\)`, where:
+
+  - `\(Y_j(0)\)` is observed
+  
+  - `\(X_i \approx X_j\)` for all potential confounders `\(X\)`
+
+--
+
+&lt;br&gt; 
+
+- Quantity of interest is **not** the ATE (no claims about random assignment), but rather the (feasible) sample ATT  
+
+--
+
+  - "Feasible" because we "throw away" not only unmatched control units, but also unmatched treated units
 
 ---
 
-### Today
+### Why Match? Some Graphical Intuition
 
-In the potential outcomes framework, causal inference comes from a comparison of counterfactuals.
+.pull-left[
 
-Although we do not observe the counterfactual outcome for individual units, randomization allows us to estimate the **average** of the potential T and C outcomes.
+- Suppose we wanted to estimate the effect of .orange[T] vs .blue[C] on some outcome, controlling for education 
+
+]
+
+
+.pull-right[
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hoking1.png" width="600px" /&gt;
+Ho et al. (2007)
+]
+
+---
+
+### Why Match? Some Graphical Intuition
+
+.pull-left[
+
+- Suppose we wanted to estimate the effect of .orange[T] vs .blue[C] on some outcome, controlling for education 
+
+- Estimate a model:
+
+$$
+Y = \alpha + \beta_1 \, T + \beta_2 \, Educ + \epsilon
+$$ 
+
+]
+
+
+.pull-right[
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hoking2.png" width="600px" /&gt;
+Ho et al. (2007)
+]
+
+
+---
+
+### Why Match? Some Graphical Intuition
+
+.pull-left[
+
+- Suppose we wanted to estimate the effect of .orange[T] vs .blue[C] on some outcome, controlling for education 
+
+- Maybe better? : 
+
+$$
+Y = \alpha + \beta_1 \, T + \beta_2 \, Educ + \beta_3 \, Educ^2 + \epsilon
+$$ 
+
+]
+
+
+.pull-right[
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hoking3.png" width="600px" /&gt;
+Ho et al. (2007)
+]
+
+
+---
+
+### Why Match? Some Graphical Intuition
+
+.pull-left[
+
+- Suppose we wanted to estimate the effect of .orange[T] vs .blue[C] on some outcome, controlling for education 
+
+- Our estimate of `\(\beta_2\)` is **model dependent**
+
+- And model dependency arises because of **imbalance** between .orange[T] and .blue[C] units on education
+]
+
+
+.pull-right[
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hoking3.png" width="600px" /&gt;
+Ho et al. (2007)
+]
+
+
+---
+
+### Why Match? Some Graphical Intuition
+
+.pull-left[
+
+- Suppose we wanted to estimate the effect of .orange[T] vs .blue[C] on some outcome, controlling for education 
+
+- Our estimate of `\(\beta_2\)` is **model dependent**
+
+- And model dependency arises because of **imbalance** between .orange[T] and .blue[C] units on education
+
+- Let's prune away the unmatched units.
+]
+
+
+.pull-right[
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hoking4.png" width="600px" /&gt;
+Ho et al. (2007)
+]
+
+---
+
+### Why Match? Some Graphical Intuition
+
+.pull-left[
+
+- Suppose we wanted to estimate the effect of .orange[T] vs .blue[C] on some outcome, controlling for education 
+
+- Our estimate of `\(\beta_2\)` is **model dependent**
+
+- And model dependency arises because of **imbalance** between .orange[T] and .blue[C] units on education
+
+- Let's prune away the unmatched units.
+
+- And now fit the models.
+]
+
+
+.pull-right[
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/hoking5.png" width="600px" /&gt;
+Ho et al. (2007)
+]
 
 --
 
 &lt;br&gt;
 
-Other techniques instead try to create counterfactuals from observable data:
-
-- Matching
-
-- Difference-in-Differences
-
-- Synthetic Controls
-
-- Panel Matching
-
-
-**Note:** My goal today is just to introduce you to these methods.  But these are philosophically different ... there is no claim that the treatment was "as-if" randomly assigned!
-
+- Reducing model dependency also reduces **researcher degrees of freedom**.
 
 
 ---
 
-### Matching
-
-- Basic idea: find units that are similar on **observable covariates**, except that some are treated and others are not:
+### Relationship to Multiverse Analysis
 
 .center[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/bauermatch1.png" width="600px" /&gt;
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/spec_curve.png" width="800px" /&gt;
 ]
+Simonsohn et al. (2020)
+
+
+---
+
+### Relationship to Multiverse Analysis
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/king_histograms.png" width="800px" /&gt;
+]
+Ho et al. (2007)
+
+
+---
+
+### Coarsened Exact Matching (CEM)
+
+- Similar to a fully blocked design:
+
+  - Define blocks based on combinations of covariates 
+  
+  - Cell =  age `\(\times\)` gender `\(\times\)` years of education
+  
+  - Make sure there exist .orange[T] and .blue[C] units within each cell
 
 --
 
-.center[
+&lt;br&gt;
+
+- Curse of dimensionality: with lots of (finely-graded) covariates, few cells contain **common support** (i.e. both .orange[T] and .blue[C] exist)
+
+--
+
+- Solution: exact matching based on temporarily bin (coarsen) the cells !
+
+  - Age `\(\rightarrow\)` age categories (18-29, 30-45, etc.)
+  
+  - Years of education `\(\rightarrow\)` highest education level (No highschool, HS grad, BA, etc.)
+  
+---
+### CEM: Graphical Illustration
+
+.pull-left[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/king_cem1.png" width="500px" /&gt;
+
+From Gary King's Youtube Lecture
+]
+
+.pull-right[
+- Suppose we want to match on age and education
+
+]
+
+
+---
+### CEM: Graphical Illustration
+
+.pull-left[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/king_cem2.png" width="500px" /&gt;
+
+From Gary King's Youtube Lecture
+]
+
+.pull-right[
+- Suppose we want to match on age and education
+
+- Coarsen the variables
+]
+
+---
+### CEM: Graphical Illustration
+
+.pull-left[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/king_cem3.png" width="500px" /&gt;
+
+From Gary King's Youtube Lecture
+]
+
+.pull-right[
+- Suppose we want to match on age and education
+
+- Coarsen the variables
+
+- Create cells
+]
+
+---
+### CEM: Graphical Illustration
+
+.pull-left[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/king_cem4.png" width="500px" /&gt;
+
+From Gary King's Youtube Lecture
+]
+
+.pull-right[
+- Suppose we want to match on age and education
+
+- Coarsen the variables
+
+- Create cells
+
+- Drop unmatched observations
+]
+
+---
+### CEM: Graphical Illustration
+
+.pull-left[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/king_cem5.png" width="500px" /&gt;
+
+From Gary King's Youtube Lecture
+]
+
+.pull-right[
+- Suppose we want to match on age and education
+
+- Coarsen the variables
+
+- Create cells
+
+- Drop unmatched observations
+
+- Weight the data
+]
+
+
+---
+### CEM: Graphical Illustration
+
+.pull-left[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/king_cem6.png" width="500px" /&gt;
+
+From Gary King's Youtube Lecture
+]
+
+.pull-right[
+- Suppose we want to match on age and education
+
+- Coarsen the variables
+
+- Create cells
+
+- Drop unmatched observations
+
+- Weight the data
+
+- Calculate a weighted diff-in-means 
+
+- Or estimate a weighted model (with un-coarsened Xs)
+]
+
+
+---
+
+### Mahalanobis Distance Matching
+
+Basic idea: calculate the (standardized) Euclidean distance between units
+
+
+.pull-left[
+
+Match each .orange[T] to the nearest .blue[C] with replacement:
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/bauermatch1.png" width="600px" /&gt;
+
+or without replacement:
+
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/bauermatch2.png" width="600px" /&gt;
 ]
 
----
-
-### Matching
-
-- With many covariates, you could instead match on a **propensity score** `\(D_i\)`
-
-  - `\(D_i\)` = probability of receiving treatment conditional on the covariates `\(X\)`
 
 --
 
-- Estimate a logistic regression of `\(D\)` on `\(X\)`
+.pull-right[
 
-- Conduct (nearest neighbor, calipher-based) matching based on `\(\hat{D}\)`
+- In case of 1:m (or m:1) matches, use weights
+
+- Could also define a **caliper** (or max distance) such that large distances are no longer matched.
+
+]
+
+---
+
+### Considerations
+
+- Unlike CEM, we are reducing multiple dimensions to a distance scalar
+
+- But are we just combining apples and oranges?  Consider:
+
+  - Unit A: income = 35.000 ,  education = 12 years
+  
+  - Unit B: income = 60.000,  education = 13 years
+  
+  - Unit C: income = 45.000,  education = 16 years
+  
+- How much income is **substantively** equivalent to 1 year of education?  
+
+- Dividing by the standard deviation of X is both **atheoretical** and **sample dependent**
 
 --
 
 &lt;br&gt;
 
-Matching vs "controlling":
+- Gary King's suggestion: you pick the "exchange rate" yourself based on substantive knowledge
 
-- Reduces model dependence
-
-- Focuses on areas of **common support** (ranges of `\(D\)` that contain both treated and control units)
-
-- Can directly assess covariate balance
 
 ---
 
-### Difference-in-Differences Example
+### Propensity Score Matching (PSM)
 
-- Suppose we are interested in the effects of raising the minimum wage on employment.
+- Instead of Mahalanobis distance, you could instead match on a **propensity score** `\(T_i\)`
 
-- As it turns out, we happen to conduct an employment survey of fast food firms in the New Jersey, right before the state government raised the minimum wage. 
+  - `\(T_i\)` = probability of receiving treatment conditional on the covariates `\(X\)`
 
-- Several months after the policy change, we conduct a second wave of our survey with the same firms (assume no attrition).
+  - Estimate a logistic regression of `\(T\)` on `\(X\)` and predict `\(\hat{T}\)`
+  
+  - Calculate a propensity score distance = `\(|\widehat{T_c}\)` - `\(\widehat{T_t}|\)`
 
-- Does comparing employment changes across the two waves allow us estimate the causal effect of the increase in minimum wage?
+  - Match each .orange[T] to the nearest .blue[C] within a caliper (dropping non-matches) 
 
 ---
 
-### Difference-in-Differences Design
-
+### PSM Graphical Intuition
 
 .pull-left[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/njdid.png" width="600px" /&gt;
+
+- Rather than matching directly on age and education, use both to predict the probability of treatment
+
+]
+
+
+.pull-right[
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/king_psm1.png" width="600px" /&gt;
+
+From Gary King's Youtube Lecture
+]
+
+---
+
+### PSM Graphical Intuition
+
+.pull-left[
+
+- Rather than matching directly on age and education, use both to predict the probability of treatment
+
+
+]
+
+
+.pull-right[
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/king_psm2.png" width="600px" /&gt;
+
+From Gary King's Youtube Lecture
+]
+
+
+---
+
+### PSM Graphical Intuition
+
+.pull-left[
+
+- Rather than matching directly on age and education, use both to predict the probability of treatment
+
+- Conduct matches based on the propensity scores
+
+]
+
+
+.pull-right[
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/king_psm3.png" width="600px" /&gt;
+
+From Gary King's Youtube Lecture
+]
+
+---
+
+### PSM Graphical Intuition
+
+.pull-left[
+
+- Rather than matching directly on age and education, use both to predict the probability of treatment
+
+- Conduct matches based on the propensity scores
+
+- Drop unmatched observations
+
+]
+
+
+.pull-right[
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/king_psm4.png" width="600px" /&gt;
+
+From Gary King's Youtube Lecture
+]
+
+---
+
+### PSM Graphical Intuition
+
+.pull-left[
+
+- Rather than matching directly on age and education, use both to predict the probability of treatment
+
+- Conduct matches based on the propensity scores
+
+- Drop unmatched observations
+
+- Conduct analysis on resulting matches
+
+]
+
+
+.pull-right[
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/king_psm5.png" width="600px" /&gt;
+
+From Gary King's Youtube Lecture
+]
+
+
+
+
+---
+
+### PSM Problems
+
+.fnsize[
+- Idea (hope) behind the logit: `\(\beta\)`s identify the Xs that distinguish between treatment and control
+
+- But X which are very predictive of T might not be very predictive of Y...
+
+- ...and units with similar propensity scores could have very different X values!
+]
+
+--
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/king_nielsen.png" width="800px" /&gt;
+]
+.small[King and Nielsen 2019]
+
+---
+
+### A Pathological Example
+
+.center[
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/king_psm6.png" width="600px" /&gt;
+
+From Gary King's Youtube Lecture
+]
+
+
+---
+
+### A Pathological Example
+
+.center[
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/king_psm7.png" width="600px" /&gt;
+
+From Gary King's Youtube Lecture
+]
+
+---
+
+### A Pathological Example
+
+.pull-left[
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/king_psm8.png" width="400px" /&gt;
+
+From Gary King's Youtube Lecture
 ]
 
 .pull-right[
-- Find another state (here: Pennysylvania) that experienced the same employment trends, but which did not enact the minimum wage
-
-- Changes in employment in Pennysylvania serve as a counterfactual for what would have happened in New Jersey had the minimum wage law not been passed
-
-  - This is called the **parallel trends** assumption
-
-- We then compare the **difference-in-differences** to estimate the causal effect of the law.
-]
-
-
----
-
-### Results from the Minimum Wage Study
 
 &lt;br&gt;
 
-.center[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/njtable.png" width="700px" /&gt;
-]
+- Since all propensity scores are identical, 1-1 (or 1-m) matching creates matches **randomly**
 
+- Here, using PSM has **increased imbalance**
 
----
+- Gary King's advice: don't use PSM!
 
-### Was Pennslyvania a Good Counterfactual?
-
-We can only **assume** parallel trends but looking at trends in the pre-treatment period might help us to gauge its validity:
-
-.center[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/njlong.png" width="500px" /&gt;
 ]
 
 ---
 
-### Arizona SB70
+### Matching in a Panel Context
 
-- What would the parallel trends assumption mean in this context?
+- We often analyze panel data using 2-way fixed effects models
 
-- What evidence does [Flores 2017](https://www.journals.uchicago.edu/doi/full/10.1086/692983) provide that this assumption holds?
+- These models "subtract out":
 
-- Why might you be worried that the assumption is violated?
+  - the average `\(Y_i\)` across all periods `\(t\)`
 
+  - the average `\(Y_t\)` across all units `\(i\)`
+  
+- We therefore control for all unit-invariant and period-invariant effects, and focus instead on the "effects" of factors which change *within units* over time.
 
----
-
-### Synthetic Controls
-
-.pull-left[
-- What if no state can serve as a good counterfactual?
-
-- Here, we can create a "synthetic control" as a weighted average of potential control cases to simulate what "would have happened" to the treated case in the absence of treatment.
-
-- Application:  economist cost of German unification in 1990
-
-- "Donor pool" of 16 OECD countries
-
-- Weights chosen so that **synthetic West Germany** mirrors the values of the predictors of per capita GDP in **real West Germany** in the pre-unification period
-]
-
-.pull-right[
-.small[
-
-|Country        | Synthetic Control Weight |
-|:--------------|:------------------------:|
-|Australia      |            0             |
-|Austria        |           0.42           |
-|Belgium        |            0             |
-|Denmark        |            0             |
-|France         |            0             |
-|Greece         |            0             |
-|Italy          |            0             |
-|Japan          |           0.16           |
-|Netherlands    |           0.09           |
-|New Zealand    |            0             |
-|Norway         |            0             |
-|Portugal       |            0             |
-|Spain          |            0             |
-|Switzerland    |           0.11           |
-|United Kingdom |            0             |
-|United States  |           0.22           |
-]
-]
-
----
-
-### Technical Details
-
-.small[
-
-.pull-left[
-**Optimal country weights** `\(W\)` such that characteristics `\(X\)` are as similar as possible:
-`$$\min_W(X^{BDR} - X^{DonorPool}W)^2$$`
-where each variable in `\(X\)` is weighted by `\(V\)` (importance).
+--
 
 &lt;br&gt;
 
+- TWFE models are increasingly recognized as problematic for a variety of reasons
 
-|                |  BRD  | Synthetic BDR | OECD Sample |
-|:---------------|:-----:|:-------------:|:-----------:|
-|GDPpc           | 15809 |     15802     |    8021     |
-|Trade openness  | 56.8  |     56.9      |    31.9     |
-|Inflation rate  |  2.6  |      3.5      |     7.4     |
-|Industry share  | 34.5  |     34.4      |    34.2     |
-|Schooling       | 55.5  |     55.2      |    44.1     |
-|Investment rate | 27.0  |     27.0      |    25.9     |
+- Main idea for our purposes: **the counterfactual is unclear**
 
-]
-
-.pull-right[
-**Optimal variables weights** `\(V\)` such that outcomes are as similar as possible (in the pre-treatment phase):
-
-
-`$$\min_V(Y^{BDR} - Y^{DonorPool}W^*(V))^2$$`
-
-&lt;br&gt;
-
-1.Divide the timeframe into three periods: 1971-1980 (training), 1981-1990 (validation), 1990-2004 (post-unification)
- 
-2.Start with some values for `\(V\)`
-
-3.See what optimal values `\(W\)` are generated using `\(X\)` from the **training period**
-
-4.Apply `\(W^*(V)\)` and see what value of `\(Y^{BDR} - Y^{DonorPool}\)` obtains over the **validation period**
-
-5.See if we can do better with different starting values of `\(V\)`.  
-
-6.After `\(V\)` is optimized, see what optimal values `\(W\)` are generated using `\(X\)` from the **validation period**
-
-7.After `\(W\)` is optimized, calculate `\(Y^{DonorPool}\)` in the entire timeframe.
-
-]
-]
-
----
-
-### Graphical Illustration of the Synthetic Control
-
-.pull-left[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/abadie1.png" width="350px" /&gt;
-]
-
-.pull-right[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/abadie2.png" width="350px" /&gt;
-]
-
-
----
-
-### Estimating the Treatment Effect
-
-.center[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/abadie3.png" width="450px" /&gt;
-]
-
----
-
-### Significance Testing
-
-- Repeat the procedure, taking each unit in the donor pool as the treatment
-
-- Calculate the percentage of these alternative treatment assignments that produce a difference as great as what we actually observe for the "real" treated unit.
-
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/synthp1.png" width="500px" /&gt;
 
 ---
 
 ### Panel Match
 
 .pull-left[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/imai_att.png" width="500px" /&gt;
+
+- For each treated observation, select a set of control observations from other units in the same time period that have an identical treatment history for a prespecified time span.
+
+- Refine this set using Mahalanobis, PSM, or IPW so that matched control observations become similar to the treated observation in terms of covariate histories. 
+
+- Apply a difference-in-differences (DiD) estimator that adjusts for a possible time trend.
+
+
 ]
 
 .pull-right[
-Three steps:
-
-- For each treated observation, first select a set of control observations from other units in the same time period that have an identical treatment history for a prespecified time span.
-
-- Further refine this matched set by using standard matching or weighting methods so that matched control observations become similar to the treated observation in terms of covariate histories. 
-
-- Apply a difference-in-differences (DiD) estimator that adjusts for a possible time trend.
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/imai_att.png" width="500px" /&gt;
 ]
+
+
+---
+
+### Application: Traffic Stops and Voting
+
+- Data: all traffic stops in Hillsborough County, FL merged to the registered voter file
+
+- Approx. 2,3 million observations
+
+- How are treatment and control groups defined (see p.826)?
+
+  - e.g. **who is the counterfactual for a voter stopped between 2012 and 2014?** (and whose DV =  turnout in 2014)
+  
+
+--
+
+- Are you convinced:
+
+  - "*after controlling for observable characteristics, past turnout, and the unobservable characteristics associated with experiencing a traffic stop, the **timing of the stop is effectively random***" ?
+
+
+---
+
+### Application: Traffic Stops and Voting
+
+.pull-left[
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/traffic_table1.png" width="400px" /&gt;
+
+]
+
+--
+
+.pull-right[
+
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/traffic_fig2.png" width="500px" /&gt;
+
+]
+
+---
+
+### Results Disaggregated
+
+.center[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/traffic_fig2.png" width="500px" /&gt;
+]
+
 
 ---
 
 ### Application: War and Inheritance Taxes
 
-.center[
+.pull-left[
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/imai_screedplot.png" width="480px" /&gt;
 ]
 
+.pull-right[
 
----
+Number of matched control units:
 
-### Application: War and Inheritance Taxes
-
-&lt;br&gt;
-
-.center[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/imai_histograms.png" width="1000px" /&gt;
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/imai_histograms.png" width="5000px" /&gt;
 ]
 
 ---
@@ -335,11 +699,23 @@ Three steps:
 ### Application: War and Inheritance Taxes
 
 
-.center[
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/imai_matches.png" width="1000px" /&gt;
+.pull-left[
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/imai_matches.png" width="500px" /&gt;
 ]
 
-Covariates: leftist executive, universal male suffrage, and logged real GDP per capita.
+.pull-right[
+
+Covariates for matching: 
+
+- leftist executive
+
+- universal male suffrage
+
+- logged real GDP per capita.
+
+And also the lagged outcome variable.
+
+]
 
 ---
 
@@ -348,7 +724,6 @@ Covariates: leftist executive, universal male suffrage, and logged real GDP per 
 .center[
 &lt;img src="https://nanzhangresearch.github.io/rdgraphics/imai_resuts.png" width="700px" /&gt;
 ]
-
 
 ---
 
