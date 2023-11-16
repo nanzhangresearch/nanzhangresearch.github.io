@@ -34,7 +34,7 @@ class: middle, center, title-slide
 
 - `\(Y_i(1)\)` is observed, but `\(Y_i(0)\)` is not 
 
-- Estimate `\(Y_i(0)\)` with a **matched control** `\(Y_j\)`, where:
+- Approximate `\(Y_i(0)\)` with a **matched control** `\(Y_j\)`, where:
 
   - `\(Y_j(0)\)` is observed
   
@@ -48,7 +48,7 @@ class: middle, center, title-slide
 
 --
 
-  - "Feasible" because we "throw away" not only unmatched control units, but also unmatched treated units
+  - "Feasible" because we "throw away" both unmatched control and treated units
 
 ---
 
@@ -123,7 +123,7 @@ Ho et al. (2007)
 
 - Suppose we wanted to estimate the effect of .orange[T] vs .blue[C] on some outcome, controlling for education 
 
-- Our estimate of `\(\beta_2\)` is **model dependent**
+- Our estimate of the treatment effect is **model dependent**
 
 - And model dependency arises because of **imbalance** between .orange[T] and .blue[C] units on education
 ]
@@ -144,7 +144,7 @@ Ho et al. (2007)
 
 - Suppose we wanted to estimate the effect of .orange[T] vs .blue[C] on some outcome, controlling for education 
 
-- Our estimate of `\(\beta_2\)` is **model dependent**
+- Our estimate of the treatment effect is **model dependent**
 
 - And model dependency arises because of **imbalance** between .orange[T] and .blue[C] units on education
 
@@ -166,7 +166,7 @@ Ho et al. (2007)
 
 - Suppose we wanted to estimate the effect of .orange[T] vs .blue[C] on some outcome, controlling for education 
 
-- Our estimate of `\(\beta_2\)` is **model dependent**
+- Our estimate of the treatment effect is **model dependent**
 
 - And model dependency arises because of **imbalance** between .orange[T] and .blue[C] units on education
 
@@ -583,7 +583,7 @@ From Gary King's Youtube Lecture
 
 - Since all propensity scores are identical, 1-1 (or 1-m) matching creates matches **randomly**
 
-- Here, using PSM has **increased imbalance**
+- Here, b/c we randomly throw away data, PSM **increases imbalance**
 
 - Gary King's advice: don't use PSM!
 
@@ -666,7 +666,7 @@ From Gary King's Youtube Lecture
 
 .pull-right[
 
-&lt;img src="https://nanzhangresearch.github.io/rdgraphics/traffic_fig2.png" width="500px" /&gt;
+&lt;img src="https://nanzhangresearch.github.io/rdgraphics/traffic_fig1.png" width="600px" /&gt;
 
 ]
 
