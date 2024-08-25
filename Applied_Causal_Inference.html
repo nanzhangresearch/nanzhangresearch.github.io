@@ -11,7 +11,7 @@
 
 
 
-<title>Tutorial: Data Analysis</title>
+<title>Applied Causal Inference Syllabus</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -348,7 +348,7 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Tutorial: Data Analysis</h1>
+<h1 class="title toc-ignore">Applied Causal Inference Syllabus</h1>
 
 </div>
 
@@ -357,132 +357,159 @@ display: none;
 <h3>Course Details</h3>
 <p><strong>Course Instructor:</strong> <a href="mailto:n.zhang@uni-mannheim.de">Nan Zhang</a> (Office hours by
 appointment)</p>
-<p><strong>Course Website:</strong> <a href="https://nanzhangresearch.github.io/Data_Analysis_Tutorial">https://nanzhangresearch.github.io/Data_Analysis_Tutorial</a></p>
-<p><strong>Date and Time:</strong> Fridays from 13:45 - 15:15 in C-108
-Methodenlabor</p>
+<p><strong>Course Website:</strong> <a href="https://nanzhangresearch.github.io/Applied_Causal_Inference">https://nanzhangresearch.github.io/Applied_Causal_Inference</a></p>
+<p><strong>Date and Time:</strong> Fridays, 13:45-15:15 in C 116
+Seminarraum (A 5, 6 Bauteil C)</p>
 <hr />
 </div>
 <div id="course-description" class="section level3">
 <h3>Course Description</h3>
-<p>This tutorial course accompanies the lecture “Datenauswertung: Data
-Analysis for Political Scientists.” We will practice basic methods of
-data analysis using the statistical software package Stata.</p>
+<p><strong>Course Aims:</strong> This course will provide students with
+hands‐on practice in using data from experimental and quasi‐experimental
+studies to estimate treatment effects. Specifically, the course will
+provide training in:</p>
+<ul>
+<li>the analysis of randomized experiments</li>
+<li>instrumental variables analysis</li>
+<li>regression discontinuity analysis</li>
+<li>difference‐in‐differences</li>
+<li>matching methods</li>
+</ul>
+<p>The course is designed for MA and PhD students with prior training in
+applied multivariate regression techniques.</p>
+<p><strong>Course Structure:</strong> The course is structured in
+two-week “units.” Typically, the first class meeting of each unit will
+include a lecture describing a specific method of analysis. Students
+then apply what they have learned by working together on problem sets
+outside of class. The second class session of each unit will then be
+devoted to student presentations of their analyses and Q&amp;A.</p>
+<p><em>Auditing:</em> This is a hands‐on course in statistical analysis.
+Auditing a class like this without completing the assignments will not
+be productive for you. Consequently, auditors will not be permitted.</p>
 <hr />
 </div>
 <div id="course-requirements" class="section level3">
 <h3>Course Requirements</h3>
-<p><strong>Attendance and participation:</strong> Classtime will consist
-of a mixture of hands-on practice with Stata programming and group
-discussion / problem-solving. I’m also happy to answer any questions you
-have regarding the material covered in Sean’s lecture.</p>
-<p>Active, in-class participation is central to your learning process.
-Of course, situations could arise where you need to miss class. As a
-courtesy, please let me know beforehand if you cannot attend a class
-session.</p>
-<p><strong>Optional homeworks:</strong> we will provide you with
-optional weekly homeworks where you will have the opportunity to
-practice each week’s concepts at your own pace. These are <strong>not
-graded</strong> (and you should not submit them), but they will help you
-to reinforce what we learn in class and thereby prepare for the final
-exam. We will also provide homework solutions.</p>
-<p><strong>Required Assignments:</strong> There will be three assessed
-assignments over the course of the semester. Each of these assignments
-will be graded as either a pass or a fail; you need to pass each
-assignment in order to pass the tutorial. There will be one opportunity
-to retake an assignment if the original assignment is not passed.</p>
-<p>Assignment due dates are:</p>
-<ul>
-<li><strong>19 March</strong>: Descriptive statistics and data
-visualization</li>
-<li><strong>23 April</strong>: Univariate and bivariate data
-analysis</li>
-<li><strong>21 May</strong>: Research report including regression
-analysis</li>
-</ul>
-<p>The assignments must be completed individually. You must make a
-written declaration that the work is wholly your own when submitting
-your answers. Anyone discovered to have colluded or plagiarised from
-others will be failed.</p>
+<p><strong>1. Required Readings.</strong> Every two weeks, students
+should complete a required reading <strong>before lecture</strong>.
+These readings provide an applied context for the lecture material, and
+the lectures themselves will assume that you have completed the
+reading.</p>
+<p><strong>2. Problem sets.</strong> Every two weeks, students will
+complete a problem set based on an analysis of a dataset that I provide.
+There will be 5 such problem sets in total. Students will work in groups
+on all the problem sets.</p>
+<p>Students should complete their problem sets in R, and problem set
+answers with <strong>clearly annotated code</strong> should be written
+in RMarkdown.</p>
+<p>Problem set answers should be submitted to me via <a href="mailto:n.zhang@uni-mannheim.de">email</a> by <strong>8am</strong>
+before the second class meeting in each unit. Each group will then
+present a solution to part of the problem set during this class
+meeting.</p>
+<p><strong>3. Active class participation.</strong> Attendance is
+expected at all course meetings. Of course, situations could arise where
+you need to miss class. As a courtesy, please let me (and others in your
+group) know beforehand if you cannot attend a class session.</p>
+<p>In addition to attendance, students are expected to actively
+participate in class. We will be working intensively with examples in
+class, and active engagement with the material is essential. Your
+participation also signals what you find confusing or challenging, such
+that I can adjust the material accordingly.</p>
+<p><strong>4. Graded Final Assignment.</strong> The final assignment
+will consist of an independent data analysis project applying one of the
+following methods we learned in class: IV, RDD, DiD, or Matching (or
+some combination thereof). <strong>You must complete this assignment on
+your own.</strong> The last two weeks of the semester will be devoted to
+workshopping your ideas. You should submit this assignment to me via <a href="mailto:n.zhang@uni-mannheim.de">email</a> by <strong>DATE
+TBD.</strong></p>
 <hr />
 </div>
 <div id="slides" class="section level3">
 <h3>Weekly Schedule</h3>
-<p><strong>Session 1</strong> (16 Feb): Organizational issues and
-introduction to Stata</p>
-<p><strong>Session 2</strong> (23 Feb): Data manipulation; frequencies,
-measures of central tendency and dispersion</p>
+<p><strong>Note:</strong> the current version of the syllabus is a work
+in progress (so some links may not yet work).</p>
+<p><strong>Session 1</strong> (6 Sept): <a href="https://nanzhangresearch.github.io/aci1.pdf">Introduction: Why
+Causal Inference?</a></p>
+<p><strong>Session 2</strong> (13 Sept): <a href="https://nanzhangresearch.github.io/aci2.pdf">Potential Outcomes
+and Uncertainty</a><br />
+Fundamental problem of causal inference. Randomization and average
+treatment effects (ATE). Sampling distribution of the ATE. SUTVA.
+Randomization inference.2</p>
 <ul>
-<li>Guidelines for Assignment 1 handed out.</li>
+<li><p><strong>Reading:</strong> Gerber and Green. 2012. <a href="https://www.dropbox.com/scl/fi/cndjsrqz2mtczhoarbyqv/Gerber-Green-Field-Experiments-Book.pdf?rlkey=6klgdfmphvkveuapabg6dxbw4&amp;dl=0">Field
+Expeirments</a>: ch2, ch3.1-ch3.2</p></li>
+<li><p><a href>data</a> and <a href>.Rmd file</a> for
+livecoding</p></li>
+<li><p><a href>Problem Set 1</a></p></li>
 </ul>
-<p><strong>Session 3</strong> (1 March): Graphs</p>
-<p><strong>Session 4</strong> (8 March): T-tests, hypothesis testing,
-statistical significance</p>
-<p><strong>Session 5</strong> (15 March): Measures of association for
-nominal variables</p>
+<p><strong>Session 3</strong> (20 Sept): Student Presentations</p>
 <ul>
-<li>Assignment 1 due on <strong>19 March</strong></li>
+<li><a href>Problem Set 1 Solutions</a></li>
 </ul>
-<p><strong>Session 6</strong> (22 March): Measures of association for
-ordinal and interval variables</p>
+<p><strong>Session 4</strong> (27 Sept): <a href="https://nanzhangresearch.github.io/aci4.pdf">Instrumental
+Variables</a><br />
+One- and two-sided non-compliance. Intent-to-treat effects, compliance
+rate, and complier average treatment effects. 2SLS estimation. IV
+assumptions.</p>
 <ul>
-<li><p>Guidelines for Assignment 2 handed out.</p></li>
-<li><p>Link to <a href="https://makingdiversitywork.qualtrics.com/jfe/form/SV_5vUm6EwA2WXf6nQ">Midterm
-Evaluation Survey</a>.</p></li>
+<li><p><strong>Reading:</strong> Clingingsmith et al. 2009. <a href="https://www.dropbox.com/scl/fi/21fxedw5210co4rhpbama/Clingingsmith-et-al.-2009-QJE-Hajj.pdf?rlkey=synn03kh3vbmq007je2s17n4i&amp;dl=0">Estimating
+the Impact of the Hajj: Religion and Tolerance in Islams Global
+Gathering</a></p></li>
+<li><p><a href>data</a> and <a href>.Rmd file</a> for
+livecoding</p></li>
+<li><p><a href>Problem Set 2</a></p></li>
+</ul>
+<p><strong>Session 5</strong> (4 Oct): Student Presentations</p>
+<ul>
+<li><a href>Problem Set 2 Solutions</a></li>
+</ul>
+<p><strong>Session 6</strong> (11 Oct): <a href="https://nanzhangresearch.github.io/aci6.pdf">Regression
+Discontinuity</a></p>
+<ul>
+<li><p><strong>Reading:</strong> Myerson. 2014. <a href="https://www.dropbox.com/scl/fi/pxx17sn0wtj76otqpxugg/Myerson-2013-Econometrica-Poor-and-Pious.pdf?rlkey=43ij49idmhse5u0ma1kcae5ns&amp;dl=0">Islamic
+Rule and the Empowerment of the Poor and Pious</a></p></li>
+<li><p><a href>data</a> and <a href>.Rmd file</a> for
+livecoding</p></li>
+<li><p><a href>Problem Set 3</a></p></li>
+</ul>
+<p><strong>Session 7</strong> (18 Oct): Student Presentations</p>
+<ul>
+<li><p><a href>Midterm Course Evaluation</a></p></li>
+<li><p><a href>Problem Set 3 Solutions</a></p></li>
+</ul>
+<p><strong>Session 8</strong> (25 Oct): <a href="https://nanzhangresearch.github.io/aci8.pdf">Diff-in-Diff</a></p>
+<ul>
+<li><p><strong>Reading:</strong> Dinas et al. 2019. <a href="https://www.dropbox.com/scl/fi/bgz1p5inwm2glawfvd86t/Dinas-et-al.-2019-PA-Waking-Up-the-Golden-Dawn.pdf?rlkey=4eoqa8psvylz59i9ix3vbw5vx&amp;dl=0">Waking
+Up the Golden Dawn</a></p></li>
+<li><p><a href>data</a> and <a href>.Rmd file</a> for
+livecoding</p></li>
+<li><p><a href>Problem Set 4</a></p></li>
 </ul>
 <hr />
-<p><strong>Easter Break</strong></p>
+<p><strong>No Class: 1 November (All Saints’ Day)</strong></p>
 <hr />
-<p><strong>Session 7</strong> (12 April): Bivariate Regression</p>
-<p><strong>Session 8</strong> (19 April): Multivariate Regression</p>
+<p><strong>Session 9</strong> (8 Nov): Student Presentations</p>
 <ul>
-<li>Assignment 2 due on <strong>23 April</strong></li>
+<li><a href>Problem Set 4 Solutions</a></li>
 </ul>
-<p><strong>Session 9</strong> (26 April): Regression assumptions I</p>
+<p><strong>Session 10</strong> (15 Nov): <a href="https://nanzhangresearch.github.io/aci10.pdf">Matching</a></p>
 <ul>
-<li>Guidelines for Assignment 3 handed out.</li>
+<li><p><strong>Reading:</strong> Kam and Palmer. 2008. <a href="https://www.dropbox.com/scl/fi/pxd6jutgsr636y8vnx0vs/Kam-Palmer-2008-JOP-ReconsideringEffectsEducation.pdf?rlkey=747j3t84hqjlmivdorwb9uiur&amp;dl=0">Reconsidering
+the Effects of Education on Political Participation</a></p></li>
+<li><p><a href>data</a> and <a href>.Rmd file</a> for
+livecoding</p></li>
+<li><p><a href>Problem Set 5</a></p></li>
 </ul>
-<p><strong>Session 10</strong> (3 May): Regression assumptions II</p>
-<hr />
-<p><strong>Break for Ascension / Christi Himmelfahrt</strong></p>
-<p>Nan will hold (virtual) office hours during regular class time if you
-have questions</p>
-<hr />
-<p><strong>Session 11</strong> (17 May): Regression with categorical
-independent variables</p>
+<p><strong>Session 11</strong> (22 Nov): Student Presentations</p>
 <ul>
-<li>Assignment 3 due on <strong>21 May</strong></li>
+<li><a href>Problem Set 5 Solutions</a></li>
 </ul>
-<p><strong>Session 12</strong> (24 May): Logistic regression</p>
+<p><strong>Sessions 12 and 13</strong> (29 Nov and 6 Dec): Workshop
+Final Paper Ideas</p>
+<ul>
+<li><a href>Final Course Evaluation.</a></li>
+</ul>
 <hr />
-<p><strong>Break for Corpus Christi / Fronleichnam</strong></p>
-<p>Nan will hold (virtual) office hours during regular class time if you
-have questions</p>
-<hr />
-</div>
-<div id="reference-and-help-materials" class="section level3">
-<h3>Reference and Help Materials</h3>
-<p><a href="https://www.dropbox.com/scl/fi/yydwyh98fe04j8sf7rjgr/Stata-Starter-Manual-2024.pdf?rlkey=ocljugwh1dkqo4ujr64633074&amp;dl=0"><strong>Stata
-Starter Manual</strong></a>. Useful if you are opening Stata for the
-first time. <br></p>
-<p><a href="https://www.dropbox.com/scl/fi/xfa2h9ko3klocvskfm8wr/Glossary.do?rlkey=4amy0o2vqk93a0lrwoii19wx4&amp;dl=0"><strong>glossary.do</strong></a>.
-A summary of commands we’ll cover over the semester that you can
-download and annotate for yourselves. <br></p>
-<p><strong>Statalist Forum</strong>: <a href="https://www.statalist.org/forums/help">https://www.statalist.org/forums/help</a>.
-Can be very useful for specific questions. You can either search for
-existing posts or add your own question if you can’t find an answer.
-<br></p>
-<p><strong>Stata Guide</strong>: <a href="https://wlm.userweb.mwn.de/Stata/">https://wlm.userweb.mwn.de/Stata/</a>.
-Short introductions to some frequently used commands. <br></p>
-<p><strong>Stata Cheatsheet</strong>: <a href="http://geocenter.github.io/StataTraining/portfolio/01_resource/">http://geocenter.github.io/StataTraining/portfolio/01_resource/</a>.
-A glossary that summarises some popular commands and their syntax.
-<br></p>
-<p><strong>Official Stata Youtube channel</strong>: <a href="https://www.youtube.com/user/statacorp">https://www.youtube.com/user/statacorp</a>.
-Very helpful how-to guides on some simple as well as more complex
-procedures. <br></p>
-<p><strong>Anywhere Maths:</strong> <a href="https://www.youtube.com/channel/UCRkeyHV2bANRrFjesu_wdLQ">https://www.youtube.com/channel/UCRkeyHV2bANRrFjesu_wdLQ</a>.
-Mostly useful for a recap of general mathematical questions and
-expressions. The playlist <em>Statistical Measures</em> might be
-particularly useful for you.</p>
 </div>
 
 
